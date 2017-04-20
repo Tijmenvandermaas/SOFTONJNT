@@ -1,2 +1,4 @@
 # SOFTONJNT
-Project van tijmen, jos en niels voor het vak software ontwikkeling op de HU. 
+Project van Tijmen, Jos, en Niels voor het vak Software Ontwikkeling op de HU.
+
+04/2017
