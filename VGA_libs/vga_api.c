@@ -25,7 +25,50 @@ void tekst(uint16_t x, uint16_t y, uint8_t tekst[100], uint8_t font,  uint8_t gr
 ***************************/
 void lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dikte, uint8_t kleur)
 {
+	//Bereken richtingscoefficient
+	int8_t DIKTE = dikte;
+	float rc = (float)(y_r-y_l)/(float)(x_r-x_l);
+	int x_ln;
+	int x_rn;
+	int y_ln;
+	int yo;
+	int yn;
+	int j,i,m,n;
 
+	for(j = (DIKTE *-1) ; j <= DIKTE; j++)       // nieuwe y's op basis van dikte
+	{
+		y_ln = y_l +j;
+		yo = y_ln;
+		for(n = (DIKTE * -1); n <= DIKTE; n++)  // nieuwe x's op basis van dikte
+		{
+			x_ln = x_l +n;
+			x_rn = x_r +n;
+		}
+			for(i = x_ln; i <= x_rn; i++) 		// lijn schrijven op basis van de x-waarden van de lijn
+			{
+
+				yn = rc * (i - x_ln) + y_ln;    // y = richtingscoefficient * (x-waarde - x-offset) + y-offset
+
+				if ((yn != (yo+1)) || (yn != (yo-1)) || (yn != yo) & (yn>yo)) // check of er gaten vallen bij y-waarden op de lijn
+				{
+					for(m = 1; m <= ((yn-yo)-1); m++)						  //de gaten opvullen
+					{
+						UB_VGA_SetPixel(i,(yo+m),kleur);
+					}
+				}
+
+				if ((yn != (yo+1)) || (yn != (yo-1)) || (yn != yo) & (yn<yo)) // check of er gaten vallen bij y-waarden op de lijn
+				{
+					for(m = 1; m <= ((yo-yn)-1); m++)						  //de gaten opvullen
+					{
+						UB_VGA_SetPixel(i,(yo-m),kleur);
+					}
+				}
+
+				yo = yn;
+				UB_VGA_SetPixel(i,yo,kleur);								  // pixel schrijven bij nieuwe x en y
+			}
+	}
 }
 
 /***************************
