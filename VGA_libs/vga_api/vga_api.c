@@ -37,23 +37,44 @@ void ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_y, 
 }
 
 /***************************
-
+rechthoek functie
+(c) Jos van Mourik
 ***************************/
 void rechthoek(uint16_t x_lo, uint16_t y_lo, uint16_t x_rb, uint16_t y_rb, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
-	// Teken horizontale lijnen
-	for( uint16_t i = x_lo; i < x_rb; i++ )
-	  {
-		  VGA_RAM1[(y_rb*(VGA_DISPLAY_X+1))+i]=kleur;
-		  VGA_RAM1[(y_lo*(VGA_DISPLAY_X+1))+i]=kleur;
-	  }
+	if(gevuld)
+	{
+		// Verticale lijnen vullen
+		for (uint16_t j = y_rb; j < (y_lo+1); j++)
+		{
+			// Horizontale lijnen vullen
+			for(uint16_t i = x_lo; i < (x_rb+1); i++)
+			{
+				  setpixel(i, j, kleur);
+			}
+		}
+	}
 
-	//Teken verticale lijnen
-	for( uint16_t j = y_rb; j < (y_lo+1); j++ )
-	  {
-		  VGA_RAM1[(j*(VGA_DISPLAY_X+1))+x_lo]=kleur;
-		  VGA_RAM1[(j*(VGA_DISPLAY_X+1))+x_rb]=kleur;
-	  }
+	else
+	{
+		// stappen door lijndikte
+		for(uint8_t k = 0; k < dikte; k++)
+		{
+			// Teken horizontale lijnen
+			for(uint16_t i = x_lo; i < (x_rb+1); i++)
+			{
+				  setpixel(i, (y_rb+k), kleur);
+				  setpixel(i, (y_lo-k), kleur);
+			}
+
+			//Teken verticale lijnen
+			for(uint16_t j = (y_rb+dikte); j < y_lo+1-dikte; j++)
+			{
+				  setpixel((x_lo+k), j, kleur);
+				  setpixel((x_rb-k), j, kleur);
+			}
+		}
+	}
 }
 
 /***************************
@@ -65,19 +86,24 @@ void driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_t x
 }
 
 /***************************
-
+setpixel functie: verandert één pixel van kleur.
+(c) Jos van Mourik
 ***************************/
 void setpixel(uint16_t x, uint16_t y, uint8_t kleur)
 {
-
+	if((x<=VGA_DISPLAY_X) && (y<=VGA_DISPLAY_Y))
+	{
+		VGA_RAM1[(y*(VGA_DISPLAY_X+1))+x] = kleur;
+	}
 }
 
 /***************************
-
+readpixel functie: geeft de waarde van één pixel terug.
+(c) Jos van Mourik
 ***************************/
 uint8_t readpixel(uint16_t x, uint16_t y)
 {
-
+	return VGA_RAM1[(y*(VGA_DISPLAY_X+1))+x];
 }
 
 /***************************
