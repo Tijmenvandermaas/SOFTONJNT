@@ -748,38 +748,38 @@ OUTPUT(VGA_Core.elf elf32-littlearm)
  .debug_ranges  0x00000370       0x30 ..\obj\misc.o
  .debug_ranges  0x000003a0      0x2e8 ..\obj\stm32f4xx_tim.o
 
-.debug_line     0x00000000     0x2479
+.debug_line     0x00000000     0x2481
  .debug_line    0x00000000       0x93 ..\obj\startup_stm32f4xx.o
  .debug_line    0x00000093      0x281 ..\obj\main.o
- .debug_line    0x00000314      0x26b ..\obj\vga_api.o
- .debug_line    0x0000057f      0x589 ..\obj\stm32f4xx_rcc.o
- .debug_line    0x00000b08      0x344 ..\obj\stm32f4xx_gpio.o
- .debug_line    0x00000e4c      0x1e2 ..\obj\system_stm32f4xx.o
- .debug_line    0x0000102e      0x40e ..\obj\stm32f4xx_dma.o
- .debug_line    0x0000143c      0x376 ..\obj\stm32_ub_vga_screen.o
- .debug_line    0x000017b2      0x222 ..\obj\misc.o
- .debug_line    0x000019d4      0xaa5 ..\obj\stm32f4xx_tim.o
+ .debug_line    0x00000314      0x273 ..\obj\vga_api.o
+ .debug_line    0x00000587      0x589 ..\obj\stm32f4xx_rcc.o
+ .debug_line    0x00000b10      0x344 ..\obj\stm32f4xx_gpio.o
+ .debug_line    0x00000e54      0x1e2 ..\obj\system_stm32f4xx.o
+ .debug_line    0x00001036      0x40e ..\obj\stm32f4xx_dma.o
+ .debug_line    0x00001444      0x376 ..\obj\stm32_ub_vga_screen.o
+ .debug_line    0x000017ba      0x222 ..\obj\misc.o
+ .debug_line    0x000019dc      0xaa5 ..\obj\stm32f4xx_tim.o
 
-.debug_str      0x00000000     0x28e7
+.debug_str      0x00000000     0x28ef
  .debug_str     0x00000000      0x139 ..\obj\startup_stm32f4xx.o
                                 0x14b (size before relaxing)
  .debug_str     0x00000139      0x54b ..\obj\main.o
                                 0x651 (size before relaxing)
- .debug_str     0x00000684       0xb7 ..\obj\vga_api.o
-                                0x278 (size before relaxing)
- .debug_str     0x0000073b      0x6a6 ..\obj\stm32f4xx_rcc.o
+ .debug_str     0x00000684       0xbf ..\obj\vga_api.o
+                                0x280 (size before relaxing)
+ .debug_str     0x00000743      0x6a6 ..\obj\stm32f4xx_rcc.o
                                 0x852 (size before relaxing)
- .debug_str     0x00000de1      0x31a ..\obj\stm32f4xx_gpio.o
+ .debug_str     0x00000de9      0x31a ..\obj\stm32f4xx_gpio.o
                                 0x4a5 (size before relaxing)
- .debug_str     0x000010fb       0xfa ..\obj\system_stm32f4xx.o
+ .debug_str     0x00001103       0xfa ..\obj\system_stm32f4xx.o
                                 0x39c (size before relaxing)
- .debug_str     0x000011f5      0x383 ..\obj\stm32f4xx_dma.o
+ .debug_str     0x000011fd      0x383 ..\obj\stm32f4xx_dma.o
                                 0x544 (size before relaxing)
- .debug_str     0x00001578      0x82c ..\obj\stm32_ub_vga_screen.o
+ .debug_str     0x00001580      0x82c ..\obj\stm32_ub_vga_screen.o
                                 0xcdf (size before relaxing)
- .debug_str     0x00001da4      0x153 ..\obj\misc.o
+ .debug_str     0x00001dac      0x153 ..\obj\misc.o
                                 0x3d0 (size before relaxing)
- .debug_str     0x00001ef7      0x9f0 ..\obj\stm32f4xx_tim.o
+ .debug_str     0x00001eff      0x9f0 ..\obj\stm32f4xx_tim.o
                                 0xdd2 (size before relaxing)
 
 .comment        0x00000000       0x7f
