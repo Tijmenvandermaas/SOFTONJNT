@@ -2,7 +2,7 @@
 vga_api.h
 
 
-
+HU Software Ontwikkeling.
 (c) Jos, Tijmen, Niels 05/2017
 ***************************************************************/
 
