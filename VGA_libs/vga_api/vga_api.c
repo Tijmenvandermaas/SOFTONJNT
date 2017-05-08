@@ -98,7 +98,7 @@ Setpixel: verandert één pixel van kleur.
 ***************************/
 void setpixel(uint16_t x, uint16_t y, uint8_t kleur)
 {
-	if((x<=VGA_DISPLAY_X) && (y<=VGA_DISPLAY_Y)) VGA_RAM1[(y*(VGA_DISPLAY_X+1))+x] = kleur;
+	if((x<VGA_DISPLAY_X) && (y<VGA_DISPLAY_Y)) VGA_RAM1[(y*(VGA_DISPLAY_X+1))+x] = kleur;
 }
 
 /***************************
@@ -108,7 +108,7 @@ Readpixel: geef de waarde van één pixel terug.
 ***************************/
 uint8_t readpixel(uint16_t x, uint16_t y)
 {
-	if((x<=VGA_DISPLAY_X) && (y<=VGA_DISPLAY_Y)) return VGA_RAM1[(y*(VGA_DISPLAY_X+1))+x];
+	if((x<VGA_DISPLAY_X) && (y<VGA_DISPLAY_Y)) return VGA_RAM1[(y*(VGA_DISPLAY_X+1))+x];
 	else return 0;
 }
 
