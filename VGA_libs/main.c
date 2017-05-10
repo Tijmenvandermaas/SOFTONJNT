@@ -11,7 +11,7 @@ Democode voor vga_api library.
 #include "vga_api.h"
 #include <math.h>
 #include <stdbool.h>
-
+#include "bitmaps.h"
 
 int main(void)
 {
@@ -43,8 +43,17 @@ int main(void)
 	  // Teken lijn
 	  // lijn(x_l, y_l, x_r, y_r, lijn_dikte, lijn_kleur);
 
+	  bitmap(130, 120, HU_logo_64);
+
+	  bitmap(150, (110-50), arrow_32_down);
+	  bitmap(150, (110+50), arrow_32_up);
+	  bitmap((150-50), 110, arrow_32_right);
+	  bitmap((150+50), 110, arrow_32_left);
+
+
   while(1)
   {
+	  	  /*
 	  	  // Rechthoek coördinaten demo
 	  	  for(int i = 0; i <240; i++)
 	  	  {
@@ -62,6 +71,7 @@ int main(void)
 
 	  	  // Beeld vasthouden
 	  	  for(int j = 0; j <(100000000); j++);
+	  	  */
   }
 }
 
