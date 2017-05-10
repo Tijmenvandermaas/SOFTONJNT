@@ -113,11 +113,28 @@ uint8_t readpixel(uint16_t x, uint16_t y)
 }
 
 /***************************
+bitmap:
+(x_lo, y_lo, map)
+(c) Jos van Mourik
 
+To do: support voor bitmaps die niet een factor 8 formaat hebben
 ***************************/
-void bitmap(uint16_t x_lo, uint16_t y_lo, uint8_t map)
+void bitmap(uint16_t x_lo, uint16_t y_lo, char map[])
 {
+	// Start bitmap data in array
+	uint16_t cursor = 4;
 
+	// Bereken startpunt ten opzichte van linksonder
+	for(uint16_t y = (y_lo-map[2]-1); y < y_lo-1; y++)
+	{
+		// Stap door bytes
+		for(uint16_t x = x_lo; x < (x_lo+map[0]); x+=8)
+		{
+			// Stap door bits en plaats witte pixel als bit hoog is
+			for(uint16_t bit = 0; bit <8; bit++) if(map[cursor] & (1 << (7-bit))) setpixel(x+bit, y, VGA_COL_WHITE);
+			cursor++;
+		}
+	}
 }
 
 /***************************
