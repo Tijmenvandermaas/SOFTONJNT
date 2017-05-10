@@ -22,33 +22,73 @@
 <part id="3"/>
 <part id="4"/>
 <part id="5"/>
+<part id="6"/>
+<part id="7"/>
+<part id="8"/>
+<part id="9"/>
+<part id="10"/>
+<part id="11"/>
+<part id="12"/>
+<part id="13"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
 <editor activePart="true" focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" partName="main.c" path="C:/CooCox/softon/VGA_libs/main.c" title="main.c" tooltip="C:/CooCox/softon/VGA_libs/main.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/VGA_Core/main.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="662" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="1768" selectionOffset="0" selectionTopPixel="634"/>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="stm32_ub_vga_screen.h" partName="stm32_ub_vga_screen.h" path="C:/CooCox/softon/VGA_libs/ub_lib/stm32_ub_vga_screen.h" title="stm32_ub_vga_screen.h" tooltip="C:/CooCox/softon/VGA_libs/ub_lib/stm32_ub_vga_screen.h" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/VGA_Core/ub_lib/stm32_ub_vga_screen.h"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="899" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="13" selectionOffset="895" selectionTopPixel="129"/>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="stm32_ub_vga_screen.c" partName="stm32_ub_vga_screen.c" path="C:/CooCox/softon/VGA_libs/ub_lib/stm32_ub_vga_screen.c" title="stm32_ub_vga_screen.c" tooltip="C:/CooCox/softon/VGA_libs/ub_lib/stm32_ub_vga_screen.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/VGA_Core/ub_lib/stm32_ub_vga_screen.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="776" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="11938" selectionTopPixel="2100"/>
 </editor>
-<editor id="org.eclipse.cdt.ui.editor.CEditor" name="vga_api.c" partName="vga_api.c" path="C:/CooCox/softon/VGA_libs/vga_api/vga_api.c" title="vga_api.c" tooltip="C:/CooCox/softon/VGA_libs/vga_api.c" workbook="DefaultEditorWorkbook">
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="vga_api.c" partName="vga_api.c" path="C:/CooCox/softon/VGA_libs/vga_api/vga_api.c" title="vga_api.c" tooltip="C:/CooCox/softon/VGA_libs/vga_api/vga_api.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/VGA_Core/vga_api/vga_api.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3174" selectionTopPixel="1689"/>
 </editor>
-<editor id="org.eclipse.cdt.ui.editor.CEditor" name="vga_api.h" partName="vga_api.h" path="C:/CooCox/softon/VGA_libs/vga_api/vga_api.h" title="vga_api.h" tooltip="C:/CooCox/softon/VGA_libs/vga_api.h" workbook="DefaultEditorWorkbook">
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="vga_api.h" partName="vga_api.h" path="C:/CooCox/softon/VGA_libs/vga_api/vga_api.h" title="vga_api.h" tooltip="C:/CooCox/softon/VGA_libs/vga_api/vga_api.h" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/VGA_Core/vga_api/vga_api.h"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1239" selectionTopPixel="0"/>
+</editor>
+<editor id="org.coocox.builder.ui.editors.ConfigEditor" name="" partName="Configuration" title="Configuration" tooltip="" workbook="DefaultEditorWorkbook">
+<input factoryID="org.coocox.builder.ui.persistent.PersistentElementFactory">&#x0A;<org.coocox.builder.ui.editors.ConfigEditor horizontalPosition="0" subTagIndex="0" verticalPosition="0"/>
+</input>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx.h" partName="stm32f4xx.h" path="C:/CooCox/softon/VGA_libs/cmsis_boot/stm32f4xx.h" title="stm32f4xx.h" tooltip="C:/CooCox/softon/VGA_libs/cmsis_boot/stm32f4xx.h" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/VGA_Core/cmsis_boot/stm32f4xx.h"/>
+<editorState selectionHorizontalPixel="0" selectionLength="5" selectionOffset="105022" selectionTopPixel="26554"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_tim.h" partName="stm32f4xx_tim.h" path="C:/CooCox/softon/VGA_libs/cmsis_lib/include/stm32f4xx_tim.h" title="stm32f4xx_tim.h" tooltip="C:/CooCox/softon/VGA_libs/cmsis_lib/include/stm32f4xx_tim.h" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/VGA_Core/cmsis_lib/include/stm32f4xx_tim.h"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="51457" selectionTopPixel="18773"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="misc.h" partName="misc.h" path="C:/CooCox/softon/VGA_libs/cmsis_lib/include/misc.h" title="misc.h" tooltip="C:/CooCox/softon/VGA_libs/cmsis_lib/include/misc.h" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/VGA_Core/cmsis_lib/include/misc.h"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="2249"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_dma.h" partName="stm32f4xx_dma.h" path="C:/CooCox/softon/VGA_libs/cmsis_lib/include/stm32f4xx_dma.h" title="stm32f4xx_dma.h" tooltip="C:/CooCox/softon/VGA_libs/cmsis_lib/include/stm32f4xx_dma.h" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/VGA_Core/cmsis_lib/include/stm32f4xx_dma.h"/>
 <editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
 </editor>
-<editor id="org.eclipse.cdt.ui.editor.CEditor" name="vga_api.c" partName="vga_api.c" title="vga_api.c" tooltip="C:\CooCox\softon\VGA_libs\vga_api.c" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" uri="file:/C:/CooCox/softon/VGA_libs/vga_api.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="20" selectionOffset="275" selectionTopPixel="0"/>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_rcc.h" partName="stm32f4xx_rcc.h" path="C:/CooCox/softon/VGA_libs/cmsis_lib/include/stm32f4xx_rcc.h" title="stm32f4xx_rcc.h" tooltip="C:/CooCox/softon/VGA_libs/cmsis_lib/include/stm32f4xx_rcc.h" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/VGA_Core/cmsis_lib/include/stm32f4xx_rcc.h"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="bitmaps.h" partName="bitmaps.h" path="C:/CooCox/softon/VGA_libs/vga_api/bitmaps.h" title="bitmaps.h" tooltip="C:/CooCox/softon/VGA_libs/vga_api/bitmaps.h" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/VGA_Core/vga_api/bitmaps.h"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="77" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_gpio.h" partName="stm32f4xx_gpio.h" path="C:/CooCox/softon/VGA_libs/cmsis_lib/include/stm32f4xx_gpio.h" title="stm32f4xx_gpio.h" tooltip="C:/CooCox/softon/VGA_libs/cmsis_lib/include/stm32f4xx_gpio.h" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/VGA_Core/cmsis_lib/include/stm32f4xx_gpio.h"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="startup_stm32f4xx.c" partName="startup_stm32f4xx.c" path="C:/CooCox/softon/VGA_libs/cmsis_boot/startup/startup_stm32f4xx.c" title="startup_stm32f4xx.c" tooltip="C:/CooCox/softon/VGA_libs/cmsis_boot/startup/startup_stm32f4xx.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/VGA_Core/cmsis_boot/startup/startup_stm32f4xx.c"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
 </editor>
 </editors>
 <views>
@@ -56,7 +96,10 @@
 <viewState CommonNavigator.LINKING_ENABLED="0" horizontalPosition="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0" verticalPosition="0">
 <expanded>
 <element path="/VGA_Core"/>
+<element path="/VGA_Core/cmsis_lib"/>
+<element path="/VGA_Core/cmsis_lib/include"/>
 <element path="/VGA_Core/ub_lib"/>
+<element path="/VGA_Core/vga_api"/>
 </expanded>
 <selection>
 <element path="/VGA_Core/main.c"/>
@@ -111,8 +154,8 @@
 <hide_menu_item_id id="org.coocox.codebugger.configuration.showPeripheralsAction"/>
 <hide_menu_item_id id="org.coocox.codebugger.configuration.showVariablesAction"/>
 <hide_menu_item_id id="org.coocox.builder.ui.openProjectExplorerAction"/>
-<hide_menu_item_id id="org.eclipse.debug.ui.commands.TerminateAndRelaunch"/>
 <hide_menu_item_id id="org.coocox.codebugger.trace.actions.ShowTraceControlAction"/>
+<hide_menu_item_id id="org.eclipse.debug.ui.commands.TerminateAndRelaunch"/>
 <hide_menu_item_id id="org.coocox.codebugger.configuration.showRegistersAction"/>
 <hide_toolbar_item_id id="org.eclipse.cdt.debug.internal.ui.actions.ToggleInstructionStepModeAction"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
@@ -173,7 +216,6 @@
 </perspective>
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.coocox.codebugger.configuration.ui.Perspective" id="org.coocox.codebugger.configuration.perspective" label="CoDebugger"/>
-<alwaysOnActionSet id="org.coocox.builder.ui.actionSet"/>
 <alwaysOnActionSet id="org.coocox.component.ui.actionSet"/>
 <alwaysOnActionSet id="org.coocox.welcome.ui.actionSet"/>
 <alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
@@ -196,8 +238,8 @@
 <hide_menu_item_id id="org.coocox.builder.rcp.flashMenu"/>
 <hide_menu_item_id id="org.coocox.builder.ui.debug"/>
 <hide_menu_item_id id="org.coocox.builder.ui.showHelpViewAction"/>
-<hide_menu_item_id id="org.coocox.builder.ui.newFile"/>
 <hide_menu_item_id id="org.coocox.builder.ui.showHelpViewAction1"/>
+<hide_menu_item_id id="org.coocox.builder.ui.newFile"/>
 <hide_menu_item_id id="org.coocox.builder.ui.actions.ConfigurationAction"/>
 <hide_menu_item_id id="org.coocox.builder.ui.builderDefaultLayout"/>
 <hide_menu_item_id id="org.eclipse.jdt.ui.source.menu"/>
@@ -218,8 +260,8 @@
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
 <hide_toolbar_item_id id="org.coocox.builder.ui.build"/>
 <hide_toolbar_item_id id="org.coocox.welcome.ui.action.welcome"/>
-<hide_toolbar_item_id id="org.coocox.component.ui.ShowRepositoryAction"/>
 <hide_toolbar_item_id id="org.coocox.codebugger.configuration.coideProgramDownloadAction"/>
+<hide_toolbar_item_id id="org.coocox.component.ui.ShowRepositoryAction"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
 <view id="org.eclipse.debug.ui.DebugView"/>
 <view id="org.coocox.codebugger.trace.ui.traceview"/>
@@ -269,164 +311,166 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/VGA_Core/ub_lib/stm32_ub_vga_screen.c"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/VGA_Core/ub_lib/stm32_ub_vga_screen.h"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/VGA_Core/main.c"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/VGA_Core/vga_api/vga_api.c"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/VGA_Core/vga_api/vga_api.h"/>
-<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" uri="file:/C:/CooCox/softon/VGA_libs/vga_api.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/VGA_Core/vga_api/bitmaps.h"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/VGA_Core/vga_api/vga_api.h"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/VGA_Core/main.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/VGA_Core/ub_lib/stm32_ub_vga_screen.h"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/VGA_Core/ub_lib/stm32_ub_vga_screen.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/VGA_Core/main.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/VGA_Core/vga_api/bitmaps.h"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/VGA_Core/vga_api/vga_api.h"/>
 </editors>
-<item historyLabel="stm32_ub_vga_screen.c" index="0">
-<position info="not_deleted" x="776" y="0"/>
+<item historyLabel="vga_api.h" index="1">
+<position info="not_deleted" x="334" y="0"/>
 </item>
-<item historyLabel="stm32_ub_vga_screen.h" index="1">
-<position info="not_deleted" x="899" y="0"/>
+<item historyLabel="vga_api.c" index="0">
+<position info="not_deleted" x="3208" y="0"/>
 </item>
-<item historyLabel="vga_api.h" index="4">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="bitmaps.h" index="2">
+<position info="not_deleted" x="1314" y="0"/>
 </item>
-<item historyLabel="vga_api.c" index="5">
-<position info="not_deleted" x="1872" y="0"/>
+<item historyLabel="vga_api.c" index="0">
+<position info="not_deleted" x="3294" y="0"/>
 </item>
-<item historyLabel="vga_api.c" index="3">
-<position info="not_deleted" x="251" y="0"/>
+<item historyLabel="vga_api.h" index="3">
+<position info="not_deleted" x="334" y="0"/>
 </item>
-<item historyLabel="vga_api.h" index="4">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="main.c" index="4">
+<position info="not_deleted" x="1249" y="0"/>
 </item>
-<item historyLabel="vga_api.c" index="3">
-<position info="not_deleted" x="251" y="0"/>
+<item historyLabel="vga_api.c" index="0">
+<position info="not_deleted" x="3463" y="0"/>
 </item>
-<item historyLabel="vga_api.h" index="4">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="vga_api.h" index="3">
+<position info="not_deleted" x="334" y="0"/>
 </item>
-<item historyLabel="vga_api.c" index="3">
-<position info="not_deleted" x="251" y="0"/>
+<item historyLabel="bitmaps.h" index="2">
+<position info="not_deleted" x="4722" y="0"/>
 </item>
-<item historyLabel="vga_api.h" index="4">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="main.c" index="4">
+<position info="not_deleted" x="1249" y="0"/>
 </item>
-<item historyLabel="vga_api.c" index="3">
-<position info="not_deleted" x="251" y="0"/>
+<item historyLabel="vga_api.c" index="0">
+<position info="not_deleted" x="3486" y="0"/>
 </item>
-<item historyLabel="vga_api.h" index="4">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="main.c" index="4">
+<position info="not_deleted" x="1259" y="0"/>
 </item>
-<item historyLabel="vga_api.c" index="3">
-<position info="not_deleted" x="499" y="0"/>
+<item historyLabel="vga_api.h" index="3">
+<position info="not_deleted" x="334" y="0"/>
 </item>
-<item historyLabel="vga_api.h" index="4">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="vga_api.c" index="0">
+<position info="not_deleted" x="3159" y="0"/>
 </item>
-<item historyLabel="vga_api.c" index="3">
-<position info="not_deleted" x="499" y="0"/>
+<item historyLabel="bitmaps.h" index="2">
+<position info="not_deleted" x="4722" y="0"/>
 </item>
-<item historyLabel="vga_api.h" index="4">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="stm32_ub_vga_screen.h" index="5">
+<position info="not_deleted" x="895" y="13"/>
 </item>
-<item historyLabel="stm32_ub_vga_screen.c" index="0">
-<position info="not_deleted" x="776" y="0"/>
+<item historyLabel="bitmaps.h" index="2">
+<position info="not_deleted" x="234" y="0"/>
 </item>
-<item historyLabel="stm32_ub_vga_screen.h" index="1">
-<position info="not_deleted" x="899" y="0"/>
+<item historyLabel="stm32_ub_vga_screen.h" index="5">
+<position info="not_deleted" x="895" y="13"/>
 </item>
-<item historyLabel="main.c" index="2">
-<position info="not_deleted" x="324" y="0"/>
+<item historyLabel="vga_api.c" index="0">
+<position info="not_deleted" x="3242" y="0"/>
 </item>
-<item historyLabel="main.c" index="2">
-<position info="not_deleted" x="638" y="0"/>
+<item historyLabel="bitmaps.h" index="2">
+<position info="not_deleted" x="1353" y="11"/>
 </item>
-<item historyLabel="main.c" index="2">
-<position info="not_deleted" x="726" y="0"/>
+<item historyLabel="main.c" index="4">
+<position info="not_deleted" x="1130" y="9"/>
 </item>
-<item historyLabel="vga_api.c" index="5">
-<position info="not_deleted" x="1907" y="0"/>
+<item historyLabel="bitmaps.h" index="2">
+<position info="not_deleted" x="1316" y="0"/>
 </item>
-<item historyLabel="vga_api.c" index="3">
-<position info="not_deleted" x="499" y="0"/>
+<item historyLabel="main.c" index="4">
+<position info="not_deleted" x="1228" y="0"/>
 </item>
-<item historyLabel="vga_api.h" index="4">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="bitmaps.h" index="2">
+<position info="not_deleted" x="3918" y="0"/>
 </item>
-<item historyLabel="stm32_ub_vga_screen.h" index="1">
-<position info="not_deleted" x="899" y="0"/>
+<item historyLabel="main.c" index="4">
+<position info="not_deleted" x="1228" y="0"/>
 </item>
-<item historyLabel="stm32_ub_vga_screen.c" index="0">
-<position info="not_deleted" x="776" y="0"/>
+<item historyLabel="stm32_ub_vga_screen.c" index="6">
+<position info="not_deleted" x="11938" y="0"/>
 </item>
-<item historyLabel="vga_api.h" index="4">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="stm32_ub_vga_screen.h" index="5">
+<position info="not_deleted" x="895" y="13"/>
 </item>
-<item historyLabel="vga_api.c" index="3">
-<position info="not_deleted" x="636" y="0"/>
+<item historyLabel="bitmaps.h" index="2">
+<position info="not_deleted" x="212" y="0"/>
 </item>
-<item historyLabel="vga_api.c" index="5">
-<position info="not_deleted" x="275" y="20"/>
+<item historyLabel="vga_api.c" index="0">
+<position info="not_deleted" x="3396" y="0"/>
 </item>
-<item historyLabel="vga_api.h" index="4">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="main.c" index="4">
+<position info="not_deleted" x="1249" y="0"/>
 </item>
-<item historyLabel="vga_api.c" index="3">
-<position info="not_deleted" x="636" y="0"/>
+<item historyLabel="vga_api.c" index="0">
+<position info="not_deleted" x="3396" y="0"/>
 </item>
-<item historyLabel="vga_api.h" index="4">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="main.c" index="7">
+<position info="not_deleted" x="1253" y="0"/>
 </item>
-<item historyLabel="vga_api.c" index="3">
-<position info="not_deleted" x="636" y="0"/>
+<item historyLabel="bitmaps.h" index="8">
+<position/>
 </item>
-<item historyLabel="vga_api.h" index="4">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="main.c" index="7">
+<position info="not_deleted" x="1253" y="0"/>
 </item>
-<item historyLabel="vga_api.c" index="3">
-<position info="not_deleted" x="651" y="19"/>
+<item historyLabel="bitmaps.h" index="8">
+<position info="not_deleted" x="1080" y="17"/>
 </item>
-<item historyLabel="vga_api.h" index="4">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="main.c" index="7">
+<position info="not_deleted" x="1061" y="0"/>
 </item>
-<item historyLabel="vga_api.c" index="3">
-<position info="not_deleted" x="651" y="19"/>
+<item historyLabel="vga_api.c" index="0">
+<position info="not_deleted" x="3649" y="0"/>
 </item>
-<item historyLabel="vga_api.h" index="4">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="main.c" index="7">
+<position info="not_deleted" x="1061" y="0"/>
 </item>
-<item historyLabel="vga_api.c" index="3">
-<position info="not_deleted" x="633" y="0"/>
+<item historyLabel="vga_api.h" index="9">
+<position info="not_deleted" x="334" y="0"/>
 </item>
-<item historyLabel="main.c" index="2">
-<position info="not_deleted" x="108" y="0"/>
+<item historyLabel="vga_api.c" index="0">
+<position info="not_deleted" x="3649" y="0"/>
 </item>
-<item historyLabel="vga_api.c" index="3">
-<position info="not_deleted" x="633" y="0"/>
+<item historyLabel="bitmaps.h" index="8">
+<position info="not_deleted" x="1077" y="14"/>
 </item>
-<item historyLabel="stm32_ub_vga_screen.c" index="0">
-<position info="not_deleted" x="776" y="0"/>
+<item historyLabel="main.c" index="7">
+<position info="not_deleted" x="1248" y="0"/>
 </item>
-<item historyLabel="stm32_ub_vga_screen.h" index="1">
-<position info="not_deleted" x="899" y="0"/>
+<item historyLabel="vga_api.c" index="0">
+<position info="not_deleted" x="3174" y="0"/>
 </item>
-<item historyLabel="vga_api.h" index="4">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="main.c" index="7">
+<position info="not_deleted" x="1761" y="0"/>
 </item>
-<item historyLabel="stm32_ub_vga_screen.h" index="1">
-<position info="not_deleted" x="899" y="0"/>
+<item historyLabel="bitmaps.h" index="8">
+<position info="not_deleted" x="5998" y="0"/>
 </item>
-<item historyLabel="vga_api.c" index="3">
-<position info="not_deleted" x="633" y="0"/>
+<item historyLabel="main.c" index="7">
+<position info="not_deleted" x="1248" y="0"/>
 </item>
-<item historyLabel="vga_api.c" index="3">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="bitmaps.h" index="8">
+<position info="not_deleted" x="77" y="0"/>
 </item>
-<item historyLabel="vga_api.h" index="6">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="vga_api.c" index="0">
+<position info="not_deleted" x="3174" y="0"/>
 </item>
-<item historyLabel="vga_api.h" index="6">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="vga_api.h" index="9">
+<position info="not_deleted" x="1239" y="0"/>
 </item>
 <item active="true" historyLabel="main.c" index="7">
-<position info="not_deleted" x="108" y="0"/>
+<position info="not_deleted" x="1248" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -435,6 +479,30 @@
 <actionBarAdvisor/>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="startup_stm32f4xx.c" tooltip="VGA_Core/cmsis_boot/startup/startup_stm32f4xx.c">
+<persistable path="/VGA_Core/cmsis_boot/startup/startup_stm32f4xx.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_gpio.h" tooltip="VGA_Core/cmsis_lib/include/stm32f4xx_gpio.h">
+<persistable path="/VGA_Core/cmsis_lib/include/stm32f4xx_gpio.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="bitmaps.h" tooltip="VGA_Core/vga_api/bitmaps.h">
+<persistable path="/VGA_Core/vga_api/bitmaps.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_rcc.h" tooltip="VGA_Core/cmsis_lib/include/stm32f4xx_rcc.h">
+<persistable path="/VGA_Core/cmsis_lib/include/stm32f4xx_rcc.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_dma.h" tooltip="VGA_Core/cmsis_lib/include/stm32f4xx_dma.h">
+<persistable path="/VGA_Core/cmsis_lib/include/stm32f4xx_dma.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="misc.h" tooltip="VGA_Core/cmsis_lib/include/misc.h">
+<persistable path="/VGA_Core/cmsis_lib/include/misc.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_tim.h" tooltip="VGA_Core/cmsis_lib/include/stm32f4xx_tim.h">
+<persistable path="/VGA_Core/cmsis_lib/include/stm32f4xx_tim.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx.h" tooltip="VGA_Core/cmsis_boot/stm32f4xx.h">
+<persistable path="/VGA_Core/cmsis_boot/stm32f4xx.h"/>
+</file>
 <file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="vga_api.c" tooltip="C:\CooCox\softon\VGA_libs\vga_api.c">
 <persistable uri="file:/C:/CooCox/softon/VGA_libs/vga_api.c"/>
 </file>
@@ -455,31 +523,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" tooltip="testl/main.c">
 <persistable path="/testl/main.c"/>
-</file>
-<file factoryID="org.coocox.component.ui.editors.repository.RepositoryElementFactory" id="org.coocox.builder.ui.editors.repository.RepositoryBrowser" name="Repository" tooltip="Repository">
-<persistable>&#x0A;<subPage/>
-</persistable>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_i2c.c" tooltip="blab/cmsis_lib/source/stm32f4xx_i2c.c">
-<persistable path="/blab/cmsis_lib/source/stm32f4xx_i2c.c"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" tooltip="blab/main.c">
-<persistable path="/blab/main.c"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="system_stm32f4xx.c" tooltip="plltest/cmsis_boot/system_stm32f4xx.c">
-<persistable path="/plltest/cmsis_boot/system_stm32f4xx.c"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" tooltip="knipperdeknip/main.c">
-<persistable path="/knipperdeknip/main.c"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="delay.c" tooltip="uCOSII-OS-test/ports/source/delay.c">
-<persistable path="/uCOSII-OS-test/ports/source/delay.c"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" tooltip="blinkie/main.c">
-<persistable path="/blinkie/main.c"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" tooltip="blinkie/main.c">
-<persistable path="/blinkie/main.c"/>
 </file>
 </mruList>
 </workbench>
