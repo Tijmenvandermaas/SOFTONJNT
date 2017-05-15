@@ -26,61 +26,188 @@ void tekst(uint16_t x, uint16_t y, uint8_t tekst[100], uint8_t font,  uint8_t gr
 void lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dikte, uint8_t kleur)
 {
 	//Bereken richtingscoefficient
-	int x_ln;
-	int x_rn;
+
+	int y_rn;
 	int y_ln;
-	int yo;
-	int yn;
+	int x_rn;
+	int x_ln;
+	int y;
+	int x;
 	int j,i,m,n;
 	float rc;
-	int8_t DIKTE = dikte;
+	int DIKTE = dikte;
 
-	if (x_r == x_l)
+
+
+	if (x_r == x_l) 								//verticale lijn
 	{
-		for(j = (DIKTE *-1) ; j <= DIKTE; j++)
+		for(m = 0; m <= DIKTE; m++)
 		{
-			for(i = y_l; i <=y_r; i++ )
+			x_l = x_l + 1;
+			x_r = x_r + 1;
+
+			y_ln = y_l;
+			y_rn = y_r;
+
+			for(j = 0; j <= DIKTE; j++)
 			{
-				UB_VGA_SetPixel((x_l+j),i,kleur);
+				y_ln = y_ln + 1;
+				y_rn = y_rn + 1;
+
+				if (y_l > y_r)
+				{
+					for(y_rn; y_rn <= y_ln; y_rn++)
+					{
+						UB_VGA_SetPixel(x_r,y_rn,kleur);
+					}
+				}
+
+				if (y_l < y_r)
+				{
+					for(y_ln; y_ln <= y_rn; y_ln++)
+					{
+						UB_VGA_SetPixel(x_r,y_ln,kleur);
+					}
+				}
 			}
 		}
 	}
-	else
+
+	if (y_r == y_l)									//horizontale lijn
 	{
-		rc = (float)(y_r-y_l)/(float)(x_r-x_l);
-		for(j = (DIKTE *-1) ; j <= DIKTE; j++)       // nieuwe y's op basis van dikte
+		for(m = 0 ; m <= DIKTE; m++)
 		{
-			y_ln = y_l +j;
-			yo = y_ln;
-			for(n = (DIKTE * -1); n <= DIKTE; n++)  // nieuwe x's op basis van dikte
+			x_l = x_l + 1;
+			x_r = x_r + 1;
+
+			y_ln = y_l;
+			y_rn = y_r;
+
+			for(j = 0 ; j <= DIKTE; j++)
 			{
-				x_ln = x_l +n;
-				x_rn = x_r +n;
-			}
-				for(i = x_ln; i <= x_rn; i++) 		// lijn schrijven op basis van de x-waarden van de lijn
+				y_ln = y_ln + 1;
+				y_rn = y_rn + 1;
+
+				x_rn = x_r;
+				x_ln = x_l;
+
+				if (x_l > x_r)
 				{
-
-					yn = rc * (i - x_ln) + y_ln;    // y = richtingscoefficient * (x-waarde - x-offset) + y-offset
-
-					if ((yn != (yo+1)) || (yn != (yo-1)) || (yn != yo) & (yn>yo)) // check of er gaten vallen bij y-waarden op de lijn
+					for(x_rn; x_rn <= x_ln; x_rn++)
 					{
-						for(m = 1; m <= ((yn-yo)-1); m++)						  //de gaten opvullen
-						{
-							UB_VGA_SetPixel(i,(yo+m),kleur);
-						}
+						UB_VGA_SetPixel(x_rn,y_rn,kleur);
 					}
-
-					if ((yn != (yo+1)) || (yn != (yo-1)) || (yn != yo) & (yn<yo)) // check of er gaten vallen bij y-waarden op de lijn
-					{
-						for(m = 1; m <= ((yo-yn)-1); m++)						  //de gaten opvullen
-						{
-							UB_VGA_SetPixel(i,(yo-m),kleur);
-						}
-					}
-
-					yo = yn;
-					UB_VGA_SetPixel(i,yo,kleur);								  // pixel schrijven bij nieuwe x en y
 				}
+
+				if (x_ln < x_rn)
+				{
+					for(x_ln; x_ln <= x_rn; x_ln++)
+					{
+						UB_VGA_SetPixel(x_ln,y_ln,kleur);
+					}
+				}
+			}
+		}
+	}
+	else												//schuine lijn
+	{
+
+		rc = (float)(y_r-y_l)/(float)(x_r-x_l);
+
+		for(m = 0; m <= DIKTE; m++)
+		{
+			x_l = x_l + 1;
+			x_r = x_r + 1;
+
+			y_ln = y_l;
+			y_rn = y_r;
+
+			for(j = 0; j <= DIKTE; j++)
+			{
+				y_ln = y_ln + 1;
+				y_rn = y_rn + 1;
+
+
+				if(x_l<x_r & y_ln<y_rn)
+				{
+					if (rc <= 1 & rc >= -1)
+					{
+						for(i = x_l; i <= x_r; i++)
+						{
+							y = rc * (i - x_l) + y_ln;
+							UB_VGA_SetPixel(i,y,kleur);
+						}
+					}
+					else
+					{
+						for(i = y_ln; i <= y_rn; i++)
+						{
+							x =  ((float)(i - y_ln)/(rc))+ x_l;
+							UB_VGA_SetPixel(x,i,kleur);
+						}
+					}
+				}
+
+				if(x_l>x_r & y_ln<y_rn)
+				{
+					if (rc <= 1 & rc >= -1)
+					{
+						for(i = x_r; i <= x_l; i++)
+						{
+							y = rc * (i - x_l) + y_ln;
+							UB_VGA_SetPixel(i,y,kleur);
+						}
+					}
+					else
+					{
+						for(i = y_ln; i <= y_rn; i++)
+						{
+							x =  ((float)(i - y_ln)/(rc))+ x_l;
+							UB_VGA_SetPixel(x,i,kleur);
+						}
+					}
+				}
+
+				if(x_l>x_r & y_ln>y_rn)
+				{
+					if (rc <= 1 & rc >= -1)
+					{
+						for(i = x_r; i <= x_l; i++)
+						{
+							y = rc * (i - x_l) + y_ln;
+							UB_VGA_SetPixel(i,y,kleur);
+						}
+					}
+					else
+					{
+						for(i = y_rn; i <= y_ln; i++)
+						{
+							x =  ((float)(i - y_ln)/(rc))+ x_l;
+							UB_VGA_SetPixel(x,i,kleur);
+						}
+					}
+				}
+
+				if(x_l<x_r & y_ln>y_rn)
+				{
+					if (rc <= 1 & rc >= -1)
+					{
+						for(i = x_l; i <= x_r; i++)
+						{
+							y = rc * (i - x_l) + y_ln;
+							UB_VGA_SetPixel(i,y,kleur);
+						}
+					}
+					else
+					{
+						for(i = y_rn; i <= y_ln; i++)
+						{
+							x =  ((float)(i - y_ln)/(rc))+ x_l;
+							UB_VGA_SetPixel(x,i,kleur);
+						}
+					}
+				}
+			}
 		}
 	}
 }
