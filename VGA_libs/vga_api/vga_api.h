@@ -13,6 +13,17 @@ Includes
 #include "stm32_ub_vga_screen.h"
 
 /***************************
+Globale variabelen
+***************************/
+
+typedef const struct
+{
+	uint16_t x;
+	uint16_t y;
+    char data[];
+}bitmapfile;
+
+/***************************
 Globale functies
 ***************************/
 void tekst(uint16_t x, uint16_t y, uint8_t tekst[100], uint8_t font,  uint8_t grootte,  uint8_t kleur,  uint8_t stijl);
@@ -22,6 +33,6 @@ void rechthoek(uint16_t x_lo, uint16_t y_lo, uint16_t x_rb, uint16_t y_rb, uint8
 void driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_t x_3, uint16_t y_3, uint8_t dikte, uint8_t kleur, bool gevuld);
 void setpixel(uint16_t x, uint16_t y, uint8_t kleur);
 uint8_t readpixel(uint16_t x, uint16_t y);
-void bitmap(uint16_t x_lo, uint16_t y_lo, char map[]);
+void bitmap(uint16_t x_lo, uint16_t y_lo, bitmapfile *bitmap);
 void clearscherm(uint8_t kleur);
 void wacht(uint16_t msecs);
