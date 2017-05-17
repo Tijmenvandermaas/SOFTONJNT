@@ -25,7 +25,191 @@ void tekst(uint16_t x, uint16_t y, uint8_t tekst[100], uint8_t font,  uint8_t gr
 ***************************/
 void lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dikte, uint8_t kleur)
 {
+	//Bereken richtingscoefficient
 
+	int y_rn;
+	int y_ln;
+	int x_rn;
+	int x_ln;
+	int y;
+	int x;
+	int j,i,m,n;
+	float rc;
+	int DIKTE = dikte;
+
+
+
+	if (x_r == x_l) 								//verticale lijn
+	{
+		for(m = 0; m <= DIKTE; m++)
+		{
+			x_l = x_l + 1;
+			x_r = x_r + 1;
+
+			y_ln = y_l;
+			y_rn = y_r;
+
+			for(j = 0; j <= DIKTE; j++)
+			{
+				y_ln = y_ln + 1;
+				y_rn = y_rn + 1;
+
+				if (y_l > y_r)
+				{
+					for(y_rn; y_rn <= y_ln; y_rn++)
+					{
+						UB_VGA_SetPixel(x_r,y_rn,kleur);
+					}
+				}
+
+				if (y_l < y_r)
+				{
+					for(y_ln; y_ln <= y_rn; y_ln++)
+					{
+						UB_VGA_SetPixel(x_r,y_ln,kleur);
+					}
+				}
+			}
+		}
+	}
+
+	if (y_r == y_l)									//horizontale lijn
+	{
+		for(m = 0 ; m <= DIKTE; m++)
+		{
+			x_l = x_l + 1;
+			x_r = x_r + 1;
+
+			y_ln = y_l;
+			y_rn = y_r;
+
+			for(j = 0 ; j <= DIKTE; j++)
+			{
+				y_ln = y_ln + 1;
+				y_rn = y_rn + 1;
+
+				x_rn = x_r;
+				x_ln = x_l;
+
+				if (x_l > x_r)
+				{
+					for(x_rn; x_rn <= x_ln; x_rn++)
+					{
+						UB_VGA_SetPixel(x_rn,y_rn,kleur);
+					}
+				}
+
+				if (x_ln < x_rn)
+				{
+					for(x_ln; x_ln <= x_rn; x_ln++)
+					{
+						UB_VGA_SetPixel(x_ln,y_ln,kleur);
+					}
+				}
+			}
+		}
+	}
+	else												//schuine lijn
+	{
+
+		rc = (float)(y_r-y_l)/(float)(x_r-x_l);
+
+		for(m = 0; m <= DIKTE; m++)
+		{
+			x_l = x_l + 1;
+			x_r = x_r + 1;
+
+			y_ln = y_l;
+			y_rn = y_r;
+
+			for(j = 0; j <= DIKTE; j++)
+			{
+				y_ln = y_ln + 1;
+				y_rn = y_rn + 1;
+
+
+				if(x_l<x_r & y_ln<y_rn)
+				{
+					if (rc <= 1 & rc >= -1)
+					{
+						for(i = x_l; i <= x_r; i++)
+						{
+							y = rc * (i - x_l) + y_ln;
+							UB_VGA_SetPixel(i,y,kleur);
+						}
+					}
+					else
+					{
+						for(i = y_ln; i <= y_rn; i++)
+						{
+							x =  ((float)(i - y_ln)/(rc))+ x_l;
+							UB_VGA_SetPixel(x,i,kleur);
+						}
+					}
+				}
+
+				if(x_l>x_r & y_ln<y_rn)
+				{
+					if (rc <= 1 & rc >= -1)
+					{
+						for(i = x_r; i <= x_l; i++)
+						{
+							y = rc * (i - x_l) + y_ln;
+							UB_VGA_SetPixel(i,y,kleur);
+						}
+					}
+					else
+					{
+						for(i = y_ln; i <= y_rn; i++)
+						{
+							x =  ((float)(i - y_ln)/(rc))+ x_l;
+							UB_VGA_SetPixel(x,i,kleur);
+						}
+					}
+				}
+
+				if(x_l>x_r & y_ln>y_rn)
+				{
+					if (rc <= 1 & rc >= -1)
+					{
+						for(i = x_r; i <= x_l; i++)
+						{
+							y = rc * (i - x_l) + y_ln;
+							UB_VGA_SetPixel(i,y,kleur);
+						}
+					}
+					else
+					{
+						for(i = y_rn; i <= y_ln; i++)
+						{
+							x =  ((float)(i - y_ln)/(rc))+ x_l;
+							UB_VGA_SetPixel(x,i,kleur);
+						}
+					}
+				}
+
+				if(x_l<x_r & y_ln>y_rn)
+				{
+					if (rc <= 1 & rc >= -1)
+					{
+						for(i = x_l; i <= x_r; i++)
+						{
+							y = rc * (i - x_l) + y_ln;
+							UB_VGA_SetPixel(i,y,kleur);
+						}
+					}
+					else
+					{
+						for(i = y_rn; i <= y_ln; i++)
+						{
+							x =  ((float)(i - y_ln)/(rc))+ x_l;
+							UB_VGA_SetPixel(x,i,kleur);
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 /***************************
