@@ -20,6 +20,7 @@ int main(void)
 	UB_VGA_Screen_Init(); // Init VGA-Screen
 	clearscherm(VGA_COL_BLACK);
 
+/*
 	  uint16_t x_lo = 100;
 	  uint16_t y_lo = 200;
 	  uint16_t x_rb = 200;
@@ -29,9 +30,7 @@ int main(void)
 	  bool gevuld = 0;
 
 	  // Teken rechthoek
-	  // rechthoek(x_lo, y_lo, x_rb, y_rb, rechthoek_dikte, rechthoek_kleur, gevuld);
-
-
+	  rechthoek(x_lo, y_lo, x_rb, y_rb, rechthoek_dikte, rechthoek_kleur, gevuld);
 
 	  uint16_t x_l = 50;
 	  uint16_t y_l = 50;
@@ -41,15 +40,17 @@ int main(void)
 	  uint8_t lijn_dikte = 1;
 
 	  // Teken lijn
-	  // lijn(x_l, y_l, x_r, y_r, lijn_dikte, lijn_kleur);
+	  lijn(x_l, y_l, x_r, y_r, lijn_dikte, lijn_kleur);
+*/
 
-	  bitmap(130, 120, HU_logo_64);
-
-	  bitmap(150, (110-50), arrow_32_down);
-	  bitmap(150, (110+50), arrow_32_up);
-	  bitmap((150-50), 110, arrow_32_right);
-	  bitmap((150+50), 110, arrow_32_left);
-
+	  // Bitmap demo
+	  bitmap(25, 100, &emoji_blij_64);
+	  bitmap(100, 100, &emoji_boos_64);
+	  bitmap(175, 100, &HU_logo_50);
+	  bitmap(25, 200, &pijl_omhoog_60);
+	  bitmap(100, 200, &pijl_omlaag_60);
+	  bitmap(175, 200, &pijl_links_60);
+	  bitmap(250, 200, &pijl_rechts_60);
 
   while(1)
   {
