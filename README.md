@@ -1,2 +1,6 @@
 # SOFTONJNT
-Project van tijmen, jos en niels voor het vak software ontwikkeling op de HU. 
+Project van Tijmen, Jos, en Niels voor het vak Software Ontwikkeling op de HU.
+
+scrum: https://waffle.io/Tijmenvandermaas/SOFTONJNT/join
+
+05/2017
