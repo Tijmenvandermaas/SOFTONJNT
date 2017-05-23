@@ -44,27 +44,36 @@ uint8_t tekst(uint16_t x_lo, uint16_t y_lo, char map[], uint8_t letter)
 }
 
 /***************************
-
+lijn: teken een lijn.
+(x_r, y_r, x_l, y_l, dikte, kleur)
+(c) Tijmen van der Maas en een beetje Niels van Rein
 ***************************/
 uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dikte, uint8_t kleur)
 {
-	//Bereken richtingscoefficient
 
-	int y_rn;
-	int y_ln;
-	int x_rn;
-	int x_ln;
-	int y;
-	int x;
-	int j,i,m,n;
+	//error check
+	if (x_l>320 || x_l<0 || x_r>320 || x_r<0 || y_l>240 || y_l<0 || y_r>240 || y_r<0)
+		return 1;
+
+	if (dikte > 50)
+		return 2;
+
+	//initieer waarden
+	uint16_t y_rn;
+	uint16_t y_ln;
+	uint16_t x_rn;
+	uint16_t x_ln;
+	uint16_t y;
+	uint16_t x;
 	float rc;
-	int DIKTE = dikte;
+	uint16_t DIKTE = dikte;
 
 
+	//verticale lijn
+	if (x_r == x_l)
 
-	if (x_r == x_l) 								//verticale lijn
-	{
-		for(m = 0; m <= DIKTE; m++)
+	{	//loop voor dikte, meerdere lijnen tekenen
+		for(uint16_t i = 0; i <= DIKTE; i++)
 		{
 			x_l = x_l + 1;
 			x_r = x_r + 1;
@@ -72,33 +81,40 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 			y_ln = y_l;
 			y_rn = y_r;
 
-			for(j = 0; j <= DIKTE; j++)
+			//loop voor dikte, meerdere lijnen tekenen
+			for(uint16_t j = 0; j <= DIKTE; j++)
 			{
 				y_ln = y_ln + 1;
 				y_rn = y_rn + 1;
 
-				if (y_l > y_r)
-				{
-					for(y_rn; y_rn <= y_ln; y_rn++)
+				//schrijfrichting bepalen
+				if (y_l >= y_r)
+
+				{	//pixels schrijven
+					for(uint16_t k = y_rn; k <= y_ln; k++)
 					{
-						UB_VGA_SetPixel(x_r,y_rn,kleur);
+						UB_VGA_SetPixel(x_r,k,kleur);
 					}
 				}
 
+				//schrijfrichting bepalen
 				if (y_l < y_r)
-				{
-					for(y_ln; y_ln <= y_rn; y_ln++)
+
+				{	//pixels schrijven
+					for(uint16_t k = y_ln; k <= y_rn; k++)
 					{
-						UB_VGA_SetPixel(x_r,y_ln,kleur);
+						UB_VGA_SetPixel(x_r,k,kleur);
 					}
 				}
 			}
 		}
 	}
 
-	if (y_r == y_l)									//horizontale lijn
-	{
-		for(m = 0 ; m <= DIKTE; m++)
+	//horizontale lijn
+	if (y_r == y_l)
+
+	{	//loop voor dikte, meerdere lijnen tekenen
+		for(uint16_t i = 0 ; i <= DIKTE; i++)
 		{
 			x_l = x_l + 1;
 			x_r = x_r + 1;
@@ -106,7 +122,8 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 			y_ln = y_l;
 			y_rn = y_r;
 
-			for(j = 0 ; j <= DIKTE; j++)
+			//loop voor dikte, meerdere lijnen tekenen
+			for(uint16_t j = 0 ; j <= DIKTE; j++)
 			{
 				y_ln = y_ln + 1;
 				y_rn = y_rn + 1;
@@ -114,30 +131,37 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 				x_rn = x_r;
 				x_ln = x_l;
 
+				//schrijfrichting bepalen
 				if (x_l > x_r)
-				{
-					for(x_rn; x_rn <= x_ln; x_rn++)
+
+				{	//pixels schrijven
+					for(uint16_t k = x_rn; k <= x_ln; k++)
 					{
-						UB_VGA_SetPixel(x_rn,y_rn,kleur);
+						UB_VGA_SetPixel(k,y_rn,kleur);
 					}
 				}
 
+				//schrijfrichting bepalen
 				if (x_ln < x_rn)
-				{
-					for(x_ln; x_ln <= x_rn; x_ln++)
+
+				{	//pixels schrijven
+					for(uint16_t k = x_ln; k <= x_rn; k++)
 					{
-						UB_VGA_SetPixel(x_ln,y_ln,kleur);
+						UB_VGA_SetPixel(k,y_ln,kleur);
 					}
 				}
 			}
 		}
 	}
-	else												//schuine lijn
-	{
 
+	//schuine lijn
+	else
+	{
+		// richtingscoefficient berekenen
 		rc = (float)(y_r-y_l)/(float)(x_r-x_l);
 
-		for(m = 0; m <= DIKTE; m++)
+		//loop voor dikte, meerdere lijnen tekenen, x varieeren
+		for(uint16_t i = 0; i <= DIKTE; i++)
 		{
 			x_l = x_l + 1;
 			x_r = x_r + 1;
@@ -145,107 +169,238 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 			y_ln = y_l;
 			y_rn = y_r;
 
-			for(j = 0; j <= DIKTE; j++)
+			//loop voor dikte, meerdere lijnen tekenen, y varieeren
+			for(uint16_t j = 0; j <= DIKTE; j++)
 			{
 				y_ln = y_ln + 1;
 				y_rn = y_rn + 1;
 
-
-				if(x_l<x_r & y_ln<y_rn)
+				//schrijfrichting bepalen kwadrant 1
+				if(x_l<x_r && y_ln<y_rn)
 				{
-					if (rc <= 1 & rc >= -1)
+					//bepalen of y=f(x) of x=f(y) moet worden gebruikt
+					if (rc <= 1 && rc >= -1)
 					{
-						for(i = x_l; i <= x_r; i++)
+						// y bepalen vanuit x met y=f(x) en pixel schrijven
+						for(uint16_t k = x_l; k <= x_r; k++)
 						{
-							y = rc * (i - x_l) + y_ln;
-							UB_VGA_SetPixel(i,y,kleur);
+							y = rc * (k - x_l) + y_ln;
+							UB_VGA_SetPixel(k,y,kleur);
 						}
 					}
 					else
 					{
-						for(i = y_ln; i <= y_rn; i++)
+						// x bepalen vanuit y met x=f(y) en pixel schrijven
+						for(uint16_t k = y_ln; k <= y_rn; k++)
 						{
-							x =  ((float)(i - y_ln)/(rc))+ x_l;
-							UB_VGA_SetPixel(x,i,kleur);
+							x =  ((float)(k - y_ln)/(rc))+ x_l;
+							UB_VGA_SetPixel(x,k,kleur);
 						}
 					}
 				}
 
-				if(x_l>x_r & y_ln<y_rn)
+				//schrijfrichting bepalen kwadrant 2
+				if(x_l>x_r && y_ln<y_rn)
 				{
-					if (rc <= 1 & rc >= -1)
+					//bepalen of y=f(x) of x=f(y) moet worden gebruikt
+					if (rc <= 1 && rc >= -1)
 					{
-						for(i = x_r; i <= x_l; i++)
+						// y bepalen vanuit x met y=f(x) en pixel schrijven
+						for(uint16_t k = x_r; k <= x_l; k++)
 						{
-							y = rc * (i - x_l) + y_ln;
-							UB_VGA_SetPixel(i,y,kleur);
+							y = rc * (k - x_l) + y_ln;
+							UB_VGA_SetPixel(k,y,kleur);
 						}
 					}
 					else
 					{
-						for(i = y_ln; i <= y_rn; i++)
+						// x bepalen vanuit y met x=f(y) en pixel schrijven
+						for(uint16_t k = y_ln; k <= y_rn; k++)
 						{
-							x =  ((float)(i - y_ln)/(rc))+ x_l;
-							UB_VGA_SetPixel(x,i,kleur);
+							x =  ((float)(k - y_ln)/(rc))+ x_l;
+							UB_VGA_SetPixel(x,k,kleur);
 						}
 					}
 				}
 
-				if(x_l>x_r & y_ln>y_rn)
+				//schrijfrichting bepalen kwadrant 3
+				if(x_l>x_r && y_ln>y_rn)
 				{
-					if (rc <= 1 & rc >= -1)
+					//bepalen of y=f(x) of x=f(y) moet worden gebruikt
+					if (rc <= 1 && rc >= -1)
 					{
-						for(i = x_r; i <= x_l; i++)
+						// y bepalen vanuit x met y=f(x) en pixel schrijven
+						for(uint16_t k = x_r; k <= x_l; k++)
 						{
-							y = rc * (i - x_l) + y_ln;
-							UB_VGA_SetPixel(i,y,kleur);
+							y = rc * (k - x_l) + y_ln;
+							UB_VGA_SetPixel(k,y,kleur);
 						}
 					}
 					else
 					{
-						for(i = y_rn; i <= y_ln; i++)
+						// x bepalen vanuit y met x=f(y) en pixel schrijven
+						for(uint16_t k = y_rn; k <= y_ln; k++)
 						{
-							x =  ((float)(i - y_ln)/(rc))+ x_l;
-							UB_VGA_SetPixel(x,i,kleur);
+							x =  ((float)(k - y_ln)/(rc))+ x_l;
+							UB_VGA_SetPixel(x,k,kleur);
 						}
 					}
 				}
 
-				if(x_l<x_r & y_ln>y_rn)
+				//schrijfrichting bepalen kwadrant 4
+				if(x_l<x_r && y_ln>y_rn)
 				{
-					if (rc <= 1 & rc >= -1)
+					//bepalen of y=f(x) of x=f(y) moet worden gebruikt
+					if (rc <= 1 && rc >= -1)
 					{
-						for(i = x_l; i <= x_r; i++)
+						// y bepalen vanuit x met y=f(x) en pixel schrijven
+						for(uint16_t k = x_l; k <= x_r; k++)
 						{
-							y = rc * (i - x_l) + y_ln;
-							UB_VGA_SetPixel(i,y,kleur);
+							y = rc * (k - x_l) + y_ln;
+							UB_VGA_SetPixel(k,y,kleur);
 						}
 					}
 					else
 					{
-						for(i = y_rn; i <= y_ln; i++)
+						// x bepalen vanuit y met x=f(y) en pixel schrijven
+						for(uint16_t k = y_rn; k <= y_ln; k++)
 						{
-							x =  ((float)(i - y_ln)/(rc))+ x_l;
-							UB_VGA_SetPixel(x,i,kleur);
+							x =  ((float)(k - y_ln)/(rc))+ x_l;
+							UB_VGA_SetPixel(x,k,kleur);
 						}
 					}
 				}
 			}
 		}
 	}
-
-	// Success
+	//succes
 	return 0;
 }
 
 /***************************
-
+elips: teken een ellips.
+(x_mp, y_mp, radius_x, radius_y, dikte, kleur, gevuld)
+(c) Tijmen van der Maas
 ***************************/
 uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_y, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
-	// Success
+	//errors
+	if(x_mp<1  ||y_mp<1  ||radius_x<1  ||radius_y<1||
+	   x_mp>319||y_mp>239||radius_x>320||radius_y>240)
+		return 1;
+
+	if ((radius_x >= radius_y)&& (dikte >radius_x/(radius_x/radius_y)))
+		return 2;
+
+	if ((radius_x < radius_y) && (dikte >radius_y/(radius_y/radius_x)))
+		return 2;
+
+	//inititaliseer variabelen
+	int32_t x, y, p;
+	uint16_t x_mpn, y_mpn;
+
+	// check of de ellips gevuld moet zijn
+	if (gevuld == true )
+	{
+		// zo ja, dikte aanpassen zodat de ellips gevuld wordt
+		if (radius_x >= radius_y)
+			dikte = radius_x/(radius_x/radius_y);
+
+		if (radius_x < radius_y)
+			dikte = radius_y/(radius_y/radius_x);
+	}
+
+	// op basis van dikte meerdere vullende ellipsen tekenen
+	for(uint16_t i = 0; i < dikte; i++)
+	{
+		radius_x = radius_x - 1;
+		radius_y = radius_y - 1;
+
+		// middelpunt voor vullende ellipsen 4 keer iets laten afwijken
+		for (uint16_t j = 0; j < 4; j++)
+		{
+			//middelpunt iets laten afwijken
+			if (dikte>1)
+			{
+				if (j==0)
+				{
+					x_mpn = x_mp -1;
+					y_mpn = y_mp;
+				}
+				if (j==1)
+				{
+					x_mpn = x_mp;
+					y_mpn = y_mp -1;
+				}
+
+				if (j==2)
+				{
+					y_mpn = y_mp;
+					x_mpn = x_mp +1;
+				}
+
+				if (j==3)
+				{
+					x_mpn = x_mp;
+					y_mpn = y_mp +1;
+				}
+			}
+
+			// als de ellips dikte 1 is hoeven er geen meerdere elipsen getekend te worden
+			else
+			{
+				x_mpn = x_mp;
+				y_mpn = y_mp;
+				j=4;
+			}
+
+			// hieronder magische ellipscode van het internet http://www.pracspedia.com/CG/midpointellipse.html
+			x=0;
+			y=radius_y;
+			p=(radius_y*radius_y)-(radius_x*radius_x*radius_y)+((radius_x*radius_x)/4);
+			while((2*x*radius_y*radius_y)<(2*y*radius_x*radius_x))
+			{
+				UB_VGA_SetPixel(x_mpn+x,y_mpn-y,kleur);
+				UB_VGA_SetPixel(x_mpn-x,y_mpn+y,kleur);
+				UB_VGA_SetPixel(x_mpn+x,y_mpn+y,kleur);
+				UB_VGA_SetPixel(x_mpn-x,y_mpn-y,kleur);
+
+				if(p<0)
+				{
+					x=x+1;
+					p=p+(2*radius_y*radius_y*x)+(radius_y*radius_y);
+				}
+				else
+				{
+					x=x+1;
+					y=y-1;
+					p=p+(2*radius_y*radius_y*x+radius_y*radius_y)-(2*radius_x*radius_x*y);
+				}
+			}
+			p=((float)x+0.5)*((float)x+0.5)*radius_y*radius_y+(y-1)*(y-1)*radius_x*radius_x-radius_x*radius_x*radius_y*radius_y;
+			while(y>=0)
+			{
+				UB_VGA_SetPixel(x_mpn+x,y_mpn-y,kleur);
+				UB_VGA_SetPixel(x_mpn-x,y_mpn+y,kleur);
+				UB_VGA_SetPixel(x_mpn+x,y_mpn+y,kleur);
+				UB_VGA_SetPixel(x_mpn-x,y_mpn-y,kleur);
+				if(p>0)
+				{
+					y=y-1; p=p-(2*radius_x*radius_x*y)+(radius_x*radius_x);
+				}
+				else
+				{
+					y=y-1;
+					x=x+1;
+					p=p+(2*radius_y*radius_y*x)-(2*radius_x*radius_x*y)-(radius_x*radius_x);
+				}
+			}
+		}
+	}
+	//succes
 	return 0;
 }
+
 
 /***************************
 Rechthoek: teken een rechthoek.
