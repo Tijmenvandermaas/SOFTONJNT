@@ -16,12 +16,30 @@ Includes
 Globale variabelen
 ***************************/
 
+// Struct voor bitmaps
 typedef const struct
 {
 	uint16_t x;
 	uint16_t y;
     char data[];
 }bitmapfile;
+
+// Kleuren (R3G3B2)
+#define  ZWART			0x00
+#define  BLAUW			0x03
+#define  LICHTBLAUW		0x0B
+#define  GROEN			0x1C
+#define  LICHTGROEN		0x5D
+#define  CYAAN			0x1F
+#define  LICHTCYAAN		0x9B
+#define  ROOD			0xE0
+#define  LICHTROOD		0xE9
+#define  MAGENTA		0xE3
+#define  LICHTMAGENTA	0xF3
+#define  BRUIN			0x88
+#define  GEEL			0xFC
+#define  GRIJS			0x92
+#define  WIT			0xFF
 
 /***************************
 Globale functies -- de weggecommente versie van driehoek en tekst zijn de orignele eisen. Voor de demo had ik ze even aangepast
