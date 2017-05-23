@@ -408,14 +408,16 @@ uint8_t rechthoek(uint16_t x_lo, uint16_t y_lo, uint16_t x_rb, uint16_t y_rb, ui
 	// Tekenen buiten scherm voorkomen
 	if(x_rb>=VGA_DISPLAY_X || y_lo>=VGA_DISPLAY_Y) return 1;
 
+	// Te grote dikte voorkomen
+	if(dikte > ((y_lo-y_rb)/2)) return 2;
 
 	// Gevulde rechthoek of overflow lijndikte
-	if(gevuld || dikte >= ((x_rb-x_lo)/2) || dikte >= ((y_lo-y_rb)/2))
+	if(gevuld || dikte >= ((x_rb-x_lo)/2) || dikte == ((y_lo-y_rb)/2))
 	{
-		// Verticale coördinaten
+		// Verticale waarden
 		for (uint16_t y = y_rb; y < (y_lo+1); y++)
 		{
-			// Horizontale coördinaten
+			// Horizontale waarden
 			for(uint16_t x = x_lo; x < (x_rb+1); x++)
 			{
 				setpixel(x, y, kleur);
@@ -451,7 +453,7 @@ uint8_t rechthoek(uint16_t x_lo, uint16_t y_lo, uint16_t x_rb, uint16_t y_rb, ui
 /***************************
 
 ***************************/
-uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_t x_3, uint16_t y_3, uint8_t dikte, uint8_t kleur)
+uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_t x_3, uint16_t y_3, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
 	lijn(x_1,y_1,x_2,y_2,dikte,kleur); //Print de drie lijnen waaruit de driehoek bestaat.
 	lijn(x_1,y_1,x_3,y_3,dikte,kleur);
@@ -462,7 +464,7 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 }
 
 /***************************
-Setpixel: verandert één pixel van kleur.
+Setpixel: verander pixel van kleur.
 (x, y, kleur)
 (c) Franc van der Bent, aangepast door Jos van Mourik
 ***************************/
@@ -481,7 +483,7 @@ uint8_t setpixel(uint16_t x, uint16_t y, uint8_t kleur)
 }
 
 /***************************
-Readpixel: geef de waarde van één pixel terug.
+Readpixel: geef de waarde pixel terug.
 (x, y)
 (c) Jos van Mourik
 ***************************/
@@ -553,7 +555,7 @@ uint8_t wacht(uint16_t msecs)
 /***************************
 Font bitmaps
 ***************************/
-extern char tekens[]={
+const char tekens[]={
 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00, // <Space>
 0x00,0x00,0x20,0x20,0x20,0x20,0x20,0x20,0x00,0x20,0x00,0x00, // !
 0x00,0x28,0x50,0x50,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00, // "

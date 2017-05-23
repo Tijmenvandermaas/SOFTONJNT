@@ -15,10 +15,14 @@ Democode voor vga_api library.
 
 int main(void)
 {
-	SystemInit(); // System speed to 168MHz
+	// Start clocks
+	SystemInit();
 
-	UB_VGA_Screen_Init(); // Init VGA-Screen
-	clearscherm(VGA_COL_BLACK);
+	// Start VGA
+	UB_VGA_Screen_Init();
+
+	// Zet scherm op zwart
+	clearscherm(ZWART);
 
 /*
 	// Rechthoek demo
@@ -71,7 +75,7 @@ int main(void)
   while(1)
   {
 	  	  /*
-	  	  // Rechthoek coördinaten demo
+	  	  // Rechthoek formaat demo
 	  	  for(int i = 0; i <240; i++)
 	  	  {
 	  		  clearscherm(VGA_COL_BLACK);
