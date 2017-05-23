@@ -15,8 +15,8 @@ Includes
 /***************************
 
 ***************************/
-//void tekst(uint16_t x, uint16_t y, uint8_t tekst[100], uint8_t font,  uint8_t grootte,  uint8_t kleur,  uint8_t stijl)
-void tekst(uint16_t x_lo, uint16_t y_lo, char map[], uint8_t letter)
+//uint8_t tekst(uint16_t x, uint16_t y, uint8_t tekst[100], uint8_t font,  uint8_t grootte,  uint8_t kleur,  uint8_t stijl)
+uint8_t tekst(uint16_t x_lo, uint16_t y_lo, char map[], uint8_t letter)
 {
 	// Start bitmap data in array
 	uint16_t cursor = letter * 12 + 4;
@@ -32,12 +32,15 @@ void tekst(uint16_t x_lo, uint16_t y_lo, char map[], uint8_t letter)
 			cursor++;
 		}
 	}
+
+	// Success
+	return 0;
 }
 
 /***************************
 
 ***************************/
-void lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dikte, uint8_t kleur)
+uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dikte, uint8_t kleur)
 {
 	//Bereken richtingscoefficient
 
@@ -224,12 +227,15 @@ void lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dikte,
 			}
 		}
 	}
+
+	// Success
+	return 0;
 }
 
 /***************************
 
 ***************************/
-void ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_y, uint8_t dikte, uint8_t kleur, bool gevuld)
+uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_y, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
 
 }
@@ -239,7 +245,7 @@ Rechthoek: teken een rechthoek.
 (x_lo, y_lo, x_rb, y_rb, dikte, kleur, gevuld)
 (c) Jos van Mourik
 ***************************/
-void rechthoek(uint16_t x_lo, uint16_t y_lo, uint16_t x_rb, uint16_t y_rb, uint8_t dikte, uint8_t kleur, bool gevuld)
+uint8_t rechthoek(uint16_t x_lo, uint16_t y_lo, uint16_t x_rb, uint16_t y_rb, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
 	// Tekenen buiten scherm voorkomen
 	if(x_rb>=VGA_DISPLAY_X) x_rb = VGA_DISPLAY_X-1;
@@ -279,16 +285,22 @@ void rechthoek(uint16_t x_lo, uint16_t y_lo, uint16_t x_rb, uint16_t y_rb, uint8
 			}
 		}
 	}
+
+	// Success
+	return 0;
 }
 
 /***************************
 
 ***************************/
-void driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_t x_3, uint16_t y_3, uint8_t dikte, uint8_t kleur)
+uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_t x_3, uint16_t y_3, uint8_t dikte, uint8_t kleur)
 {
 	lijn(x_1,y_1,x_2,y_2,dikte,kleur); //Print de drie lijnen waaruit de driehoek bestaat.
 	lijn(x_1,y_1,x_3,y_3,dikte,kleur);
 	lijn(x_2,y_2,x_3,y_3,dikte,kleur);
+
+	// Success
+	return 0;
 }
 
 /***************************
@@ -296,9 +308,18 @@ Setpixel: verandert één pixel van kleur.
 (x, y, kleur)
 (c) Franc van der Bent, aangepast door Jos van Mourik
 ***************************/
-void setpixel(uint16_t x, uint16_t y, uint8_t kleur)
+uint8_t setpixel(uint16_t x, uint16_t y, uint8_t kleur)
 {
-	if((x<VGA_DISPLAY_X) && (y<VGA_DISPLAY_Y)) VGA_RAM1[(y*(VGA_DISPLAY_X+1))+x] = kleur;
+	if((x<VGA_DISPLAY_X) && (y<VGA_DISPLAY_Y))
+	{
+		VGA_RAM1[(y*(VGA_DISPLAY_X+1))+x] = kleur;
+
+		// Success
+		return 0;
+	}
+
+	// Fail
+	else return 1;
 }
 
 /***************************
@@ -306,10 +327,10 @@ Readpixel: geef de waarde van één pixel terug.
 (x, y)
 (c) Jos van Mourik
 ***************************/
-uint8_t readpixel(uint16_t x, uint16_t y)
+uint16_t readpixel(uint16_t x, uint16_t y)
 {
 	if((x<VGA_DISPLAY_X) && (y<VGA_DISPLAY_Y)) return VGA_RAM1[(y*(VGA_DISPLAY_X+1))+x];
-	else return 0;
+	else return 256;
 }
 
 /***************************
@@ -319,7 +340,7 @@ bitmap:
 
 256 kleuren bitmaps.
 ***************************/
-void bitmap(uint16_t x_lo, uint16_t y_lo, bitmapfile *bitmap)
+uint8_t bitmap(uint16_t x_lo, uint16_t y_lo, bitmapfile *bitmap)
 {
 	// Startpunt pixel data
 	uint32_t cursor = 0;
@@ -334,6 +355,9 @@ void bitmap(uint16_t x_lo, uint16_t y_lo, bitmapfile *bitmap)
 			cursor++;
 		}
 	}
+
+	// Success
+	return 0;
 }
 
 /***************************
@@ -341,7 +365,7 @@ Clearscherm: vul het scherm met aangegeven kleur.
 (kleur)
 (c) Franc van der Bent, aangepast door Jos van Mourik
 ***************************/
-void clearscherm(uint8_t kleur)
+uint8_t clearscherm(uint8_t kleur)
 {
 	for(uint16_t y = 0; y < VGA_DISPLAY_Y; y++)
 	{
@@ -350,13 +374,17 @@ void clearscherm(uint8_t kleur)
 			setpixel(x, y, kleur);
 		}
 	}
+
+	// Success
+	return 0;
 }
 
 /***************************
 
 ***************************/
-void wacht(uint16_t msecs)
+uint8_t wacht(uint16_t msecs)
 {
-
+	// Success
+	return 0;
 }
 
