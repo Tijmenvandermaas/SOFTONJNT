@@ -17,30 +17,26 @@ Includes
 ***************************/
 #include "vga_api.h"
 
-
 /***************************
 
 ***************************/
-//uint8_t tekst(uint16_t x, uint16_t y, uint8_t tekst[100], uint8_t font,  uint8_t grootte,  uint8_t kleur,  uint8_t stijl)
-uint8_t tekst(uint16_t x_lo, uint16_t y_lo, char map[], uint8_t letter)
+
+void tekst(uint16_t x_lo, uint16_t y_lo, uint8_t tekst[100], uint8_t font,  uint8_t grootte,  uint8_t kleur,  uint8_t stijl)
+
 {
+	const uint16_t hoog = 12;
+	const uint16_t breed = 8;
+
 	// Start bitmap data in array
-	uint16_t cursor = letter * 12 + 4;
+	uint16_t cursor = 2 * hoog;
 
 	// Bereken startpunt ten opzichte van linksonder
-	for(uint16_t y = (y_lo-map[2]-1); y < y_lo-1; y++)
+	for(uint16_t y = (y_lo-hoog-1); y < y_lo-1; y++)
 	{
-		// Stap door bytes
-		for(uint16_t x = x_lo; x < (x_lo+map[0]); x+=8)
-		{
-			// Stap door bits en plaats witte pixel als bit hoog is
-			for(uint16_t bit = 0; bit <8; bit++) {if(map[cursor] & (1 << (7-bit))){ setpixel(x+bit, y, VGA_COL_WHITE);}}
-			cursor++;
-		}
+		// Stap door bits en plaats pixel als bit hoog is
+		for(uint16_t bit = 0; bit <8; bit++) {if(tekens[cursor] & (1 << (7-bit))){ setpixel(x_lo+bit, y, kleur);}}
+		cursor++;
 	}
-
-	// Success
-	return 0;
 }
 
 /***************************
