@@ -1,6 +1,12 @@
 /***************************************************************
 vga_api.h
 
+*****************************************
+Return values:
+0 - success
+1 - buiten scherm! (256 bij getpixel)
+2 - dikte te groot!
+*****************************************
 
 HU Software Ontwikkeling.
 (c) Jos, Tijmen, Niels 05/2017
@@ -237,7 +243,8 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 ***************************/
 uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_y, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
-
+	// Success
+	return 0;
 }
 
 /***************************
@@ -248,8 +255,8 @@ Rechthoek: teken een rechthoek.
 uint8_t rechthoek(uint16_t x_lo, uint16_t y_lo, uint16_t x_rb, uint16_t y_rb, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
 	// Tekenen buiten scherm voorkomen
-	if(x_rb>=VGA_DISPLAY_X) x_rb = VGA_DISPLAY_X-1;
-	if(y_lo>=VGA_DISPLAY_Y) y_lo = VGA_DISPLAY_Y-1;
+	if(x_rb>=VGA_DISPLAY_X || y_lo>=VGA_DISPLAY_Y) return 1;
+
 
 	// Gevulde rechthoek of overflow lijndikte
 	if(gevuld || dikte >= ((x_rb-x_lo)/2) || dikte >= ((y_lo-y_rb)/2))
@@ -318,7 +325,7 @@ uint8_t setpixel(uint16_t x, uint16_t y, uint8_t kleur)
 		return 0;
 	}
 
-	// Fail
+	// Tekenen buiten scherm voorkomen
 	else return 1;
 }
 
@@ -330,18 +337,22 @@ Readpixel: geef de waarde van één pixel terug.
 uint16_t readpixel(uint16_t x, uint16_t y)
 {
 	if((x<VGA_DISPLAY_X) && (y<VGA_DISPLAY_Y)) return VGA_RAM1[(y*(VGA_DISPLAY_X+1))+x];
+
+	// Lezen buiten scherm voorkomen
 	else return 256;
 }
 
 /***************************
-bitmap:
+bitmap: 256 kleuren bitmaps.
 (x_lo, y_lo, map)
 (c) Jos van Mourik
-
-256 kleuren bitmaps.
 ***************************/
 uint8_t bitmap(uint16_t x_lo, uint16_t y_lo, bitmapfile *bitmap)
 {
+	// Tekenen buiten scherm voorkomen
+	if((x_lo+bitmap->x)>=VGA_DISPLAY_X || y_lo>=VGA_DISPLAY_Y) return 1;
+
+
 	// Startpunt pixel data
 	uint32_t cursor = 0;
 
