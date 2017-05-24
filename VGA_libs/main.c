@@ -7,10 +7,6 @@ Democode voor vga_api library.
 ***************************************************************/
 
 #include "main.h"
-#include "stm32_ub_vga_screen.h"
-#include "vga_api.h"
-#include <math.h>
-#include <stdbool.h>
 #include "bitmaps.h"
 
 int main(void)
@@ -23,6 +19,10 @@ int main(void)
 
 	// Zet scherm op zwart
 	clearscherm(ZWART);
+
+	// Initieer UART
+	UART_init();
+	UART_INT_init();
 
 /*
 	// Rechthoek demo
@@ -74,7 +74,6 @@ int main(void)
 
   while(1)
   {
-	  	  /*
 	  	  // Rechthoek formaat demo
 	  	  for(int i = 0; i <240; i++)
 	  	  {
@@ -92,7 +91,6 @@ int main(void)
 
 	  	  // Beeld vasthouden
 	  	  for(int j = 0; j <(100000000); j++);
-	  	  */
   }
 }
 
