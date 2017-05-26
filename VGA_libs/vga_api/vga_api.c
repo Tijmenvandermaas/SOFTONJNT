@@ -16,6 +16,7 @@ HU Software Ontwikkeling.
 Includes
 ***************************/
 #include "vga_api.h"
+#include "stm32_ub_vga_screen.h"
 
 /***************************
 
@@ -544,14 +545,27 @@ uint8_t clearscherm(uint8_t kleur)
 }
 
 /***************************
-
+wacht: wacht een aantal milliseconden
+(msec)
+(c) Tijmen van der Maas
 ***************************/
 uint8_t wacht(uint16_t msecs)
 {
+	uint16_t tel = 0;
+	
+	//hysync duurt 1/16 milliseconde 
+	msecs = msecs*16;		
+	
+	//in deze loop blijven totdat de teller de ingegeven msec waarde heeft bereikt
+	while(tel<msecs)
+	{
+		if (VGA.hsync_cnt == 500 )
+			tel++;
+	}
+
 	// Success
 	return 0;
 }
-
 /***************************
 Font bitmaps
 ***************************/
