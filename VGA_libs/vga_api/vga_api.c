@@ -18,9 +18,23 @@ Includes
 #include "vga_api.h"
 #include "stm32_ub_vga_screen.h"
 
+
+
 /***************************
 
 ***************************/
+
+/*!	een functie die een tekst schrijft op een specifieke plek met een variabele grootte, lettertype, stijl en kleur
+	\param x is een unsigned 16 bit integer argument, dit is de x waarde van de positie
+	\param y is een unsigned 16 bit integer argument, dit is de y waarde van de positie
+	\param tekst is een unsigned 8 bit integer buffer argument, dit is de tekst
+	\param font is een unsigned 8 bit integer argument, dit is het lettertype
+	\param grootte is een unsigned 8 bit integer argument, dit bepaalt de grootte van de tekst
+	\param kleur is een unsigned 8 bit integer argument, dit bepaalt de kleur van de tekst
+	\param stijl is een unsigned 8 bit integer argument, dit bepaalt de stijl van de tekst
+	\return 0  = succes
+	\return 1  = buiten scherm
+*/
 
 void tekst(uint16_t x_lo, uint16_t y_lo, uint8_t tekst[100], uint8_t font,  uint8_t grootte,  uint8_t kleur,  uint8_t stijl)
 
@@ -88,6 +102,18 @@ lijn: teken een lijn.
 (x_r, y_r, x_l, y_l, dikte, kleur)
 (c) Tijmen van der Maas en een beetje Niels van Rein
 ***************************/
+
+/*!	een functie die een lijn tekent tussen 2 punten met een variabele dikte en kleur
+	\param x_r is een unsigned 16 bit integer argument, dit is de rechter x waarde
+	\param y_r is een unsigned 16 bit integer argument, dit is de rechter y waarde
+	\param x_l is een unsigned 16 bit integer argument, dit is de linker x waarde
+	\param y_l is een unsigned 16 bit integer argument, dit is de linker y waarde
+	\param dikte is een unsigned 8 bit integer argument, dit bepaalt de dikte van de lijn
+	\param kleur is een unsigned 8 bit integer argument, dit bepaalt de kleur van de lijn
+	\return 0  = succes
+	\return 1  = buiten scherm
+	\return 2  = dikte te groot
+*/
 uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dikte, uint8_t kleur)
 {
 
@@ -322,6 +348,20 @@ elips: teken een ellips.
 (x_mp, y_mp, radius_x, radius_y, dikte, kleur, gevuld)
 (c) Tijmen van der Maas
 ***************************/
+
+/*!	een functie die een ellips tekent om een middelpunt met een variabele y-radius, x-radius, dikte, kleur en vulling
+	\param x_mp is een unsigned 16 bit integer argument, dit is de x waarde van het middelpunt
+	\param y_mp is een unsigned 16 bit integer argument, dit is de y waarde van het middelpunt
+	\param radius_x is een unsigned 16 bit integer argument, dit is de grootte van de x-radius
+	\param radius_y is een unsigned 16 bit integer argument, dit is de grootte van de y-radius
+	\param dikte is een unsigned 8 bit integer argument, dit bepaalt de dikte van de ellips
+	\param kleur is een unsigned 8 bit integer argument, dit bepaalt de kleur van de ellips
+	\param gevuld is een boolean, deze bepaalt of de ellips wel of niet gevuld is
+	\return 0  = succes
+	\return 1  = buiten scherm
+	\return 2  = dikte te groot
+*/
+
 uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_y, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
 	//errors
@@ -447,6 +487,20 @@ Rechthoek: teken een rechthoek.
 (x_lo, y_lo, x_rb, y_rb, dikte, kleur, gevuld)
 (c) Jos van Mourik
 ***************************/
+
+/*!	een functie die een rechthoek tekent op basis van 2 punten met een variabele dikte, kleur en vulling
+	\param x_lo is een unsigned 16 bit integer argument, dit is de x waarde van linksonder
+	\param y_lo is een unsigned 16 bit integer argument, dit is de y waarde van linksonder
+	\param x_rb is een unsigned 16 bit integer argument, dit is de x waarde van rechtsboven
+	\param y_rb is een unsigned 16 bit integer argument, dit is de y waarde van rechtsboven
+	\param dikte is een unsigned 8 bit integer argument, dit bepaalt de dikte van de rechthoek
+	\param kleur is een unsigned 8 bit integer argument, dit bepaalt de kleur van de rechthoek
+	\param gevuld is een boolean, deze bepaalt of de rechthoek wel of niet gevuld is
+	\return 0  = succes
+	\return 1  = buiten scherm
+	\return 2  = dikte te groot
+*/
+
 uint8_t rechthoek(uint16_t x_lo, uint16_t y_lo, uint16_t x_rb, uint16_t y_rb, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
 	// Tekenen buiten scherm voorkomen
@@ -497,6 +551,22 @@ uint8_t rechthoek(uint16_t x_lo, uint16_t y_lo, uint16_t x_rb, uint16_t y_rb, ui
 /***************************
 
 ***************************/
+
+/*!	een functie die een driehoek tekent op basis van 3 punten met een variabele dikte, kleur en vulling
+	\param x_1 is een unsigned 16 bit integer argument, dit is de x waarde van punt 1
+	\param y_1 is een unsigned 16 bit integer argument, dit is de y waarde van punt 1
+	\param x_2 is een unsigned 16 bit integer argument, dit is de x waarde van punt 2
+	\param y_2 is een unsigned 16 bit integer argument, dit is de y waarde van punt 2
+	\param x_3 is een unsigned 16 bit integer argument, dit is de x waarde van punt 3
+	\param y_3 is een unsigned 16 bit integer argument, dit is de y waarde van punt 3
+	\param dikte is een unsigned 8 bit integer argument, dit bepaalt de dikte van de driehoek
+	\param kleur is een unsigned 8 bit integer argument, dit bepaalt de kleur van de driehoek
+	\param gevuld is een boolean, deze bepaalt of de driehoek wel of niet gevuld is
+	\return 0  = succes
+	\return 1  = buiten scherm
+	\return 2  = dikte te groot
+*/
+
 uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_t x_3, uint16_t y_3, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
 	lijn(x_1,y_1,x_2,y_2,dikte,kleur); //Print de drie lijnen waaruit de driehoek bestaat.
@@ -512,6 +582,15 @@ Setpixel: verander pixel van kleur.
 (x, y, kleur)
 (c) Franc van der Bent, aangepast door Jos van Mourik
 ***************************/
+
+/*!	een functie die een pixel tekent op basis een x en y coördinaat met een variabele kleur
+	\param x is een unsigned 16 bit integer argument, dit is de x waarde het punt
+	\param y is een unsigned 16 bit integer argument, dit is de y waarde het punt
+	\param kleur is een unsigned 8 bit integer argument, dit bepaalt de kleur van het punt
+	\return 0  = succes
+	\return 1  = buiten scherm
+*/
+
 uint8_t setpixel(uint16_t x, uint16_t y, uint8_t kleur)
 {
 	if((x<VGA_DISPLAY_X) && (y<VGA_DISPLAY_Y))
@@ -531,6 +610,14 @@ Readpixel: geef de waarde pixel terug.
 (x, y)
 (c) Jos van Mourik
 ***************************/
+
+/*!	een functie die een pixel leest op basis een x en y coördinaat
+	\param x is een unsigned 16 bit integer argument, dit is de x waarde het punt
+	\param y is een unsigned 16 bit integer argument, dit is de y waarde het punt
+	\return kleur
+	\return 256  = buiten scherm
+*/
+
 uint16_t readpixel(uint16_t x, uint16_t y)
 {
 	if((x<VGA_DISPLAY_X) && (y<VGA_DISPLAY_Y)) return VGA_RAM1[(y*(VGA_DISPLAY_X+1))+x];
@@ -544,6 +631,14 @@ bitmap: 256 kleuren bitmaps.
 (x_lo, y_lo, map)
 (c) Jos van Mourik
 *****************q**********/
+
+/*!	een functie die een afbeelding tekent op basis een x en y linksonder coördinaat en een bitmap
+	\param x is een unsigned 16 bit integer argument, dit is de x linksonder waarde 
+	\param y is een unsigned 16 bit integer argument, dit is de y linksonder waarde 
+	\param bitmap is een bitmap datastructuur, hierin staat de afbeelding
+	\return 0  = succes
+	\return 1  = buiten scherm
+*/
 uint8_t bitmap(uint16_t x_lo, uint16_t y_lo, bitmapfile *bitmap)
 {
 	// Tekenen buiten scherm voorkomen
@@ -573,6 +668,12 @@ Clearscherm: vul het scherm met aangegeven kleur.
 (kleur)
 (c) Franc van der Bent, aangepast door Jos van Mourik
 ***************************/
+
+/*!	een functie die het scherm vult met een kleur
+	\param kleur is een unsigned 8 bit integer argument, deze bepaalt de kleur
+	\return 0  = succes
+*/
+
 uint8_t clearscherm(uint8_t kleur)
 {
 	for(uint16_t y = 0; y < VGA_DISPLAY_Y; y++)
@@ -592,6 +693,12 @@ wacht: wacht een aantal milliseconden
 (msec)
 (c) Tijmen van der Maas
 ***************************/
+
+/*!	een functie die het programma een aantal milliseconden laat wachten
+	\param msec is een unsigned 16 bit integer argument, dit is de wachtijd in milliseconden
+	\return 0  = succes
+*/
+
 uint8_t wacht(uint16_t msecs)
 {
 	uint16_t tel = 0;
@@ -610,6 +717,10 @@ uint8_t wacht(uint16_t msecs)
 	return 0;
 }
 
+/*!	een functie die een character vertaald naar zijn numerieke waarde
+	\param teken een unsigned 8 bit integer die een character voorstelt
+	\return unsigned 8 bit integer met de numerieke waarde van de character
+*/
 uint8_t tekenbepaling(uint8_t teken)
 {
 	uint8_t tekencode;
