@@ -57,5 +57,5 @@ uint16_t readpixel(uint16_t x, uint16_t y);
 uint8_t bitmap(uint16_t x_lo, uint16_t y_lo, bitmapfile *bitmap);
 uint8_t clearscherm(uint8_t kleur);
 uint8_t wacht(uint16_t msecs);
-
+uint8_t tekenbepaling(uint8_t teken);
 

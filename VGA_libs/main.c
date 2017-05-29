@@ -72,9 +72,13 @@ int main(void)
 	lijn(0,140,239,140, 5, WIT);
 */
 
+	// Tekst demo
+	tekst(10, 50, "Hallo mensjes, mijn naam is Niels en ik ben cool", 100, 2 ,BLAUW, 100);
+
+
   while(1)
   {
-	  	  // Rechthoek formaat demo
+	  	  /* Rechthoek formaat demo
 	  	  for(int i = 0; i <240; i++)
 	  	  {
 	  		  clearscherm(VGA_COL_BLACK);
@@ -90,7 +94,7 @@ int main(void)
 	  	  }
 
 	  	  // Beeld vasthouden
-	  	  for(int j = 0; j <(100000000); j++);
+	  	  for(int j = 0; j <(100000000); j++); */
   }
 }
 
