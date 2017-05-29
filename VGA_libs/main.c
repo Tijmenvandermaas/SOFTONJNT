@@ -22,38 +22,6 @@ int main(void)
 
 	// Initieer UART
 	UART_init();
-	//UART_INT_init();
-
-/*
-	// Rechthoek demo
-	rechthoek(0, 239, 319, 0, 10, VGA_COL_WHITE, 0);
-	rechthoek(20, 225, 300, 20, 3, VGA_COL_RED, 0);
-	rechthoek(25, 220, 100, 25, 1, VGA_COL_BLUE, 1);
-	rechthoek(150, 130, 250, 30, 1, VGA_COL_GREEN, 1);
-	rechthoek(175, 200, 200, 175, 2, VGA_COL_MAGENTA, 0);
-*/
-
-/*
-	  // Lijn demo
-	  lijn(0, 10, 200, 10, 10, VGA_COL_BLUE);
-	  lijn(0, 30, 100, 50, 5, VGA_COL_RED);
-	  lijn(0, 100, 200, 50, 1, VGA_COL_GREEN);
-	  lijn(50, 200, 100, 100, 20, VGA_COL_YELLOW);
-	  lijn(220, 10, 220, 220, 1, VGA_COL_WHITE);
-*/
-
-
-/*
-	  // Bitmap demo
-	  bitmap(25, 100, &emoji_blij_64);
-	  bitmap(100, 100, &emoji_boos_64);
-	  bitmap(175, 100, &HU_logo_50);
-	  bitmap(25, 200, &pijl_omhoog_60);
-	  bitmap(100, 200, &pijl_omlaag_60);
-	  bitmap(175, 200, &pijl_links_60);
-	  bitmap(250, 200, &pijl_rechts_60);
-*/
-
 
 	// Kleuren demo
 	lijn(0,10,239,10, 5, BLAUW);
@@ -73,13 +41,52 @@ int main(void)
 
 
 	// Tekst demo
-	tekst(10, 50, "Hallo mensjes, mijn naam is Niels en ik ben cool", 100, 2 ,BLAUW, 100);
+	tekst(10, 50, "Hallo mensjes, mijn naam is Niels en ik ben cool", 100, 2, BLAUW, 100);
 
 
 	UART_puts ("READY\n");
 
 	// UART input buffer
 	char buf[100];
+
+	// Argmenten van parseinput
+	char arguments[10][50];
+
+	// Zet uart receive in losse strings
+	uint8_t parseinput(void)
+	{
+		// Uart buffer cursor
+		uint8_t bufcursor = 0;
+
+		// Argument id
+		uint8_t id = 0;
+
+		// Legen argumenten
+		memset(arguments,0,sizeof(arguments));
+
+		while (1)
+		{
+			// Argument string cursor
+			uint8_t argcursor = 0;
+
+			// Check op CR of NULL, stop teken in string
+			while(buf[bufcursor]!= 44 && (buf[bufcursor] != 0))
+			{
+				arguments[id][argcursor] = buf[bufcursor];
+				argcursor++;
+				bufcursor++;
+			}
+			// Einde van input bereikt
+			if (buf[bufcursor] == 0) break;
+
+			id++;
+			bufcursor++;
+		}
+		// Aantal gelezen argumenten
+		return id;
+	}
+
+
 
 
   while(1)
@@ -89,23 +96,17 @@ int main(void)
 	  UART_puts (buf);
 	  UART_puts ("\n");
 
-	  	  /* Rechthoek formaat demo
-	  	  for(int i = 0; i <240; i++)
-	  	  {
-	  		  clearscherm(VGA_COL_BLACK);
-	  		  rechthoek(0, 239, i, (239-i), 5, VGA_COL_BLUE, 0);
-	  		  for(int j = 0; j <100000; j++);
-	  	  }
+	  // Verwerk argumenten
+	  uint8_t args = parseinput();
 
-	  	  // Rechthoek dikte demo
-	  	  for (int k = 0; k <76; k++)
-	  	  {
-	  		  rechthoek(50, 200, 200, 50, k, VGA_COL_CYAN, 0);
-	  		  for(int j = 0; j <(100000); j++);
-	  	  }
-
-	  	  // Beeld vasthouden
-	  	  for(int j = 0; j <(100000000); j++); */
+	  // Geef argumenten weer
+	  UART_puts ("---args---\n");
+	  for(uint8_t i = 0; i <= args; i++)
+	  {
+		  UART_puts (&(arguments[i][0]));
+		  UART_puts ("\n");
+	  }
   }
 }
+
 
