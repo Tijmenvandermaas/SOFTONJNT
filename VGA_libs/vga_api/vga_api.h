@@ -42,7 +42,8 @@ typedef const struct
 #define  WIT			0xFF
 
 // Font bitmaps
-const char tekens[];
+const char tekens_1[];
+const char tekens_2[];
 
 /***************************
 Globale functies
