@@ -54,7 +54,7 @@ int main(void)
 	  bitmap(250, 200, &pijl_rechts_60);
 */
 
-	/*
+
 	// Kleuren demo
 	lijn(0,10,239,10, 5, BLAUW);
 	lijn(0,20,239,20, 5, LICHTBLAUW);
@@ -70,14 +70,29 @@ int main(void)
 	lijn(0,120,239,120, 5, GEEL);
 	lijn(0,130,239,130, 5, GRIJS);
 	lijn(0,140,239,140, 5, WIT);
-*/
+
 
 	// Tekst demo
 	tekst(10, 50, "Hallo mensjes, mijn naam is Niels en ik ben cool", 100, 2 ,BLAUW, 100);
 
+	// UART Demo
+	  UART_putint(1);
+	  UART_putint(0);
+	  UART_putint(11);
+	  UART_putint(0);
+	  wacht(500);
+
+	  char string[100];
+	  char* stringptr = string;
+
 
   while(1)
   {
+	  	  UART_gets (stringptr, 1);
+	  	  UART_puts (stringptr);
+	  	  UART_puts ("LOOP\n");
+	  	  wacht(100);
+
 	  	  /* Rechthoek formaat demo
 	  	  for(int i = 0; i <240; i++)
 	  	  {
