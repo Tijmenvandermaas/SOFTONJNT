@@ -22,7 +22,7 @@ int main(void)
 
 	// Initieer UART
 	UART_init();
-	UART_INT_init();
+	//UART_INT_init();
 
 /*
 	// Rechthoek demo
@@ -75,23 +75,19 @@ int main(void)
 	// Tekst demo
 	tekst(10, 50, "Hallo mensjes, mijn naam is Niels en ik ben cool", 100, 2 ,BLAUW, 100);
 
-	// UART Demo
-	  UART_putint(1);
-	  UART_putint(0);
-	  UART_putint(11);
-	  UART_putint(0);
-	  wacht(500);
 
-	  char string[100];
-	  char* stringptr = string;
+	UART_puts ("READY\n");
+
+	// UART input buffer
+	char buf[100];
 
 
   while(1)
   {
-	  	  UART_gets (stringptr, 1);
-	  	  UART_puts (stringptr);
-	  	  UART_puts ("LOOP\n");
-	  	  wacht(100);
+	  // Stop tekens in buffer, echo
+	  UART_gets (buf, 0);
+	  UART_puts (buf);
+	  UART_puts ("\n");
 
 	  	  /* Rechthoek formaat demo
 	  	  for(int i = 0; i <240; i++)
