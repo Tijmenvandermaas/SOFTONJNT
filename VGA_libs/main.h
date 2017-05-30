@@ -13,6 +13,7 @@
 #include <math.h>
 #include <stdbool.h>
 #include <stdarg.h>
+#include <string.h>
 
 #include "stm32f4xx.h"
 #include "stm32f4xx_usart.h"
