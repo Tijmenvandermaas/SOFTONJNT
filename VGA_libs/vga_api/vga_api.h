@@ -42,16 +42,16 @@ typedef const struct
 #define  GRIJS			0x92
 #define  WIT			0xFF
 
-//Stijlen
+// Stijlen
 #define	 REGULAR		0x01
 #define	 BOLD			0x02
 #define	 OBLIQUE		0x03
 
-//Fonts
+// Fonts
 #define	 Font_1			0x01
 #define	 Font_2			0x02
 
-//Sizes
+// Sizes
 #define	 Size_1			0x01
 #define	 Size_2			0x02
 #define	 Size_3			0x03

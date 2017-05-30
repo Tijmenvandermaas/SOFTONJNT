@@ -33,7 +33,7 @@ Democode voor vga_api library.
 // Function prototypes
 //--------------------------------------------------------------
 uint8_t parsecolor(char* kleur);
-uint8_t parseoutput(void);
+uint16_t parseoutput(void);
 uint8_t parseinput(void);
 uint8_t parsestijl(char* stijl);
 bitmapfile* parsebitmap(char* bitmaps);

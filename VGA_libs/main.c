@@ -9,6 +9,8 @@ Democode voor vga_api library.
 #include "main.h"
 #include "bitmaps.h"
 
+//#define DEBUG
+
 // UART input buffer
 char buf[100];
 // Argmenten van parseinput
@@ -91,36 +93,37 @@ bitmapfile* parsebitmap(char* bitmaps)
 }
 
 // Verwerk argumenten en stuur API functies aan.
-uint8_t parseoutput(void)
+uint16_t parseoutput(void)
 {
+	uint16_t r;
 	switch(arguments[0][0])
 	{
 		case 'l':
-			lijn(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), atoi(&arguments[3][0]), (239-atoi(&arguments[4][0])), atoi(&arguments[5][0]), parsecolor(&arguments[6][0]));
+			r= lijn(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), atoi(&arguments[3][0]), (239-atoi(&arguments[4][0])), atoi(&arguments[5][0]), parsecolor(&arguments[6][0]));
 			break;
 		case 'e':
-			ellips(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), atoi(&arguments[3][0]), atoi(&arguments[4][0]), 1, parsecolor(&arguments[5][0]), 1);
+			r= ellips(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), atoi(&arguments[3][0]), atoi(&arguments[4][0]), 1, parsecolor(&arguments[5][0]), 1);
 			break;
 		case 'r':
-			rechthoek(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), atoi(&arguments[3][0]), (239-atoi(&arguments[4][0])), 1, parsecolor(&arguments[5][0]), 1);
+			r= rechthoek(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), atoi(&arguments[3][0]), (239-atoi(&arguments[4][0])), 1, parsecolor(&arguments[5][0]), 1);
 			break;
 		case 'd':
-			driehoek(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), atoi(&arguments[3][0]), (239-atoi(&arguments[4][0])), atoi(&arguments[5][0]), (239-atoi(&arguments[6][0])), 1, parsecolor(&arguments[7][0]), 1);
+			r= driehoek(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), atoi(&arguments[3][0]), (239-atoi(&arguments[4][0])), atoi(&arguments[5][0]), (239-atoi(&arguments[6][0])), 1, parsecolor(&arguments[7][0]), 1);
 			break;
 		case 't':
-			tekst(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), (&arguments[3][0]), 1, 1, parsecolor(&arguments[4][0]), parsestijl(&arguments[5][0]));
+			r= tekst(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), (&arguments[3][0]), 1, 1, parsecolor(&arguments[4][0]), parsestijl(&arguments[5][0]));
 			break;
 		case 'b':
-			bitmap(atoi(&arguments[2][0]), (239-atoi(&arguments[3][0])), parsebitmap(&arguments[1][0]));
+			r= bitmap(atoi(&arguments[2][0]), (239-atoi(&arguments[3][0])), parsebitmap(&arguments[1][0]));
 			break;
 		case 'c':
-			clearscherm(parsecolor(&arguments[1][0]));
+			r= clearscherm(parsecolor(&arguments[1][0]));
 			break;
 		case 'w':
-			wacht(atoi(&arguments[1][0]));
+			r= wacht(atoi(&arguments[1][0]));
 			break;
 	}
-	return 0;
+	return r;
 }
 
 int main(void)
@@ -142,17 +145,22 @@ int main(void)
   while(1)
   {
 	  // Stop tekens in buffer, echo
-	  UART_gets (buf, 0);
-
-	  // Echo input
-	  UART_puts (buf);
-	  UART_puts ("\n");
+	  UART_gets (buf, 1);
 
 	  // Verwerk argumenten
 	  uint8_t args = parseinput();
 
-	  parseoutput();
+	  // Check of er argumenten zijn, verwerkt return values
+	  if(args)
+	  {
+		  uint16_t error = parseoutput();
+		  if(error == 0) UART_puts ("success!\n");
+		  else if(error == 1 || error == 256) UART_puts ("ERROR - buiten scherm!\n");
+		  else if(error == 2) UART_puts ("ERROR - dikte/invoer te groot!\n");
+		  else if(error == 3) UART_puts ("ERROR - foutieve invoer!\n");
+	  }
 
+	  #ifdef DEBUG
 	  // Geef argumenten weer
 	  UART_puts ("---args---\n");
 	  for(uint8_t i = 0; i <= args; i++)
@@ -160,5 +168,6 @@ int main(void)
 		  UART_puts (&(arguments[i][0]));
 		  UART_puts ("\n");
 	  }
+	  #endif
   }
 }
