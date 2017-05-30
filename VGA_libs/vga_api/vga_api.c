@@ -159,7 +159,7 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 				{	//pixels schrijven
 					for(uint16_t k = y_rn; k <= y_ln; k++)
 					{
-						UB_VGA_SetPixel(x_r,k,kleur);
+						setpixel(x_r,k,kleur);
 					}
 				}
 
@@ -169,7 +169,7 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 				{	//pixels schrijven
 					for(uint16_t k = y_ln; k <= y_rn; k++)
 					{
-						UB_VGA_SetPixel(x_r,k,kleur);
+						setpixel(x_r,k,kleur);
 					}
 				}
 			}
@@ -203,7 +203,7 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 				{	//pixels schrijven
 					for(uint16_t k = x_rn; k <= x_ln; k++)
 					{
-						UB_VGA_SetPixel(k,y_rn,kleur);
+						setpixel(k,y_rn,kleur);
 					}
 				}
 
@@ -213,7 +213,7 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 				{	//pixels schrijven
 					for(uint16_t k = x_ln; k <= x_rn; k++)
 					{
-						UB_VGA_SetPixel(k,y_ln,kleur);
+						setpixel(k,y_ln,kleur);
 					}
 				}
 			}
@@ -251,7 +251,7 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 						for(uint16_t k = x_l; k <= x_r; k++)
 						{
 							y = rc * (k - x_l) + y_ln;
-							UB_VGA_SetPixel(k,y,kleur);
+							setpixel(k,y,kleur);
 						}
 					}
 					else
@@ -260,7 +260,7 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 						for(uint16_t k = y_ln; k <= y_rn; k++)
 						{
 							x =  ((float)(k - y_ln)/(rc))+ x_l;
-							UB_VGA_SetPixel(x,k,kleur);
+							setpixel(x,k,kleur);
 						}
 					}
 				}
@@ -275,7 +275,7 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 						for(uint16_t k = x_r; k <= x_l; k++)
 						{
 							y = rc * (k - x_l) + y_ln;
-							UB_VGA_SetPixel(k,y,kleur);
+							setpixel(k,y,kleur);
 						}
 					}
 					else
@@ -284,7 +284,7 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 						for(uint16_t k = y_ln; k <= y_rn; k++)
 						{
 							x =  ((float)(k - y_ln)/(rc))+ x_l;
-							UB_VGA_SetPixel(x,k,kleur);
+							setpixel(x,k,kleur);
 						}
 					}
 				}
@@ -299,7 +299,7 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 						for(uint16_t k = x_r; k <= x_l; k++)
 						{
 							y = rc * (k - x_l) + y_ln;
-							UB_VGA_SetPixel(k,y,kleur);
+							setpixel(k,y,kleur);
 						}
 					}
 					else
@@ -308,7 +308,7 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 						for(uint16_t k = y_rn; k <= y_ln; k++)
 						{
 							x =  ((float)(k - y_ln)/(rc))+ x_l;
-							UB_VGA_SetPixel(x,k,kleur);
+							setpixel(x,k,kleur);
 						}
 					}
 				}
@@ -323,7 +323,7 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 						for(uint16_t k = x_l; k <= x_r; k++)
 						{
 							y = rc * (k - x_l) + y_ln;
-							UB_VGA_SetPixel(k,y,kleur);
+							setpixel(k,y,kleur);
 						}
 					}
 					else
@@ -332,7 +332,7 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 						for(uint16_t k = y_rn; k <= y_ln; k++)
 						{
 							x =  ((float)(k - y_ln)/(rc))+ x_l;
-							UB_VGA_SetPixel(x,k,kleur);
+							setpixel(x,k,kleur);
 						}
 					}
 				}
@@ -440,10 +440,10 @@ uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_
 			p=(radius_y*radius_y)-(radius_x*radius_x*radius_y)+((radius_x*radius_x)/4);
 			while((2*x*radius_y*radius_y)<(2*y*radius_x*radius_x))
 			{
-				UB_VGA_SetPixel(x_mpn+x,y_mpn-y,kleur);
-				UB_VGA_SetPixel(x_mpn-x,y_mpn+y,kleur);
-				UB_VGA_SetPixel(x_mpn+x,y_mpn+y,kleur);
-				UB_VGA_SetPixel(x_mpn-x,y_mpn-y,kleur);
+				setpixel(x_mpn+x,y_mpn-y,kleur);
+				setpixel(x_mpn-x,y_mpn+y,kleur);
+				setpixel(x_mpn+x,y_mpn+y,kleur);
+				setpixel(x_mpn-x,y_mpn-y,kleur);
 
 				if(p<0)
 				{
@@ -460,10 +460,10 @@ uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_
 			p=((float)x+0.5)*((float)x+0.5)*radius_y*radius_y+(y-1)*(y-1)*radius_x*radius_x-radius_x*radius_x*radius_y*radius_y;
 			while(y>=0)
 			{
-				UB_VGA_SetPixel(x_mpn+x,y_mpn-y,kleur);
-				UB_VGA_SetPixel(x_mpn-x,y_mpn+y,kleur);
-				UB_VGA_SetPixel(x_mpn+x,y_mpn+y,kleur);
-				UB_VGA_SetPixel(x_mpn-x,y_mpn-y,kleur);
+				setpixel(x_mpn+x,y_mpn-y,kleur);
+				setpixel(x_mpn-x,y_mpn+y,kleur);
+				setpixel(x_mpn+x,y_mpn+y,kleur);
+				setpixel(x_mpn-x,y_mpn-y,kleur);
 				if(p>0)
 				{
 					y=y-1; p=p-(2*radius_x*radius_x*y)+(radius_x*radius_x);
