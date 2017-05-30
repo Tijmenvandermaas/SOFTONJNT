@@ -10,6 +10,7 @@ HU Software Ontwikkeling.
 Includes
 ***************************/
 #include <stdbool.h>
+#include <string.h>
 #include "stm32_ub_vga_screen.h"
 
 /***************************

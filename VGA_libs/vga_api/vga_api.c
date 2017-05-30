@@ -15,14 +15,16 @@ HU Software Ontwikkeling.
 /***************************
 Includes
 ***************************/
-#include "fonts.h"
 #include "vga_api.h"
-#include "stm32_ub_vga_screen.h"
+#include "fonts.h"
+
 
 
 
 /***************************
-
+tekst: zet tekst op scherm
+(x_lo, y_lo, tekst[100], font, grootte, kleur, stijl)
+(c) Niels van Rijn
 ***************************/
 
 /*!	een functie die een tekst schrijft op een specifieke plek met een variabele grootte, lettertype, stijl en kleur
@@ -37,21 +39,19 @@ Includes
 	\return 1  = buiten scherm
 */
 
-void tekst(uint16_t x_lo, uint16_t y_lo, uint8_t tekst[100], uint8_t font,  uint8_t grootte,  uint8_t kleur,  uint8_t stijl)
-
+void tekst(uint16_t x_lo, uint16_t y_lo, uint8_t tekst[100], uint8_t font, uint8_t grootte, uint8_t kleur, uint8_t stijl)
 {
-	//varibelen waarin de huidig beschreven coordinaten worden opgeslagen
+	//variabelen waarin de huidig beschreven coordinaten worden opgeslagen
 	uint16_t xwrite;
 	uint16_t ywrite;
 	//variabelen nodig voor het schrijven op meerdere regels
 	uint16_t regelplus = 0;
 	uint8_t xmin = 0;
 	//check voor aantal tekens dat opgestuurd is
-	uint16_t size= strlen(tekst);
+	uint16_t size = strlen((const char*)tekst);
 	//de standaardgrootte van een teken
 	const uint16_t hoog = 12;
 	const uint16_t breed = 7;
-
 
 	for(uint8_t i = 0; i<size ;i++)
 	{
@@ -60,7 +60,7 @@ void tekst(uint16_t x_lo, uint16_t y_lo, uint8_t tekst[100], uint8_t font,  uint
 		// Start bitmap data in array
 		uint16_t cursor = hoog * tekenbepaling(tekst[i]);
 
-		// Bereken startpunt ten opzichte van linksonden
+		// Bereken startpunt ten opzichte van linksonder
 		for(uint16_t y = (y_lo-hoog*grootte-1); y < y_lo-1; y+= grootte)
 		{
 			//Zet een aantal keer dezelfde bitline onder elkaar gelijk aan grootte
@@ -119,7 +119,7 @@ void tekst(uint16_t x_lo, uint16_t y_lo, uint8_t tekst[100], uint8_t font,  uint
 /***************************
 lijn: teken een lijn.
 (x_r, y_r, x_l, y_l, dikte, kleur)
-(c) Tijmen van der Maas en een beetje Niels van Rein
+(c) Tijmen van der Maas en een beetje Niels van Rijn
 ***************************/
 
 /*!	een functie die een lijn tekent tussen 2 punten met een variabele dikte en kleur
@@ -383,7 +383,7 @@ elips: teken een ellips.
 
 uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_y, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
-	//errors
+	// errors
 	if(x_mp<1  ||y_mp<1  ||radius_x<1  ||radius_y<1||
 	   x_mp>319||y_mp>239||radius_x>320||radius_y>240)
 		return 1;

@@ -1,3 +1,12 @@
+/***************************************************************
+fonts.h
+
+
+HU Software Ontwikkeling.
+(c) Jos, Tijmen, Niels 05/2017
+***************************************************************/
+
+
 const char VCR_OSD_Mono_Regular[] = {
 
 /* character 0x0020 (' '): (width = 6, offset = 0) */
