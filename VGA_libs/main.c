@@ -12,7 +12,7 @@ Democode voor vga_api library.
 // UART input buffer
 char buf[100];
 // Argmenten van parseinput
-char arguments[10][50];
+char arguments[8][50];
 
 // Stop uart input in losse strings
 uint8_t parseinput(void)
@@ -40,6 +40,7 @@ uint8_t parseinput(void)
 		// Einde van input bereikt
 		if (buf[bufcursor] == 0) break;
 
+		// Ga naar volgende argument, sla komma over
 		id++;
 		bufcursor++;
 	}

@@ -4,7 +4,8 @@ vga_api.h
 Return values:
 0 - success
 1 - buiten scherm! (256 bij getpixel)
-2 - dikte te groot!
+2 - dikte/invoer te groot!
+3 - foutieve invoer!
 
 HU Software Ontwikkeling.
 (c) Jos, Tijmen, Niels 06/2017
@@ -39,12 +40,12 @@ tekst: zet tekst op scherm
 uint8_t tekst(uint16_t x_lo, uint16_t y_lo, char* tekst, uint8_t font, uint8_t grootte, uint8_t kleur, uint8_t stijl)
 {
 	// Error checks
-	// Buiten boundry van het scherm
+	// Buiten grenzen van het scherm
 	if (x_lo>320 || x_lo<0 || y_lo>240 || y_lo<0) return 1;
 	// Font, grootte of stijl hebben een ongeldige invoer.
-	if ((font != Font_1 && font != Font_2) || (stijl != REGULAR && stijl != BOLD && stijl != OBLIQUE) || grootte > 10 ) return 2;
-	///////// kan potentieel nog iets over kleur bij
-	///////// return 3 staat verder de code in. Vlak na het berekenen van ywrite.
+	if ((font != Font_1 && font != Font_2) || (stijl != REGULAR && stijl != BOLD && stijl != OBLIQUE) || grootte > 10 ) return 3;
+	// Kan potentieel nog iets over kleur bij
+	// Return 2 staat verder de code in. Vlak na het berekenen van ywrite.
 
 	// Variabelen waarin de huidig beschreven coordinaten worden opgeslagen
 	uint16_t xwrite;
@@ -52,7 +53,7 @@ uint8_t tekst(uint16_t x_lo, uint16_t y_lo, char* tekst, uint8_t font, uint8_t g
 	// Variabelen nodig voor het schrijven op meerdere regels
 	uint16_t regelplus = 0;
 	uint8_t xmin = 0;
-	// Check voor aantal tekens dat opgestuurd is
+	// Check het aantal tekens dat opgestuurd is
 	uint16_t size = strlen((const char*)tekst);
 	// Standaardgrootte van een teken
 	const uint16_t hoog = 12;
@@ -673,7 +674,7 @@ uint8_t bitmap(uint16_t x_lo, uint16_t y_lo, bitmapfile *bitmap)
 {
 	// Tekenen buiten scherm voorkomen
 	if((x_lo+bitmap->x)>=VGA_DISPLAY_X || y_lo>=VGA_DISPLAY_Y) return 1;
-
+	if(bitmap == 0) return 3;
 
 	// Startpunt pixel data
 	uint32_t cursor = 0;
@@ -731,6 +732,9 @@ wacht: wacht een aantal milliseconden
 
 uint8_t wacht(uint16_t msecs)
 {
+	// Check voor overflow
+	if(msecs >= 65536) return 2;
+
 	uint16_t tel = 0;
 	
 	// Hsync duurt 1/16 milliseconde
@@ -852,6 +856,5 @@ uint8_t tekenbepaling(uint8_t teken)
 	case '}': tekencode = 93; break;
 	case '~': tekencode = 94; break;
 	}
-
 return tekencode;
 }
