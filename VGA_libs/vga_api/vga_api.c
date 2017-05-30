@@ -1,15 +1,13 @@
 /***************************************************************
 vga_api.h
 
-*****************************************
 Return values:
 0 - success
 1 - buiten scherm! (256 bij getpixel)
 2 - dikte te groot!
-*****************************************
 
 HU Software Ontwikkeling.
-(c) Jos, Tijmen, Niels 05/2017
+(c) Jos, Tijmen, Niels 06/2017
 ***************************************************************/
 
 /***************************
@@ -17,9 +15,6 @@ Includes
 ***************************/
 #include "vga_api.h"
 #include "fonts.h"
-
-
-
 
 /***************************
 tekst: zet tekst op scherm
@@ -41,31 +36,31 @@ tekst: zet tekst op scherm
 	\return 3  = tekst te groot voor het scherm.
 */
 
-uint8_t tekst(uint16_t x_lo, uint16_t y_lo, uint8_t* tekst, uint8_t font, uint8_t grootte, uint8_t kleur, uint8_t stijl)
+uint8_t tekst(uint16_t x_lo, uint16_t y_lo, char* tekst, uint8_t font, uint8_t grootte, uint8_t kleur, uint8_t stijl)
 {
-	//Error checks
-	//Buiten boundry van het scherm
+	// Error checks
+	// Buiten boundry van het scherm
 	if (x_lo>320 || x_lo<0 || y_lo>240 || y_lo<0) return 1;
-	//font, grootte of stijl hebben een ongeldige invoer.
-	if ((font != Font_1 && font != Font_2) || (stijl != Regular && stijl != Bold && stijl != Oblique) || grootte > 10 ) return 2;
+	// Font, grootte of stijl hebben een ongeldige invoer.
+	if ((font != Font_1 && font != Font_2) || (stijl != REGULAR && stijl != BOLD && stijl != OBLIQUE) || grootte > 10 ) return 2;
 	///////// kan potentieel nog iets over kleur bij
 	///////// return 3 staat verder de code in. Vlak na het berekenen van ywrite.
 
-	//variabelen waarin de huidig beschreven coordinaten worden opgeslagen
+	// Variabelen waarin de huidig beschreven coordinaten worden opgeslagen
 	uint16_t xwrite;
 	uint16_t ywrite;
-	//variabelen nodig voor het schrijven op meerdere regels
+	// Variabelen nodig voor het schrijven op meerdere regels
 	uint16_t regelplus = 0;
 	uint8_t xmin = 0;
-	//check voor aantal tekens dat opgestuurd is
+	// Check voor aantal tekens dat opgestuurd is
 	uint16_t size = strlen((const char*)tekst);
-	//de standaardgrootte van een teken
+	// Standaardgrootte van een teken
 	const uint16_t hoog = 12;
 	const uint16_t breed = 7;
 
 	for(uint8_t i = 0; i<size ;i++)
 	{
-		//check om te kijken of er naar de volgende regel gegaan moet worden
+		// Check om te kijken of er naar de volgende regel gegaan moet worden
 		if(x_lo+breed*grootte*(i+1) >= 320+grootte*breed*xmin){regelplus++; xmin = i;}
 		// Start bitmap data in array
 		uint16_t cursor = hoog * tekenbepaling(tekst[i]);
@@ -73,13 +68,13 @@ uint8_t tekst(uint16_t x_lo, uint16_t y_lo, uint8_t* tekst, uint8_t font, uint8_
 		// Bereken startpunt ten opzichte van linksonder
 		for(uint16_t y = (y_lo-hoog*grootte-1); y < y_lo-1; y+= grootte)
 		{
-			//Zet een aantal keer dezelfde bitline onder elkaar gelijk aan grootte
+			// Zet een aantal keer dezelfde bitline onder elkaar gelijk aan grootte
 			for(uint16_t j =0; j < grootte ; j++)
 			{
 				// Stap door bits van het hexadecimale getal
 				for(uint16_t bit = 0; bit <8; bit++)
 				{
-					//Zet een aantal keer dezelfde bit naast elkaar gelijk aan grootte
+					// Zet een aantal keer dezelfde bit naast elkaar gelijk aan grootte
 					for(uint16_t k = 0; k< grootte; k++)
 					{
 						//berekenen op welke plek de pixels berekend moeten worden
@@ -96,13 +91,14 @@ uint8_t tekst(uint16_t x_lo, uint16_t y_lo, uint8_t* tekst, uint8_t font, uint8_
 						 */
 						xwrite = x_lo+bit*grootte-k+breed*grootte*i-grootte*breed*xmin;
 						ywrite = y+j+regelplus*grootte*hoog;
-						//Check of ywrite te groot is
+
+						// Check of ywrite te groot is
 						if (ywrite > 240) return 2;
 
-						//bepalen welk font te gebruiken
+						// Bepalen welk font te gebruiken
 						if(font == 1)
 						{
-							//bepalen welke stijl te gebruiken (Regular, Bold, Oblique)
+							// Bepalen welke stijl te gebruiken (Regular, Bold, Oblique)
 							switch(stijl)
 							{
 							case 1: if(VCR_OSD_Mono_Regular[cursor] & (1 << (8-bit))) setpixel(xwrite, ywrite, kleur); break;
@@ -112,7 +108,7 @@ uint8_t tekst(uint16_t x_lo, uint16_t y_lo, uint8_t* tekst, uint8_t font, uint8_
 						}
 						if(font == 2)
 						{
-							//bepalen welke stijl te gebruiken (Regular, Bold, Oblique)
+							// Bepalen welke stijl te gebruiken (Regular, Bold, Oblique)
 							switch(stijl)
 							{
 							case 1: if(F04b03_Regular [cursor] & (1 << (8-bit))) setpixel(xwrite, ywrite, kleur); break;
@@ -128,7 +124,6 @@ uint8_t tekst(uint16_t x_lo, uint16_t y_lo, uint8_t* tekst, uint8_t font, uint8_
 	}
 	return 0;
 }
-
 
 /***************************
 lijn: teken een lijn.
@@ -150,14 +145,14 @@ lijn: teken een lijn.
 uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dikte, uint8_t kleur)
 {
 
-	//error check
+	// Error check
 	if (x_l>320 || x_l<0 || x_r>320 || x_r<0 || y_l>240 || y_l<0 || y_r>240 || y_r<0)
 		return 1;
 
 	if (dikte > 50)
 		return 2;
 
-	//initieer waarden
+	// Initieer waarden
 	uint16_t y_rn;
 	uint16_t y_ln;
 	uint16_t x_rn;
@@ -168,10 +163,10 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 	uint16_t DIKTE = dikte;
 
 
-	//verticale lijn
+	// Verticale lijn
 	if (x_r == x_l)
 
-	{	//loop voor dikte, meerdere lijnen tekenen
+	{	// Loop voor dikte, meerdere lijnen tekenen
 		for(uint16_t i = 0; i <= DIKTE; i++)
 		{
 			x_l = x_l + 1;
@@ -180,26 +175,26 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 			y_ln = y_l;
 			y_rn = y_r;
 
-			//loop voor dikte, meerdere lijnen tekenen
+			// Loop voor dikte, meerdere lijnen tekenen
 			for(uint16_t j = 0; j <= DIKTE; j++)
 			{
 				y_ln = y_ln + 1;
 				y_rn = y_rn + 1;
 
-				//schrijfrichting bepalen
+				// Schrijfrichting bepalen
 				if (y_l >= y_r)
 
-				{	//pixels schrijven
+				{	// Pixels schrijven
 					for(uint16_t k = y_rn; k <= y_ln; k++)
 					{
 						setpixel(x_r,k,kleur);
 					}
 				}
 
-				//schrijfrichting bepalen
+				// Schrijfrichting bepalen
 				if (y_l < y_r)
 
-				{	//pixels schrijven
+				{	// Pixels schrijven
 					for(uint16_t k = y_ln; k <= y_rn; k++)
 					{
 						setpixel(x_r,k,kleur);
@@ -209,10 +204,10 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 		}
 	}
 
-	//horizontale lijn
+	// Horizontale lijn
 	if (y_r == y_l)
 
-	{	//loop voor dikte, meerdere lijnen tekenen
+	{	// Loop voor dikte, meerdere lijnen tekenen
 		for(uint16_t i = 0 ; i <= DIKTE; i++)
 		{
 			x_l = x_l + 1;
@@ -221,7 +216,7 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 			y_ln = y_l;
 			y_rn = y_r;
 
-			//loop voor dikte, meerdere lijnen tekenen
+			// Loop voor dikte, meerdere lijnen tekenen
 			for(uint16_t j = 0 ; j <= DIKTE; j++)
 			{
 				y_ln = y_ln + 1;
@@ -230,20 +225,20 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 				x_rn = x_r;
 				x_ln = x_l;
 
-				//schrijfrichting bepalen
+				// Schrijfrichting bepalen
 				if (x_l > x_r)
 
-				{	//pixels schrijven
+				{	// Pixels schrijven
 					for(uint16_t k = x_rn; k <= x_ln; k++)
 					{
 						setpixel(k,y_rn,kleur);
 					}
 				}
 
-				//schrijfrichting bepalen
+				// Schrijfrichting bepalen
 				if (x_ln < x_rn)
 
-				{	//pixels schrijven
+				{	// Pixels schrijven
 					for(uint16_t k = x_ln; k <= x_rn; k++)
 					{
 						setpixel(k,y_ln,kleur);
@@ -253,13 +248,13 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 		}
 	}
 
-	//schuine lijn
+	// Schuine lijn
 	else
 	{
-		// richtingscoefficient berekenen
+		// Richtingscoefficient berekenen
 		rc = (float)(y_r-y_l)/(float)(x_r-x_l);
 
-		//loop voor dikte, meerdere lijnen tekenen, x varieeren
+		// Loop voor dikte, meerdere lijnen tekenen, x varieeren
 		for(uint16_t i = 0; i <= DIKTE; i++)
 		{
 			x_l = x_l + 1;
@@ -268,16 +263,16 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 			y_ln = y_l;
 			y_rn = y_r;
 
-			//loop voor dikte, meerdere lijnen tekenen, y varieeren
+			// Loop voor dikte, meerdere lijnen tekenen, y varieeren
 			for(uint16_t j = 0; j <= DIKTE; j++)
 			{
 				y_ln = y_ln + 1;
 				y_rn = y_rn + 1;
 
-				//schrijfrichting bepalen kwadrant 1
+				// Schrijfrichting bepalen kwadrant 1
 				if(x_l<x_r && y_ln<y_rn)
 				{
-					//bepalen of y=f(x) of x=f(y) moet worden gebruikt
+					// Bepalen of y=f(x) of x=f(y) moet worden gebruikt
 					if (rc <= 1 && rc >= -1)
 					{
 						// y bepalen vanuit x met y=f(x) en pixel schrijven
@@ -298,10 +293,10 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 					}
 				}
 
-				//schrijfrichting bepalen kwadrant 2
+				// Schrijfrichting bepalen kwadrant 2
 				if(x_l>x_r && y_ln<y_rn)
 				{
-					//bepalen of y=f(x) of x=f(y) moet worden gebruikt
+					// Bepalen of y=f(x) of x=f(y) moet worden gebruikt
 					if (rc <= 1 && rc >= -1)
 					{
 						// y bepalen vanuit x met y=f(x) en pixel schrijven
@@ -322,10 +317,10 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 					}
 				}
 
-				//schrijfrichting bepalen kwadrant 3
+				// Schrijfrichting bepalen kwadrant 3
 				if(x_l>x_r && y_ln>y_rn)
 				{
-					//bepalen of y=f(x) of x=f(y) moet worden gebruikt
+					// Bepalen of y=f(x) of x=f(y) moet worden gebruikt
 					if (rc <= 1 && rc >= -1)
 					{
 						// y bepalen vanuit x met y=f(x) en pixel schrijven
@@ -346,10 +341,10 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 					}
 				}
 
-				//schrijfrichting bepalen kwadrant 4
+				// Schrijfrichting bepalen kwadrant 4
 				if(x_l<x_r && y_ln>y_rn)
 				{
-					//bepalen of y=f(x) of x=f(y) moet worden gebruikt
+					// Bepalen of y=f(x) of x=f(y) moet worden gebruikt
 					if (rc <= 1 && rc >= -1)
 					{
 						// y bepalen vanuit x met y=f(x) en pixel schrijven
@@ -372,7 +367,7 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 			}
 		}
 	}
-	//succes
+	// Succes
 	return 0;
 }
 
@@ -397,7 +392,7 @@ elips: teken een ellips.
 
 uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_y, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
-	// errors
+	// Errors
 	if(x_mp<1  ||y_mp<1  ||radius_x<1  ||radius_y<1||
 	   x_mp>319||y_mp>239||radius_x>320||radius_y>240)
 		return 1;
@@ -408,14 +403,14 @@ uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_
 	if ((radius_x < radius_y) && (dikte >radius_y/(radius_y/radius_x)))
 		return 2;
 
-	//inititaliseer variabelen
+	// Inititaliseer variabelen
 	int32_t x, y, p;
 	uint16_t x_mpn, y_mpn;
 
-	// check of de ellips gevuld moet zijn
+	// Check of de ellips gevuld moet zijn
 	if (gevuld == true )
 	{
-		// zo ja, dikte aanpassen zodat de ellips gevuld wordt
+		// Zo ja, dikte aanpassen zodat de ellips gevuld wordt
 		if (radius_x >= radius_y)
 			dikte = radius_x/(radius_x/radius_y);
 
@@ -423,16 +418,16 @@ uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_
 			dikte = radius_y/(radius_y/radius_x);
 	}
 
-	// op basis van dikte meerdere vullende ellipsen tekenen
+	// Op basis van dikte meerdere vullende ellipsen tekenen
 	for(uint16_t i = 0; i < dikte; i++)
 	{
 		radius_x = radius_x - 1;
 		radius_y = radius_y - 1;
 
-		// middelpunt voor vullende ellipsen 4 keer iets laten afwijken
+		// Middelpunt voor vullende ellipsen 4 keer iets laten afwijken
 		for (uint16_t j = 0; j < 4; j++)
 		{
-			//middelpunt iets laten afwijken
+			// Middelpunt iets laten afwijken
 			if (dikte>1)
 			{
 				if (j==0)
@@ -459,7 +454,7 @@ uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_
 				}
 			}
 
-			// als de ellips dikte 1 is hoeven er geen meerdere elipsen getekend te worden
+			// Als de ellips dikte 1 is hoeven er geen meerdere elipsen getekend te worden
 			else
 			{
 				x_mpn = x_mp;
@@ -467,7 +462,8 @@ uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_
 				j=4;
 			}
 
-			// hieronder magische ellipscode van het internet http://www.pracspedia.com/CG/midpointellipse.html
+			// Hieronder ellipscode van internet http://www.pracspedia.com/CG/midpointellipse.html
+			// Author: Darshan Gajara
 			x=0;
 			y=radius_y;
 			p=(radius_y*radius_y)-(radius_x*radius_x*radius_y)+((radius_x*radius_x)/4);
@@ -510,13 +506,12 @@ uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_
 			}
 		}
 	}
-	//succes
+	// Succes
 	return 0;
 }
 
-
 /***************************
-Rechthoek: teken een rechthoek.
+rechthoek: teken een rechthoek.
 (x_lo, y_lo, x_rb, y_rb, dikte, kleur, gevuld)
 (c) Jos van Mourik
 ***************************/
@@ -582,7 +577,9 @@ uint8_t rechthoek(uint16_t x_lo, uint16_t y_lo, uint16_t x_rb, uint16_t y_rb, ui
 }
 
 /***************************
-
+driehoek: teken een driehoek.
+(x_1, y_1, x_2, y_2, x_3, y_3, dikte, kleur, gevuld)
+(c) Niels van Rijn
 ***************************/
 
 /*!	een functie die een driehoek tekent op basis van 3 punten met een variabele dikte, kleur en vulling
@@ -611,7 +608,7 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 }
 
 /***************************
-Setpixel: verander pixel van kleur.
+setpixel: verander pixel van kleur.
 (x, y, kleur)
 (c) Franc van der Bent, aangepast door Jos van Mourik
 ***************************/
@@ -639,7 +636,7 @@ uint8_t setpixel(uint16_t x, uint16_t y, uint8_t kleur)
 }
 
 /***************************
-Readpixel: geef de waarde pixel terug.
+readpixel: geef de waarde pixel terug.
 (x, y)
 (c) Jos van Mourik
 ***************************/
@@ -660,7 +657,7 @@ uint16_t readpixel(uint16_t x, uint16_t y)
 }
 
 /***************************
-bitmap: 256 kleuren bitmaps.
+bitmap: 256 kleuren R3G3B2 bitmaps.
 (x_lo, y_lo, map)
 (c) Jos van Mourik
 *****************q**********/
@@ -697,7 +694,7 @@ uint8_t bitmap(uint16_t x_lo, uint16_t y_lo, bitmapfile *bitmap)
 }
 
 /***************************
-Clearscherm: vul het scherm met aangegeven kleur.
+clearscherm: vul het scherm met aangegeven kleur.
 (kleur)
 (c) Franc van der Bent, aangepast door Jos van Mourik
 ***************************/
@@ -736,10 +733,10 @@ uint8_t wacht(uint16_t msecs)
 {
 	uint16_t tel = 0;
 	
-	//hysync duurt 1/16 milliseconde 
+	// Hsync duurt 1/16 milliseconde
 	msecs = msecs*16;		
 	
-	//in deze loop blijven totdat de teller de ingegeven msec waarde heeft bereikt
+	// In loop blijven totdat de teller de ingegeven msec waarde heeft bereikt
 	while(tel<msecs)
 	{
 		if (VGA.hsync_cnt == 500 )
@@ -766,7 +763,7 @@ uint8_t tekenbepaling(uint8_t teken)
 	case '$': tekencode = 4;  break;
 	case '%': tekencode = 5;  break;
 	case '&': tekencode = 6;  break;
-//	case ''': tekencode = 7;  break; // appelstrof?? lukt niet
+//	case ''': tekencode = 7;  break; //  Werkt niet
 	case '(': tekencode = 8;  break;
 	case ')': tekencode = 9;  break;
 	case '*': tekencode = 10; break;
@@ -819,7 +816,7 @@ uint8_t tekenbepaling(uint8_t teken)
 	case 'Y': tekencode = 57; break;
 	case 'Z': tekencode = 58; break;
 	case '[': tekencode = 59; break;
-//	case '/': tekencode = 60; break; //backslash lukt niet
+//	case '/': tekencode = 60; break; //  Werkt niet
 	case ']': tekencode = 61; break;
 	case '^': tekencode = 62; break;
 	case '_': tekencode = 63; break;

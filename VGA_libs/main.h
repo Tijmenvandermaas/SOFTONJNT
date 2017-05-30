@@ -1,6 +1,10 @@
-//--------------------------------------------------------------
-// File     : main.h
-//--------------------------------------------------------------
+/***************************************************************
+main.h
+
+Democode voor vga_api library.
+
+(c) Jos, Tijmen, Niels 06/2017
+***************************************************************/
 
 //--------------------------------------------------------------
 #ifndef __STM32F4_UB_MAIN_H
@@ -16,10 +20,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-
 #include "stm32f4xx.h"
 #include "stm32f4xx_usart.h"
-
 #include "stm32_ub_vga_screen.h"
 #include "vga_api.h"
 #include "uart.h"

@@ -1,3 +1,13 @@
+/*
+Author: 	W Pielage & E Helmond
+	  :		M Scager J.F. van der Bent
+Date:		13-6-2014
+Revision:	2
+
+    uart.h:
+          UART2 driver for ARM-board V5
+*/
+
 #define CR 13 // carriage return char
 #define LF 10 // linefeed char
 

@@ -3,7 +3,7 @@ main.c
 
 Democode voor vga_api library.
 
-(c) Jos, Tijmen, Niels 05/2017
+(c) Jos, Tijmen, Niels 06/2017
 ***************************************************************/
 
 #include "main.h"
@@ -19,11 +19,10 @@ uint8_t parseinput(void)
 {
 	// Uart buffer cursor
 	uint8_t bufcursor = 0;
-
 	// Argument id
 	uint8_t id = 0;
 
-	// Legen argumenten
+	// Leeg argumenten
 	memset(arguments,0,sizeof(arguments));
 
 	while (1)
@@ -108,7 +107,7 @@ uint8_t parseoutput(void)
 			driehoek(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), atoi(&arguments[3][0]), (239-atoi(&arguments[4][0])), atoi(&arguments[5][0]), (239-atoi(&arguments[6][0])), 1, parsecolor(&arguments[7][0]), 1);
 			break;
 		case 't':
-			tekst(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), (&arguments[3][0]), 1, 1, parsecolor(&arguments[4][0]), parsestijl(&arguments[5][0])); // tekst moet pointer worden
+			tekst(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), (&arguments[3][0]), 1, 1, parsecolor(&arguments[4][0]), parsestijl(&arguments[5][0]));
 			break;
 		case 'b':
 			bitmap(atoi(&arguments[2][0]), (239-atoi(&arguments[3][0])), parsebitmap(&arguments[1][0]));
@@ -120,7 +119,6 @@ uint8_t parseoutput(void)
 			wacht(atoi(&arguments[1][0]));
 			break;
 	}
-
 	return 0;
 }
 

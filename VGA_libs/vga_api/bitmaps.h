@@ -1,9 +1,15 @@
 /***************************************************************
 bitmaps.h
 
+Bevat R3G3B2 bitmapfiles voor de bitmapfunctie.
+
+inhoud:
+uint16_t x; // breedte
+uint16_t y;	// hoogte
+char data[];// pixelwaarden
 
 HU Software Ontwikkeling.
-(c) Jos, Tijmen, Niels 05/2017
+(c) Jos, Tijmen, Niels 06/2017
 ***************************************************************/
 
 bitmapfile emoji_blij_64 =
