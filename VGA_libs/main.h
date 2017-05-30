@@ -14,6 +14,8 @@
 #include <stdbool.h>
 #include <stdarg.h>
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 #include "stm32f4xx.h"
 #include "stm32f4xx_usart.h"
@@ -24,3 +26,12 @@
 
 //--------------------------------------------------------------
 #endif // __STM32F4_UB_MAIN_H
+
+//--------------------------------------------------------------
+// Function prototypes
+//--------------------------------------------------------------
+uint8_t parsecolor(char* kleur);
+uint8_t parseoutput(void);
+uint8_t parseinput(void);
+uint8_t parsestijl(char* stijl);
+bitmapfile* parsebitmap(char* bitmaps);
