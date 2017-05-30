@@ -41,9 +41,26 @@ typedef const struct
 #define  GRIJS			0x92
 #define  WIT			0xFF
 
-// Font bitmaps
-const char tekens_1[];
-const char tekens_2[];
+//Stijlen
+#define	 Regular		0x01
+#define	 Bold			0x02
+#define	 Oblique		0x03
+
+//Fonts
+#define	 Font_1			0x01
+#define	 Font_2			0x02
+
+//Sizes
+#define	 Size_1			0x01
+#define	 Size_2			0x02
+#define	 Size_3			0x03
+#define  Size_4			0x04
+#define	 Size_5			0x05
+#define  Size_6			0x06
+#define	 Size_7			0x07
+#define  Size_8			0x08
+#define	 Size_9			0x09
+#define  Size_10		0x0A
 
 /***************************
 Globale functies

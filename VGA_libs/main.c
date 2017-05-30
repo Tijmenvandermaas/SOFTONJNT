@@ -55,25 +55,25 @@ int main(void)
 */
 
 
-	// Kleuren demo
-	lijn(0,10,239,10, 5, BLAUW);
-	lijn(0,20,239,20, 5, LICHTBLAUW);
-	lijn(0,30,239,30, 5, GROEN);
-	lijn(0,40,239,40, 5, LICHTGROEN);
-	lijn(0,50,239,50, 5, ROOD);
-	lijn(0,60,239,60, 5, LICHTROOD);
-	lijn(0,70,239,70, 5, CYAAN);
-	lijn(0,80,239,80, 5, LICHTCYAAN);
-	lijn(0,90,239,90, 5, MAGENTA);
-	lijn(0,100,239,100, 5, LICHTMAGENTA);
-	lijn(0,110,239,110, 5, BRUIN);
-	lijn(0,120,239,120, 5, GEEL);
-	lijn(0,130,239,130, 5, GRIJS);
-	lijn(0,140,239,140, 5, WIT);
+//	// Kleuren demo
+//	lijn(0,10,239,10, 5, BLAUW);
+//	lijn(0,20,239,20, 5, LICHTBLAUW);
+//	lijn(0,30,239,30, 5, GROEN);
+//	lijn(0,40,239,40, 5, LICHTGROEN);
+//	lijn(0,50,239,50, 5, ROOD);
+//	lijn(0,60,239,60, 5, LICHTROOD);
+//	lijn(0,70,239,70, 5, CYAAN);
+//	lijn(0,80,239,80, 5, LICHTCYAAN);
+//	lijn(0,90,239,90, 5, MAGENTA);
+//	lijn(0,100,239,100, 5, LICHTMAGENTA);
+//	lijn(0,110,239,110, 5, BRUIN);
+//	lijn(0,120,239,120, 5, GEEL);
+//	lijn(0,130,239,130, 5, GRIJS);
+//	lijn(0,140,239,140, 5, WIT);
 
 
 	// Tekst demo
-	tekst(10, 50, "Hallo mensjes, mijn naam is Niels en ik ben cool", 100, 2 ,BLAUW, 100);
+	tekst(10, 50, "Hallo Mensjes, mijn naam is Niels en ik ben cool", Font_1, Size_4 ,BLAUW, Bold);
 
 	// UART Demo
 	  UART_putint(1);
