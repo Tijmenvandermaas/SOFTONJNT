@@ -96,22 +96,22 @@ uint8_t parseoutput(void)
 	switch(arguments[0][0])
 	{
 		case 'l':
-			lijn(atoi(&arguments[1][0]), atoi(&arguments[2][0]), atoi(&arguments[3][0]), atoi(&arguments[4][0]), atoi(&arguments[5][0]), parsecolor(&arguments[6][0]));
+			lijn(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), atoi(&arguments[3][0]), (239-atoi(&arguments[4][0])), atoi(&arguments[5][0]), parsecolor(&arguments[6][0]));
 			break;
 		case 'e':
-			ellips(atoi(&arguments[1][0]), atoi(&arguments[2][0]), atoi(&arguments[3][0]), atoi(&arguments[4][0]), 1, parsecolor(&arguments[5][0]), 1);
+			ellips(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), atoi(&arguments[3][0]), atoi(&arguments[4][0]), 1, parsecolor(&arguments[5][0]), 1);
 			break;
 		case 'r':
-			rechthoek(atoi(&arguments[1][0]), atoi(&arguments[2][0]), atoi(&arguments[3][0]), atoi(&arguments[4][0]), 1, parsecolor(&arguments[5][0]), 1);
+			rechthoek(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), atoi(&arguments[3][0]), (239-atoi(&arguments[4][0])), 1, parsecolor(&arguments[5][0]), 1);
 			break;
 		case 'd':
-			driehoek(atoi(&arguments[1][0]), atoi(&arguments[2][0]), atoi(&arguments[3][0]), atoi(&arguments[4][0]), atoi(&arguments[5][0]), atoi(&arguments[6][0]), 1, parsecolor(&arguments[7][0]), 1);
+			driehoek(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), atoi(&arguments[3][0]), (239-atoi(&arguments[4][0])), atoi(&arguments[5][0]), (239-atoi(&arguments[6][0])), 1, parsecolor(&arguments[7][0]), 1);
 			break;
 		case 't':
-			tekst(atoi(&arguments[1][0]), atoi(&arguments[2][0]), (arguments[3][0]), 1, 1, parsecolor(&arguments[4][0]), parsestijl(&arguments[5][0])); // tekst moet pointer worden
+			tekst(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), (arguments[3][0]), 1, 1, parsecolor(&arguments[4][0]), parsestijl(&arguments[5][0])); // tekst moet pointer worden
 			break;
 		case 'b':
-			bitmap(atoi(&arguments[2][0]), atoi(&arguments[3][0]), parsebitmap(&arguments[1][0]));
+			bitmap(atoi(&arguments[2][0]), (239-atoi(&arguments[3][0])), parsebitmap(&arguments[1][0]));
 			break;
 		case 'c':
 			clearscherm(parsecolor(&arguments[1][0]));
