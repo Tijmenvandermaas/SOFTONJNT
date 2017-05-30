@@ -39,7 +39,7 @@ tekst: zet tekst op scherm
 	\return 1  = buiten scherm
 */
 
-void tekst(uint16_t x_lo, uint16_t y_lo, uint8_t tekst[100], uint8_t font, uint8_t grootte, uint8_t kleur, uint8_t stijl)
+void tekst(uint16_t x_lo, uint16_t y_lo, uint8_t* tekst, uint8_t font, uint8_t grootte, uint8_t kleur, uint8_t stijl)
 {
 	//variabelen waarin de huidig beschreven coordinaten worden opgeslagen
 	uint16_t xwrite;

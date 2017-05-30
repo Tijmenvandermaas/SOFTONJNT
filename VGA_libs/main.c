@@ -108,7 +108,7 @@ uint8_t parseoutput(void)
 			driehoek(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), atoi(&arguments[3][0]), (239-atoi(&arguments[4][0])), atoi(&arguments[5][0]), (239-atoi(&arguments[6][0])), 1, parsecolor(&arguments[7][0]), 1);
 			break;
 		case 't':
-			tekst(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), (arguments[3][0]), 1, 1, parsecolor(&arguments[4][0]), parsestijl(&arguments[5][0])); // tekst moet pointer worden
+			tekst(atoi(&arguments[1][0]), (239-atoi(&arguments[2][0])), (&arguments[3][0]), 1, 1, parsecolor(&arguments[4][0]), parsestijl(&arguments[5][0])); // tekst moet pointer worden
 			break;
 		case 'b':
 			bitmap(atoi(&arguments[2][0]), (239-atoi(&arguments[3][0])), parsebitmap(&arguments[1][0]));
