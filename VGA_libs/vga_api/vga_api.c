@@ -37,10 +37,20 @@ tekst: zet tekst op scherm
 	\param stijl is een unsigned 8 bit integer argument, dit bepaalt de stijl van de tekst
 	\return 0  = succes
 	\return 1  = buiten scherm
+	\return 2  = invoer fout bij font, grootte of stijl
+	\return 3  = tekst te groot voor het scherm.
 */
 
-void tekst(uint16_t x_lo, uint16_t y_lo, uint8_t* tekst, uint8_t font, uint8_t grootte, uint8_t kleur, uint8_t stijl)
+uint8_t tekst(uint16_t x_lo, uint16_t y_lo, uint8_t* tekst, uint8_t font, uint8_t grootte, uint8_t kleur, uint8_t stijl)
 {
+	//Error checks
+	//Buiten boundry van het scherm
+	if (x_lo>320 || x_lo<0 || y_lo>240 || y_lo<0) return 1;
+	//font, grootte of stijl hebben een ongeldige invoer.
+	if ((font != Font_1 && font != Font_2) || (stijl != Regular && stijl != Bold && stijl != Oblique) || grootte > 10 ) return 2;
+	///////// kan potentieel nog iets over kleur bij
+	///////// return 3 staat verder de code in. Vlak na het berekenen van ywrite.
+
 	//variabelen waarin de huidig beschreven coordinaten worden opgeslagen
 	uint16_t xwrite;
 	uint16_t ywrite;
@@ -86,6 +96,9 @@ void tekst(uint16_t x_lo, uint16_t y_lo, uint8_t* tekst, uint8_t font, uint8_t g
 						 */
 						xwrite = x_lo+bit*grootte-k+breed*grootte*i-grootte*breed*xmin;
 						ywrite = y+j+regelplus*grootte*hoog;
+						//Check of ywrite te groot is
+						if (ywrite > 240) return 2;
+
 						//bepalen welk font te gebruiken
 						if(font == 1)
 						{
@@ -113,6 +126,7 @@ void tekst(uint16_t x_lo, uint16_t y_lo, uint8_t* tekst, uint8_t font, uint8_t g
 			cursor++;
 		}
 	}
+	return 0;
 }
 
 
@@ -588,9 +602,9 @@ uint8_t rechthoek(uint16_t x_lo, uint16_t y_lo, uint16_t x_rb, uint16_t y_rb, ui
 
 uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_t x_3, uint16_t y_3, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
-	lijn(x_1,y_1,x_2,y_2,dikte,kleur); //Print de drie lijnen waaruit de driehoek bestaat.
-	lijn(x_1,y_1,x_3,y_3,dikte,kleur);
-	lijn(x_2,y_2,x_3,y_3,dikte,kleur);
+	lijn(x_1,y_1,x_2,y_2,1,kleur); //Print de drie lijnen waaruit de driehoek bestaat.
+	lijn(x_1,y_1,x_3,y_3,1,kleur);
+	lijn(x_2,y_2,x_3,y_3,1,kleur);
 
 	// Success
 	return 0;
