@@ -4,7 +4,7 @@ vga_logic.c
 Democode
 Logic layer voor vga_api library.
 
-(c) Jos, Tijmen, Niels 06/2017
+(c) Jos van Mourik
 ***************************************************************/
 
 #include "vga_logic.h"

@@ -4,7 +4,7 @@ vga_ui.c
 Democode
 UI layer voor vga_api library.
 
-(c) Jos, Tijmen, Niels 06/2017
+(c) Jos van Mourik
 ***************************************************************/
 
 #include "vga_ui.h"
@@ -36,7 +36,6 @@ int main(void)
 
 	// Initieer UART
 	UART_init();
-
 	UART_puts ("VGA demo Jos-Niels-Tijmen (c)2017\n");
 
   while(1)
@@ -51,11 +50,8 @@ int main(void)
 	  strcpy(buf, "driehoek,10,10,20,20,30,15,rood");
 	  #endif
 
-	  // Verwerk uart input
-	  uint8_t args = parseinput(&buf[0]);
-
-	  // Check of er argumenten zijn, stuur api aan, verwerk return values
-	  if(args) parseargument(parseoutput());
+	  // Verwerk uart input, check of er argumenten zijn, stuur api aan, verwerk return values
+	  if(parseinput(&buf[0])) parseargument(parseoutput());
 
 	  #ifdef DEBUG
 	  // Geef argumenten weer
