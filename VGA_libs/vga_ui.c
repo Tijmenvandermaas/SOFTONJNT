@@ -42,9 +42,14 @@ int main(void)
   while(1)
   {
 	  // Stop tekens in buffer, echo
+	  #ifndef DEBUG
 	  UART_gets (buf, 1);
+	  #endif
 
-	  //strcpy(buf, "driehoek,10,10,20,20,30,15,rood");
+	  //Debug zonder uart
+	  #ifdef DEBUG
+	  strcpy(buf, "driehoek,10,10,20,20,30,15,rood");
+	  #endif
 
 	  // Verwerk uart input
 	  uint8_t args = parseinput(&buf[0]);
