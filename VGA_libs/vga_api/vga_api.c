@@ -2,7 +2,7 @@
 vga_api.h
 
 Return values:
-0 - success
+0 - succes
 1 - buiten scherm! (256 bij getpixel)
 2 - dikte/invoer te groot!
 3 - foutieve invoer!
@@ -41,7 +41,7 @@ uint8_t tekst(uint16_t x_lo, uint16_t y_lo, char* tekst, uint8_t font, uint8_t g
 {
 	// Error checks
 	// Buiten grenzen van het scherm
-	if (x_lo>320 || x_lo<0 || y_lo>240 || y_lo<0) return 1;
+	if (x_lo>=320 || y_lo>=240) return 1;
 	// Font, grootte of stijl hebben een ongeldige invoer.
 	if ((font != FONT_1 && font != FONT_2) || (stijl != REGULAR && stijl != BOLD && stijl != OBLIQUE) || grootte > 10 ) return 3;
 	// Kan potentieel nog iets over kleur bij
@@ -94,7 +94,7 @@ uint8_t tekst(uint16_t x_lo, uint16_t y_lo, char* tekst, uint8_t font, uint8_t g
 						ywrite = y+j+regelplus*grootte*hoog;
 
 						// Check of ywrite te groot is
-						if (ywrite > 240) return 2;
+						if (ywrite >= 240) return 2;
 
 						// Bepalen welk font te gebruiken
 						if(font == 1)
@@ -123,6 +123,7 @@ uint8_t tekst(uint16_t x_lo, uint16_t y_lo, char* tekst, uint8_t font, uint8_t g
 			cursor++;
 		}
 	}
+	// Succes
 	return 0;
 }
 
@@ -145,18 +146,13 @@ lijn: teken een lijn.
 */
 uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dikte, uint8_t kleur)
 {
-
 	// Error check
-	if (x_l>320 || x_l<0 || x_r>320 || x_r<0 || y_l>240 || y_l<0 || y_r>240 || y_r<0)
-		return 1;
+	if (x_l>=320 || x_r>=320 || y_l>=240 || y_r>=240) return 1;
 
 	if(x_l + dikte > 319 || x_l - dikte < 1 || x_r + dikte > 319 || x_r - dikte < 1 ||
-	   y_l + dikte > 239 || y_l - dikte < 1 || y_r + dikte > 239 || y_r - dikte < 1)
-		return 1;
+	   y_l + dikte > 239 || y_l - dikte < 1 || y_r + dikte > 239 || y_r - dikte < 1) return 1;
 
-	
-	if (dikte > 50)
-		return 2;
+	if (dikte > 50) return 2;
 
 	// Initieer waarden
 	uint16_t y_rn;
@@ -400,26 +396,14 @@ uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_
 {
 	// Errors
 	if(x_mp<1  ||y_mp<1  ||radius_x<1  ||radius_y<1||
-	   x_mp>319||y_mp>239||radius_x>320||radius_y>240)
-		return 1;
+	   x_mp>319||y_mp>239||radius_x>=320||radius_y>=240) return 1;
 
-	if((x_mp + (radius_x))> 319)
-		return 1;
-
-	if((x_mp - (radius_x))< 1 )
-		return 1;
-
-	if((y_mp + (radius_y))> 239 )
-		return 1;
-
-	if((y_mp - (radius_y))< 1 )
-		return 1;
-
-	if ((radius_x >= radius_y)&& (dikte >radius_x/(radius_x/radius_y)))
-		return 2;
-
-	if ((radius_x < radius_y) && (dikte >radius_y/(radius_y/radius_x)))
-		return 2;
+	if((x_mp + (radius_x))> 319) return 1;
+	if((x_mp - (radius_x))< 1 ) return 1;
+	if((y_mp + (radius_y))> 239 ) return 1;
+	if((y_mp - (radius_y))< 1 ) return 1;
+	if ((radius_x >= radius_y)&& (dikte >radius_x/(radius_x/radius_y))) return 2;
+	if ((radius_x < radius_y) && (dikte >radius_y/(radius_y/radius_x))) return 2;
 
 	// Inititaliseer variabelen
 	int32_t x, y, p;
@@ -590,7 +574,7 @@ uint8_t rechthoek(uint16_t x_lo, uint16_t y_lo, uint16_t x_rb, uint16_t y_rb, ui
 		}
 	}
 
-	// Success
+	// Succes
 	return 0;
 }
 
@@ -618,11 +602,9 @@ driehoek: teken een driehoek.
 uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_t x_3, uint16_t y_3, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
 	// Error check
-	if (x_1>320 || x_2>320 || x_3>320 || y_1>240 || y_2>240|| y_3>240)
-		return 1;
+	if (x_1>=320 || x_2>=320 || x_3>=320 || y_1>=240 || y_2>=240|| y_3>=240) return 1;
 
-	if (dikte > 50)
-		return 2;
+	if (dikte > 50) return 2;
 
 	if(gevuld == 0)
 	{
@@ -631,9 +613,9 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 		uint8_t error3 = lijn(x_2,y_2,x_3,y_3,1,kleur);
 
 		//als de lijnfuncties een error geven kopieer deze error
-		if(error1 != 0) return error1;
-		if(error2 != 0) return error2;
-		if(error3 != 0) return error3;
+		if(error1) return error1;
+		if(error2) return error2;
+		if(error3) return error3;
 	}
 	else
 	{
@@ -865,7 +847,7 @@ uint8_t setpixel(uint16_t x, uint16_t y, uint8_t kleur)
 	{
 		VGA_RAM1[(y*(VGA_DISPLAY_X+1))+x] = kleur;
 
-		// Success
+		// Succes
 		return 0;
 	}
 
@@ -926,8 +908,7 @@ uint8_t bitmap(uint16_t x_lo, uint16_t y_lo, bitmapfile *bitmap)
 			cursor++;
 		}
 	}
-
-	// Success
+	// Succes
 	return 0;
 }
 
@@ -951,8 +932,7 @@ uint8_t clearscherm(uint8_t kleur)
 			setpixel(x, y, kleur);
 		}
 	}
-
-	// Success
+	// Succes
 	return 0;
 }
 
@@ -983,8 +963,7 @@ uint8_t wacht(uint16_t msecs)
 		if (VGA.hsync_cnt == 500 )
 			tel++;
 	}
-
-	// Success
+	// Succes
 	return 0;
 }
 

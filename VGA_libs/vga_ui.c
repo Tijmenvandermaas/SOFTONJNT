@@ -17,7 +17,7 @@ char buf[100];
 // Geef output van return values
 void parseargument(uint16_t error)
 {
-	  if(error == 0) UART_puts ("success!\n");
+	  if(error == 0) UART_puts ("succes!\n");
 	  else if(error == 1 || error == 256) UART_puts ("ERROR1 - coordinaten buiten scherm!\n");
 	  else if(error == 2) UART_puts ("ERROR2 - te grote parameter!\n");
 	  else if(error == 3) UART_puts ("ERROR3 - foutieve parameter!\n");
@@ -47,20 +47,10 @@ int main(void)
 
 	  // Debug zonder uart
 	  #ifdef DEBUG
-	  strcpy(buf, "driehoek,10,10,20,20,30,15,rood");
+	  strcpy(buf, "lijn,1,1,100,100,4,rood");
 	  #endif
 
 	  // Verwerk uart input, check of er argumenten zijn, stuur api aan, verwerk return values
 	  if(parseinput(&buf[0])) parseargument(parseoutput());
-
-	  // Geef argumenten weer
-	  #ifdef DEBUG
-	  UART_puts ("---args---\n");
-	  for(uint8_t i = 0; i <= args; i++)
-	  {
-		  UART_puts (&(arguments[i][0]));
-		  UART_puts ("\n");
-	  }
-	  #endif
   }
 }
