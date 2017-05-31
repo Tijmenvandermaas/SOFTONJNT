@@ -615,7 +615,7 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 	}
 	else
 	{
-		uint8_t coordinaten[240][2];
+		uint16_t coordinaten[240][2];
 		memset(coordinaten,0,sizeof(coordinaten));
 		uint8_t vullen = 0;
 
@@ -627,7 +627,7 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 		uint16_t y;
 		uint16_t x;
 		float rc;
-		for(uint8_t i = 1; i<4; i++)
+		for(uint8_t i = 0; i<3; i++)
 			{
 				//uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r
 				switch (i)
@@ -647,8 +647,8 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 					{	// Pixels schrijven
 						for(uint16_t k = y_r; k <= y_l; k++)
 						{
-							if(x_r < coordinaten[k][1] || coordinaten[k][1] == 0) coordinaten[k][1] = x_r;
-							if(x_r > coordinaten[k][2]) coordinaten[k][2] = x_r;
+							if(x_r < coordinaten[k][0] || coordinaten[k][0] == 0) coordinaten[k][0] = x_r;
+							if(x_r > coordinaten[k][1]) coordinaten[k][1] = x_r;
 						}
 					}
 
@@ -658,8 +658,8 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 					{	// Pixels schrijven
 						for(uint16_t k = y_l; k <= y_r; k++)
 						{
-							if(x_r < coordinaten[k][1] || coordinaten[k][1] == 0) coordinaten[k][1] = x_r;
-							if(x_r > coordinaten[k][2]) coordinaten[k][2] = x_r;
+							if(x_r < coordinaten[k][0] || coordinaten[k][0] == 0) coordinaten[k][0] = x_r;
+							if(x_r > coordinaten[k][1]) coordinaten[k][1] = x_r;
 
 						}
 					}
@@ -677,8 +677,8 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 						for(uint16_t k = x_r; k <= x_l; k++)
 						{
 							coordinaten[k][y_r] = i;
-							if(k < coordinaten[y_r][1] || coordinaten[y_r][1] == 0) coordinaten[y_r][1] = k;
-							if(k > coordinaten[y_r][2]) coordinaten[y_r][2] = k;
+							if(k < coordinaten[y_r][0] || coordinaten[y_r][0] == 0) coordinaten[y_r][0] = k;
+							if(k > coordinaten[y_r][1]) coordinaten[y_r][1] = k;
 						}
 					}
 
@@ -689,8 +689,8 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 						for(uint16_t k = x_l; k <= x_r; k++)
 						{
 							coordinaten[k][y_l] = i;
-							if(k < coordinaten[y_l][1] || coordinaten[y_l][1] == 0) coordinaten[y_l][1] = k;
-							if(k > coordinaten[y_l][2]) coordinaten[y_l][2] = k;
+							if(k < coordinaten[y_l][0] || coordinaten[y_l][0] == 0) coordinaten[y_l][0] = k;
+							if(k > coordinaten[y_l][1]) coordinaten[y_l][1] = k;
 						}
 					}
 				}
@@ -711,8 +711,8 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 							for(uint16_t k = x_l; k <= x_r; k++)
 							{
 								y = rc * (k - x_l) + y_l;
-								if(k < coordinaten[y][1] || coordinaten[y][1] == 0) coordinaten[y][1] = k;
-								if(k > coordinaten[y][2]) coordinaten[y][2] = k;
+								if(k < coordinaten[y][0] || coordinaten[y][0] == 0) coordinaten[y][0] = k;
+								if(k > coordinaten[y][1]) coordinaten[y][1] = k;
 
 							}
 						}
@@ -723,8 +723,8 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 							{
 								x =  ((float)(k - y_l)/(rc))+ x_l;
 								coordinaten[x][k] = i;
-								if(x < coordinaten[k][1] || coordinaten[k][1] == 0) coordinaten[k][1] = x;
-								if(x > coordinaten[k][2]) coordinaten[k][2] = x;
+								if(x < coordinaten[k][0] || coordinaten[k][0] == 0) coordinaten[k][0] = x;
+								if(x > coordinaten[k][1]) coordinaten[k][1] = x;
 							}
 						}
 					}
@@ -739,8 +739,8 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 							for(uint16_t k = x_r; k <= x_l; k++)
 							{
 								y = rc * (k - x_l) + y_l;
-								if(k < coordinaten[y][1] || coordinaten[y][1] == 0) coordinaten[y][1] = k;
-								if(k > coordinaten[y][2]) coordinaten[y][2] = k;
+								if(k < coordinaten[y][0] || coordinaten[y][0] == 0) coordinaten[y][0] = k;
+								if(k > coordinaten[y][1]) coordinaten[y][1] = k;
 							}
 						}
 						else
@@ -750,8 +750,8 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 							{
 								x =  ((float)(k - y_l)/(rc))+ x_l;
 								coordinaten[x][k] = i;
-								if(x < coordinaten[k][1] || coordinaten[k][1] == 0) coordinaten[k][1] = x;
-								if(x > coordinaten[k][2]) coordinaten[k][2] = x;
+								if(x < coordinaten[k][0] || coordinaten[k][0] == 0) coordinaten[k][0] = x;
+								if(x > coordinaten[k][1]) coordinaten[k][1] = x;
 							}
 						}
 					}
@@ -766,8 +766,8 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 							for(uint16_t k = x_r; k <= x_l; k++)
 							{
 								y = rc * (k - x_l) + y_l;
-								if(k < coordinaten[y][1] || coordinaten[y][1] == 0) coordinaten[y][1] = k;
-								if(k > coordinaten[y][2]) coordinaten[y][2] = k;
+								if(k < coordinaten[y][0] || coordinaten[y][0] == 0) coordinaten[y][0] = k;
+								if(k > coordinaten[y][1]) coordinaten[y][1] = k;
 							}
 						}
 						else
@@ -776,8 +776,8 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 							for(uint16_t k = y_r; k <= y_l; k++)
 							{
 								x =  ((float)(k - y_l)/(rc))+ x_l;
-								if(x < coordinaten[k][1] || coordinaten[k][1] == 0) coordinaten[k][1] = x;
-								if(x > coordinaten[k][2]) coordinaten[k][2] = x;
+								if(x < coordinaten[k][0] || coordinaten[k][0] == 0) coordinaten[k][0] = x;
+								if(x > coordinaten[k][1]) coordinaten[k][1] = x;
 							}
 						}
 					}
@@ -792,8 +792,8 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 							for(uint16_t k = x_l; k <= x_r; k++)
 							{
 								y = rc * (k - x_l) + y_l;
-								if(k < coordinaten[y][1] || coordinaten[y][1] == 0) coordinaten[y][1] = k;
-								if(k > coordinaten[y][2]) coordinaten[y][2] = k;
+								if(k < coordinaten[y][0] || coordinaten[y][0] == 0) coordinaten[y][0] = k;
+								if(k > coordinaten[y][1]) coordinaten[y][1] = k;
 							}
 						}
 						else
@@ -802,8 +802,8 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 							for(uint16_t k = y_r; k <= y_l; k++)
 							{
 								x =  ((float)(k - y_l)/(rc))+ x_l;
-								if(x < coordinaten[k][1] || coordinaten[k][1] == 0) coordinaten[k][1] = x;
-								if(x > coordinaten[k][2]) coordinaten[k][2] = x;
+								if(x < coordinaten[k][0] || coordinaten[k][0] == 0) coordinaten[k][0] = x;
+								if(x > coordinaten[k][1]) coordinaten[k][1] = x;
 							}
 						}
 					}
@@ -811,14 +811,12 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 			}
 		for(y = 0; y<240; y++)
 		{
-			for(x = 0; x<320; x++)
+			for(x = 1; x<320; x++)
 			{
-				for(uint8_t i = 1; i<4; i++)
-				{
-					if(coordinaten[x][y] == i) {vullen = i; setpixel(x,y,kleur);}
-					if(vullen != 0) setpixel(x,y,kleur);
-					if(coordinaten[x][y] == i && i != vullen){ vullen = 0;}
-				}
+
+				if(coordinaten[y][0] == x) {vullen = 1; setpixel(x,y,kleur);}
+				if(vullen != 0) setpixel(x,y,kleur);
+				if(coordinaten[y][1] == x){ vullen = 0;}
 			}
 		vullen = 0;
 		}
