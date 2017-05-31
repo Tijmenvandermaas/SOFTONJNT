@@ -11,6 +11,7 @@ Logic layer voor vga_api library.
 // Includes
 //--------------------------------------------------------------
 #include "vga_ui.h"
+#include <stdlib.h>
 
 //--------------------------------------------------------------
 // Function prototypes

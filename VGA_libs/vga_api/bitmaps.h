@@ -9,7 +9,7 @@ uint16_t y;	// hoogte
 char data[];// pixelwaarden
 
 HU Software Ontwikkeling.
-(c) Jos, Tijmen, Niels 06/2017
+(c) Jos van Mourik
 ***************************************************************/
 
 bitmapfile emoji_blij_64 =

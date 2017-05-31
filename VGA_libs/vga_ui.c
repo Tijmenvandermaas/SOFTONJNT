@@ -45,7 +45,7 @@ int main(void)
 	  UART_gets (buf, 1);
 	  #endif
 
-	  //Debug zonder uart
+	  // Debug zonder uart
 	  #ifdef DEBUG
 	  strcpy(buf, "driehoek,10,10,20,20,30,15,rood");
 	  #endif
@@ -53,8 +53,8 @@ int main(void)
 	  // Verwerk uart input, check of er argumenten zijn, stuur api aan, verwerk return values
 	  if(parseinput(&buf[0])) parseargument(parseoutput());
 
-	  #ifdef DEBUG
 	  // Geef argumenten weer
+	  #ifdef DEBUG
 	  UART_puts ("---args---\n");
 	  for(uint8_t i = 0; i <= args; i++)
 	  {

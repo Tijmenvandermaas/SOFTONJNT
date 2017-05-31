@@ -8,10 +8,25 @@ Revision:	2
           UART2 driver for ARM-board V5
 */
 
+//--------------------------------------------------------------
+// Includes
+//--------------------------------------------------------------
+#include <stdio.h>
+#include <stdarg.h>
+#include "stm32f4xx_usart.h"
+#include "stm32f4xx_gpio.h"
+#include "stm32f4xx_rcc.h"
+#include "misc.h"
+
+//--------------------------------------------------------------
+// Defines
+//--------------------------------------------------------------
 #define CR 13 // carriage return char
 #define LF 10 // linefeed char
 
-
+//--------------------------------------------------------------
+// Function prototypes
+//--------------------------------------------------------------
 void UART_init(void);
 signed int UART_printf(size_t length, const char *pFormat, ...);
 void UART_INT_init(void);
