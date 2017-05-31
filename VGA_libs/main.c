@@ -154,6 +154,8 @@ int main(void)
 	  // Stop tekens in buffer, echo
 	  UART_gets (buf, 1);
 
+	  //strcpy(buf, "driehoek,10,10,20,20,30,15,rood");
+
 	  // Verwerk argumenten
 	  uint8_t args = parseinput();
 

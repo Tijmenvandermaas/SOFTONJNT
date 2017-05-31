@@ -601,7 +601,7 @@ driehoek: teken een driehoek.
 uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_t x_3, uint16_t y_3, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
 	// Error check
-	if (x_1>320 || x_1<0 || x_2>320 || x_2<0 || x_3>320 || x_3<0 || y_1>240 || y_1<0 || y_2>240 || y_2<0 || y_3>240 || y_3<0)
+	if (x_1>320 || x_2>320 || x_3>320 || y_1>240 || y_2>240|| y_3>240)
 		return 1;
 
 	if (dikte > 50)
@@ -615,19 +615,19 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 	}
 	else
 	{
-		uint8_t coordinaten[321][241];
+		uint8_t coordinaten[320][240];
 		memset(coordinaten,0,sizeof(coordinaten));
 		uint8_t vullen = 0;
 
 		// Initieer waarden
-			uint16_t x_l;
-			uint16_t y_l;
-			uint16_t x_r;
-			uint16_t y_r;
-			uint16_t y;
-			uint16_t x;
-			float rc;
-			for(uint8_t i = 0; i<3; i++)
+		uint16_t x_l;
+		uint16_t y_l;
+		uint16_t x_r;
+		uint16_t y_r;
+		uint16_t y;
+		uint16_t x;
+		float rc;
+		for(uint8_t i = 0; i<3; i++)
 			{
 				//uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r
 				switch (i)
