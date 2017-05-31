@@ -676,7 +676,6 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 					{	// Pixels schrijven
 						for(uint16_t k = x_r; k <= x_l; k++)
 						{
-							coordinaten[k][y_r] = i;
 							if(k < coordinaten[y_r][0] || coordinaten[y_r][0] == 0) coordinaten[y_r][0] = k;
 							if(k > coordinaten[y_r][1]) coordinaten[y_r][1] = k;
 						}
@@ -688,7 +687,6 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 					{	// Pixels schrijven
 						for(uint16_t k = x_l; k <= x_r; k++)
 						{
-							coordinaten[k][y_l] = i;
 							if(k < coordinaten[y_l][0] || coordinaten[y_l][0] == 0) coordinaten[y_l][0] = k;
 							if(k > coordinaten[y_l][1]) coordinaten[y_l][1] = k;
 						}
@@ -722,7 +720,6 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 							for(uint16_t k = y_l; k <= y_r; k++)
 							{
 								x =  ((float)(k - y_l)/(rc))+ x_l;
-								coordinaten[x][k] = i;
 								if(x < coordinaten[k][0] || coordinaten[k][0] == 0) coordinaten[k][0] = x;
 								if(x > coordinaten[k][1]) coordinaten[k][1] = x;
 							}
@@ -749,7 +746,6 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 							for(uint16_t k = y_l; k <= y_r; k++)
 							{
 								x =  ((float)(k - y_l)/(rc))+ x_l;
-								coordinaten[x][k] = i;
 								if(x < coordinaten[k][0] || coordinaten[k][0] == 0) coordinaten[k][0] = x;
 								if(x > coordinaten[k][1]) coordinaten[k][1] = x;
 							}
