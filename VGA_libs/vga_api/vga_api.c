@@ -149,9 +149,6 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 	// Error check
 	if (x_l>=320 || x_r>=320 || y_l>=240 || y_r>=240) return 1;
 
-	if(x_l + dikte > 319 || x_l - dikte < 1 || x_r + dikte > 319 || x_r - dikte < 1 ||
-	   y_l + dikte > 239 || y_l - dikte < 1 || y_r + dikte > 239 || y_r - dikte < 1) return 1;
-
 	if (dikte > 50) return 2;
 
 	// Initieer waarden
