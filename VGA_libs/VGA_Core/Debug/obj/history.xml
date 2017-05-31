@@ -1,40 +1,43 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <history>
-   <processor signature="arm-none-eabi-gcc noversion nomachine -mcpu=cortex-m4 -mthumb -Wall -ffunction-sections -g -O0 -c -DSTM32F407VG -DSTM32F4XX -DUSE_STDPERIPH_DRIVER -D__ASSEMBLY__ -ID:\Docs\Documenten\GitHub\SOFTONJNT\VGA_libs\cmsis_boot -ID:\Docs\Documenten\GitHub\SOFTONJNT -ID:\Docs\Documenten\GitHub\SOFTONJNT\VGA_libs\vga_api -ID:\Docs\Documenten\GitHub\SOFTONJNT\VGA_libs -ID:\Docs\Documenten\GitHub -ID:\Docs\Documenten\GitHub\SOFTONJNT\VGA_libs\cmsis -ID:\Docs\Documenten\GitHub\SOFTONJNT\VGA_libs\cmsis_lib\include -ID:\Docs\Documenten\GitHub\SOFTONJNT\VGA_libs\ub_lib -ID:\Docs\Documenten\GitHub\SOFTONJNT\VGA_libs\cmsis_lib">
-      <target file="stm32f4xx_gpio.o" lastModified="15c5959ff8f">
+   <processor signature="arm-none-eabi-gcc noversion nomachine -mcpu=cortex-m4 -mthumb -Wall -ffunction-sections -g -O0 -c -DSTM32F407VG -DSTM32F4XX -DUSE_STDPERIPH_DRIVER -D__ASSEMBLY__ -ID:\Docs\Documenten\GitHub\SOFTONJNT_3layer -ID:\Docs\Documenten\GitHub\SOFTONJNT_3layer\VGA_libs\vga_api -ID:\Docs\Documenten\GitHub\SOFTONJNT_3layer\VGA_libs\cmsis_lib\include -ID:\Docs\Documenten\GitHub\SOFTONJNT_3layer\VGA_libs -ID:\Docs\Documenten\GitHub -ID:\Docs\Documenten\GitHub\SOFTONJNT_3layer\VGA_libs\ub_lib -ID:\Docs\Documenten\GitHub\SOFTONJNT_3layer\VGA_libs\cmsis_lib -ID:\Docs\Documenten\GitHub\SOFTONJNT_3layer\VGA_libs\cmsis -ID:\Docs\Documenten\GitHub\SOFTONJNT_3layer\VGA_libs\cmsis_boot">
+      <target file="uart.o" lastModified="15c5e33da23">
+         <source file="..\..\..\ub_lib\uart.c" lastModified="15c5e24cbe7"/>
+      </target>
+      <target file="stm32f4xx_gpio.o" lastModified="15c5e314cfd">
          <source file="..\..\..\cmsis_lib\source\stm32f4xx_gpio.c" lastModified="15bed1e44a0"/>
       </target>
-      <target file="uart.o" lastModified="15c5959fce0">
-         <source file="..\..\..\ub_lib\uart.c" lastModified="15c5419b118"/>
-      </target>
-      <target file="stm32_ub_vga_screen.o" lastModified="15c595a0116">
+      <target file="stm32_ub_vga_screen.o" lastModified="15c5e314e26">
          <source file="..\..\..\ub_lib\stm32_ub_vga_screen.c" lastModified="15bed1e44a4"/>
       </target>
-      <target file="stm32f4xx_dma.o" lastModified="15c595a00b8">
+      <target file="stm32f4xx_dma.o" lastModified="15c5e314dc8">
          <source file="..\..\..\cmsis_lib\source\stm32f4xx_dma.c" lastModified="15bed1e44a0"/>
       </target>
-      <target file="stm32f4xx_tim.o" lastModified="15c595a0220">
+      <target file="vga_logic.o" lastModified="15c5e33db4c">
+         <source file="..\..\..\vga_logic.c" lastModified="15c5e33d82f"/>
+      </target>
+      <target file="stm32f4xx_tim.o" lastModified="15c5e314f20">
          <source file="..\..\..\cmsis_lib\source\stm32f4xx_tim.c" lastModified="15bed1e44a2"/>
       </target>
-      <target file="system_stm32f4xx.o" lastModified="15c595a005a">
+      <target file="system_stm32f4xx.o" lastModified="15c5e314d6a">
          <source file="..\..\..\cmsis_boot\system_stm32f4xx.c" lastModified="15bed1e4499"/>
       </target>
-      <target file="startup_stm32f4xx.o" lastModified="15c5959fd1e">
+      <target file="startup_stm32f4xx.o" lastModified="15c5e314a9c">
          <source file="..\..\..\cmsis_boot\startup\startup_stm32f4xx.c" lastModified="15bed1e4467"/>
       </target>
-      <target file="stm32f4xx_usart.o" lastModified="15c5959fc72">
+      <target file="stm32f4xx_usart.o" lastModified="15c5e314992">
          <source file="..\..\..\cmsis_lib\source\stm32f4xx_usart.c" lastModified="141781aeae0"/>
       </target>
-      <target file="vga_api.o" lastModified="15c5959fec4">
-         <source file="..\..\..\vga_api\vga_api.c" lastModified="15c5959c92d"/>
+      <target file="vga_ui.o" lastModified="15c5e33da81">
+         <source file="..\..\..\vga_ui.c" lastModified="15c5e32b72c"/>
       </target>
-      <target file="main.o" lastModified="15c5959fe09">
-         <source file="..\..\..\main.c" lastModified="15c5946a762"/>
+      <target file="vga_api.o" lastModified="15c5e314c41">
+         <source file="..\..\..\vga_api\vga_api.c" lastModified="15c5e152642"/>
       </target>
-      <target file="stm32f4xx_rcc.o" lastModified="15c5959ff41">
+      <target file="stm32f4xx_rcc.o" lastModified="15c5e314caf">
          <source file="..\..\..\cmsis_lib\source\stm32f4xx_rcc.c" lastModified="15bed1e44a1"/>
       </target>
-      <target file="misc.o" lastModified="15c595a0154">
+      <target file="misc.o" lastModified="15c5e314e74">
          <source file="..\..\..\cmsis_lib\source\misc.c" lastModified="15bed1e449f"/>
       </target>
    </processor>

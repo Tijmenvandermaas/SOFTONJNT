@@ -29,7 +29,7 @@ In the interrupt routine the char is send back to the terminal
 */
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
+#include "vga_ui.h"
 #include "uart.h"
 
 char string[100];
