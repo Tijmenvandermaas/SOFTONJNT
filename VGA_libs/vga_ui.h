@@ -4,7 +4,7 @@ vga_ui.h
 Democode
 UI layer voor vga_api library.
 
-(c) Jos, Tijmen, Niels 06/2017
+(c) Jos van Mourik
 ***************************************************************/
 
 //--------------------------------------------------------------
@@ -14,14 +14,7 @@ UI layer voor vga_api library.
 //--------------------------------------------------------------
 // Includes
 //--------------------------------------------------------------
-#include <math.h>
-#include <stdbool.h>
-#include <stdarg.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include "stm32f4xx.h"
-#include "stm32f4xx_usart.h"
 #include "stm32_ub_vga_screen.h"
 #include "vga_api.h"
 #include "uart.h"

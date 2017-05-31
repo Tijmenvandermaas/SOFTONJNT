@@ -398,6 +398,18 @@ uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_
 	   x_mp>319||y_mp>239||radius_x>320||radius_y>240)
 		return 1;
 
+	if((x_mp + (radius_x))> 319)
+		return 1;
+
+	if((x_mp - (radius_x))< 1 )
+		return 1;
+
+	if((y_mp + (radius_y))> 239 )
+		return 1;
+
+	if((y_mp - (radius_y))< 1 )
+		return 1;
+
 	if ((radius_x >= radius_y)&& (dikte >radius_x/(radius_x/radius_y)))
 		return 2;
 
@@ -413,10 +425,10 @@ uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_
 	{
 		// Zo ja, dikte aanpassen zodat de ellips gevuld wordt
 		if (radius_x >= radius_y)
-			dikte = radius_x/(radius_x/radius_y);
+			dikte = radius_y;
 
 		if (radius_x < radius_y)
-			dikte = radius_y/(radius_y/radius_x);
+			dikte = radius_x;
 	}
 
 	// Op basis van dikte meerdere vullende ellipsen tekenen

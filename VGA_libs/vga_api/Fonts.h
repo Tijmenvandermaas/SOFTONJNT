@@ -4,7 +4,7 @@ fonts.h
 Bevat monochrome bitmapfonts voor de tekst-functie.
 
 HU Software Ontwikkeling.
-(c) Jos, Tijmen, Niels 06/2017
+(c) Niels van Rijn
 ***************************************************************/
 
 
