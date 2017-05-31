@@ -600,11 +600,209 @@ driehoek: teken een driehoek.
 
 uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_t x_3, uint16_t y_3, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
-	lijn(x_1,y_1,x_2,y_2,1,kleur); //Print de drie lijnen waaruit de driehoek bestaat.
-	lijn(x_1,y_1,x_3,y_3,1,kleur);
-	lijn(x_2,y_2,x_3,y_3,1,kleur);
+	// Error check
+	if (x_1>320 || x_1<0 || x_2>320 || x_2<0 || x_3>320 || x_3< 0 || y_1>240 || y_1<0 || y_2>240 || y_2<0 || y_3>240 || y_3<0)
+		return 1;
 
-	// Success
+	if (dikte > 50)
+		return 2;
+
+	if(gevuld == 0)
+	{
+		lijn(x_1,y_1,x_2,y_2,1,kleur); //Print de drie lijnen waaruit de driehoek bestaat.
+		lijn(x_1,y_1,x_3,y_3,1,kleur);
+		lijn(x_2,y_2,x_3,y_3,1,kleur);
+	}
+	else
+	{
+		bool coordinaten[321][241];
+		bool vullen = 0;
+
+		// Initieer waarden
+			uint16_t x_l;
+			uint16_t y_l;
+			uint16_t x_r;
+			uint16_t y_r;
+			uint16_t y;
+			uint16_t x;
+			float rc;
+			for(uint8_t i = 0; i<3; i++)
+			{
+				//uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r
+				switch (i)
+				{
+				case 0: x_l = x_1; y_l = y_1; x_r = x_2; y_r = y_2; break;
+				case 1: x_l = x_1; y_l = y_1; x_r = x_3; y_r = y_3; break;
+				case 2: x_l = x_2; y_l = y_2; x_r = x_3; y_r = y_3; break;
+				}
+
+				// Verticale lijn
+				if (x_r == x_l)
+
+				{
+					// Schrijfrichting bepalen
+					if (y_l >= y_r)
+
+					{	// Pixels schrijven
+						for(uint16_t k = y_r; k <= y_l; k++)
+						{
+							coordinaten[x_r][k] = 1;
+						}
+					}
+
+					// Schrijfrichting bepalen
+					if (y_l < y_r)
+
+					{	// Pixels schrijven
+						for(uint16_t k = y_l; k <= y_r; k++)
+						{
+							coordinaten[x_r][k] = 1;
+						}
+					}
+				}
+
+				// Horizontale lijn
+				if (y_r == y_l)
+				{
+
+
+					// Schrijfrichting bepalen
+					if (x_l > x_r)
+
+					{	// Pixels schrijven
+						for(uint16_t k = x_r; k <= x_l; k++)
+						{
+							coordinaten[k][y_r] = 1;
+						}
+					}
+
+					// Schrijfrichting bepalen
+					if (x_l < x_r)
+
+					{	// Pixels schrijven
+						for(uint16_t k = x_l; k <= x_r; k++)
+						{
+							coordinaten[k][y_l] = 1;
+						}
+					}
+				}
+
+				// Schuine lijn
+				else
+				{
+						// Richtingscoefficient berekenen
+					rc = (float)(y_r-y_l)/(float)(x_r-x_l);
+
+					// Schrijfrichting bepalen kwadrant 1
+					if(x_l<x_r && y_l<y_r)
+					{
+						// Bepalen of y=f(x) of x=f(y) moet worden gebruikt
+						if (rc <= 1 && rc >= -1)
+						{
+							// y bepalen vanuit x met y=f(x) en pixel schrijven
+							for(uint16_t k = x_l; k <= x_r; k++)
+							{
+								y = rc * (k - x_l) + y_l;
+								coordinaten[k][y] = 1;
+							}
+						}
+						else
+						{
+							// x bepalen vanuit y met x=f(y) en pixel schrijven
+							for(uint16_t k = y_l; k <= y_r; k++)
+							{
+								x =  ((float)(k - y_l)/(rc))+ x_l;
+								coordinaten[x][k] = 1;
+							}
+						}
+					}
+
+					// Schrijfrichting bepalen kwadrant 2
+					if(x_l>x_r && y_l<y_r)
+					{
+						// Bepalen of y=f(x) of x=f(y) moet worden gebruikt
+						if (rc <= 1 && rc >= -1)
+						{
+							// y bepalen vanuit x met y=f(x) en pixel schrijven
+							for(uint16_t k = x_r; k <= x_l; k++)
+							{
+								y = rc * (k - x_l) + y_l;
+								coordinaten[k][y] = 1;
+							}
+						}
+						else
+						{
+							// x bepalen vanuit y met x=f(y) en pixel schrijven
+							for(uint16_t k = y_l; k <= y_r; k++)
+							{
+								x =  ((float)(k - y_l)/(rc))+ x_l;
+								coordinaten[x][k] = 1;
+							}
+						}
+					}
+
+					// Schrijfrichting bepalen kwadrant 3
+					if(x_l>x_r && y_l>y_r)
+					{
+						// Bepalen of y=f(x) of x=f(y) moet worden gebruikt
+						if (rc <= 1 && rc >= -1)
+						{
+							// y bepalen vanuit x met y=f(x) en pixel schrijven
+							for(uint16_t k = x_r; k <= x_l; k++)
+							{
+								y = rc * (k - x_l) + y_l;
+								coordinaten[k][y] = 1;
+							}
+						}
+						else
+						{
+										// x bepalen vanuit y met x=f(y) en pixel schrijven
+							for(uint16_t k = y_r; k <= y_l; k++)
+							{
+								x =  ((float)(k - y_l)/(rc))+ x_l;
+								coordinaten[x][k] = 1;
+							}
+						}
+					}
+
+								// Schrijfrichting bepalen kwadrant 4
+					if(x_l<x_r && y_l>y_r)
+					{
+						// Bepalen of y=f(x) of x=f(y) moet worden gebruikt
+						if (rc <= 1 && rc >= -1)
+						{
+							// y bepalen vanuit x met y=f(x) en pixel schrijven
+							for(uint16_t k = x_l; k <= x_r; k++)
+							{
+								y = rc * (k - x_l) + y_l;
+								coordinaten[k][y] = 1;
+							}
+						}
+						else
+						{
+							// x bepalen vanuit y met x=f(y) en pixel schrijven
+							for(uint16_t k = y_r; k <= y_l; k++)
+							{
+								x =  ((float)(k - y_l)/(rc))+ x_l;
+								coordinaten[x][k] = 1;
+							}
+						}
+					}
+				}
+			}
+
+		for(x = 0; x<320; x++)
+		{
+			for(y = 0; y<240; y++)
+			{
+				if(coordinaten[x][y] == 1) {vullen = !vullen; setpixel(x,y,kleur);}
+				if(vullen == 1) setpixel(x,y,kleur);
+			}
+		}
+
+	}
+
+	// Succes
 	return 0;
 }
 
