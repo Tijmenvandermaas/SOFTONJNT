@@ -43,7 +43,7 @@ uint8_t tekst(uint16_t x_lo, uint16_t y_lo, char* tekst, uint8_t font, uint8_t g
 	// Buiten grenzen van het scherm
 	if (x_lo>320 || x_lo<0 || y_lo>240 || y_lo<0) return 1;
 	// Font, grootte of stijl hebben een ongeldige invoer.
-	if ((font != Font_1 && font != Font_2) || (stijl != REGULAR && stijl != BOLD && stijl != OBLIQUE) || grootte > 10 ) return 3;
+	if ((font != FONT_1 && font != FONT_2) || (stijl != REGULAR && stijl != BOLD && stijl != OBLIQUE) || grootte > 10 ) return 3;
 	// Kan potentieel nog iets over kleur bij
 	// Return 2 staat verder de code in. Vlak na het berekenen van ywrite.
 

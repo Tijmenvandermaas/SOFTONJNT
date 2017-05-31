@@ -48,20 +48,20 @@ typedef const struct
 #define	 OBLIQUE		0x03
 
 // Fonts
-#define	 Font_1			0x01
-#define	 Font_2			0x02
+#define	 FONT_1			0x01
+#define	 FONT_2			0x02
 
 // Sizes
-#define	 Size_1			0x01
-#define	 Size_2			0x02
-#define	 Size_3			0x03
-#define  Size_4			0x04
-#define	 Size_5			0x05
-#define  Size_6			0x06
-#define	 Size_7			0x07
-#define  Size_8			0x08
-#define	 Size_9			0x09
-#define  Size_10		0x0A
+#define	 GROOTTE_1			0x01
+#define	 GROOTTE_2			0x02
+#define	 GROOTTE_3			0x03
+#define  GROOTTE_4			0x04
+#define	 GROOTTE_5			0x05
+#define  GROOTTE_6			0x06
+#define	 GROOTTE_7			0x07
+#define  GROOTTE_8			0x08
+#define	 GROOTTE_9			0x09
+#define  GROOTTE_10			0x0A
 
 /***************************
 Globale functies
