@@ -609,9 +609,14 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 
 	if(gevuld == 0)
 	{
-		lijn(x_1,y_1,x_2,y_2,1,kleur); //Print de drie lijnen waaruit de driehoek bestaat.
-		lijn(x_1,y_1,x_3,y_3,1,kleur);
-		lijn(x_2,y_2,x_3,y_3,1,kleur);
+		uint8_t error1 = lijn(x_1,y_1,x_2,y_2,1,kleur); //Print de drie lijnen waaruit de driehoek bestaat.
+		uint8_t error2 = lijn(x_1,y_1,x_3,y_3,1,kleur);
+		uint8_t error3 = lijn(x_2,y_2,x_3,y_3,1,kleur);
+
+		//als de lijnfuncties een error geven kopieer deze error
+		if(error1 != 0) return error1;
+		if(error2 != 0) return error2;
+		if(error3 != 0) return error3;
 	}
 	else
 	{
