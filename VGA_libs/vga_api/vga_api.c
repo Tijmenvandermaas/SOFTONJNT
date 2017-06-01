@@ -17,6 +17,23 @@ Includes
 #include "vga_api.h"
 #include "fonts.h"
 
+/** @file vga_api.c
+Functie	      | agrument 1    | agrument 2    | agrument 3    | agrument 4    | agrument 5    | agrument 6    | agrument 7    | agrument 8    | agrument 9  
+------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | -------------
+Tekst	      | x_lo          | y_lo          | tekst         | font          | grootte       | kleur         | stijl         | n.v.t.	      | n.v.t.	     		
+Lijn	      | x_l           | y_l           | x_r           | y_r           | dikte         | kleur         | n.v.t.	      | n.v.t.	      | n.v.t.        
+Ellips        | x_mp	      | y_mp	      | raius_x	      | radius_y      | dikte	      | kleur	      | gevuld	      | n.v.t.	      | n.v.t.	     
+Rechthoek     | x_lo	      | y_lo	      | x_rb          | y_rb          | dikte         | kleur	      | gevuld	      | n.v.t.	      | n.v.t.	     
+Driehoek      | x_1	      | y_1	      | x_2	      | y_2	      | x_3	      | y_3	      | dikte	      | kleur	      | gevuld 
+Setpixel      | x	      | y	      | kleur	      | n.v.t.	      | n.v.t.	      | n.v.t.        | n.v.t.	      | n.v.t.	      | n.v.t.        
+Readpixel     | x	      | y             | n.v.t.	      | n.v.t.	      | n.v.t.        | n.v.t.	      | n.v.t.	      | n.v.t.        | n.v.t.
+Bitmap        | x_lo	      | y_lo	      | bitmap	      | n.v.t.	      | n.v.t.	      | n.v.t.        | n.v.t.	      | n.v.t.	      | n.v.t.        
+Clearscherm   | kleur	      | n.v.t.	      | n.v.t.	      | n.v.t.        | n.v.t.	      | n.v.t.	      | n.v.t.        | n.v.t.	      | n.v.t.      
+Wacht         | msecs	      | n.v.t.	      | n.v.t.	      | n.v.t.        | n.v.t.	      | n.v.t.	      | n.v.t.        | n.v.t.	      | n.v.t.      
+*/
+
+
+
 /***************************
 tekst: zet tekst op scherm
 (x_lo, y_lo, tekst[100], font, grootte, kleur, stijl)
