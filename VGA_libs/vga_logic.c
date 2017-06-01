@@ -103,7 +103,7 @@ uint8_t parsecolor(char* kleur)
 // Kies stijl op basis van input string
 uint8_t parsestijl(char* stijl)
 {
-	if(strcmp("normaal", stijl) == 0) return 1;
+	if(strcmp("norm", stijl) == 0) return 1;
 	else if(strcmp("vet", stijl) == 0) return 2;
 	else if(strcmp("cursief", stijl) == 0) return 3;
 	else return 0;
@@ -118,5 +118,7 @@ bitmapfile* parsebitmap(char* bitmaps)
 	else if(atoi(bitmaps) == 3) return &pijl_rechts_60;
 	else if(atoi(bitmaps) == 4) return &emoji_blij_64;
 	else if(atoi(bitmaps) == 5) return &emoji_boos_64;
+	else if(atoi(bitmaps) == 6) return &HU_logo_50;
 	else return 0;
 }
+
