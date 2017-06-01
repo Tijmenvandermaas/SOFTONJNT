@@ -44,8 +44,6 @@ uint8_t tekst(uint16_t x_lo, uint16_t y_lo, char* tekst, uint8_t font, uint8_t g
 	if (x_lo>=320 || y_lo>=240) return 1;
 	// Font, grootte of stijl hebben een ongeldige invoer.
 	if ((font != FONT_1 && font != FONT_2) || (stijl != REGULAR && stijl != BOLD && stijl != OBLIQUE) || grootte > 10 ) return 3;
-	// Kan potentieel nog iets over kleur bij
-	// Return 2 staat verder de code in. Vlak na het berekenen van ywrite.
 
 	// Variabelen waarin de huidig beschreven coordinaten[i] worden opgeslagen
 	uint16_t xwrite;
@@ -102,19 +100,19 @@ uint8_t tekst(uint16_t x_lo, uint16_t y_lo, char* tekst, uint8_t font, uint8_t g
 							// Bepalen welke stijl te gebruiken (Regular, Bold, Oblique)
 							switch(stijl)
 							{
-							case 1: if(VCR_OSD_Mono_Regular[cursor] & (1 << (8-bit))) setpixel(xwrite, ywrite, kleur); break;
-							case 2: if(VCR_OSD_Mono_Bold[cursor] & (1 << (8-bit))) setpixel(xwrite, ywrite, kleur); break;
-							case 3: if(VCR_OSD_Mono_Oblique[cursor] & (1 << (8-bit))) setpixel(xwrite, ywrite, kleur); break;
+								case 1: if(VCR_OSD_Mono_Regular[cursor] & (1 << (8-bit))) setpixel(xwrite, ywrite, kleur); break;
+								case 2: if(VCR_OSD_Mono_Bold[cursor] & (1 << (8-bit))) setpixel(xwrite, ywrite, kleur); break;
+								case 3: if(VCR_OSD_Mono_Oblique[cursor] & (1 << (8-bit))) setpixel(xwrite, ywrite, kleur); break;
 							}
 						}
-						if(font == 2)
+						else if(font == 2)
 						{
 							// Bepalen welke stijl te gebruiken (Regular, Bold, Oblique)
 							switch(stijl)
 							{
-							case 1: if(F04b03_Regular [cursor] & (1 << (8-bit))) setpixel(xwrite, ywrite, kleur); break;
-							case 2: if(F04b03_Bold[cursor] & (1 << (8-bit))) setpixel(xwrite, ywrite, kleur); break;
-							case 3: if(F04b03_Oblique[cursor] & (1 << (8-bit))) setpixel(xwrite, ywrite, kleur); break;
+								case 1: if(F04b03_Regular [cursor] & (1 << (8-bit))) setpixel(xwrite, ywrite, kleur); break;
+								case 2: if(F04b03_Bold[cursor] & (1 << (8-bit))) setpixel(xwrite, ywrite, kleur); break;
+								case 3: if(F04b03_Oblique[cursor] & (1 << (8-bit))) setpixel(xwrite, ywrite, kleur); break;
 							}
 						}
 					}
@@ -148,7 +146,6 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 {
 	// Error check
 	if (x_l>=320 || x_r>=320 || y_l>=240 || y_r>=240) return 1;
-
 	if (dikte > 50) return 2;
 
 	// Initieer waarden
@@ -160,7 +157,6 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 	uint16_t x;
 	float rc;
 	uint16_t DIKTE = dikte;
-
 
 	// Verticale lijn
 	if (x_r == x_l)
@@ -392,7 +388,7 @@ elips: teken een ellips.
 uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_y, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
 	// Errors
-	if(x_mp<1  ||y_mp<1  ||radius_x<1  ||radius_y<1||
+	if(x_mp==0  ||y_mp==0  ||radius_x==0  ||radius_y==0||
 	   x_mp>319||y_mp>239||radius_x>=320||radius_y>=240) return 1;
 
 	if((x_mp + (radius_x))> 319) return 1;
@@ -407,7 +403,7 @@ uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_
 	uint16_t x_mpn, y_mpn;
 
 	// Check of de ellips gevuld moet zijn
-	if (gevuld == true )
+	if (gevuld)
 	{
 		// Zo ja, dikte aanpassen zodat de ellips gevuld wordt
 		if (radius_x >= radius_y)
@@ -434,19 +430,19 @@ uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_
 					x_mpn = x_mp -1;
 					y_mpn = y_mp;
 				}
-				if (j==1)
+				else if (j==1)
 				{
 					x_mpn = x_mp;
 					y_mpn = y_mp -1;
 				}
 
-				if (j==2)
+				else if (j==2)
 				{
 					y_mpn = y_mp;
 					x_mpn = x_mp +1;
 				}
 
-				if (j==3)
+				else if (j==3)
 				{
 					x_mpn = x_mp;
 					y_mpn = y_mp +1;
@@ -570,7 +566,6 @@ uint8_t rechthoek(uint16_t x_lo, uint16_t y_lo, uint16_t x_rb, uint16_t y_rb, ui
 			}
 		}
 	}
-
 	// Succes
 	return 0;
 }
@@ -600,7 +595,6 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 {
 	// Error check
 	if (x_1>=320 || x_2>=320 || x_3>=320 || y_1>=240 || y_2>=240|| y_3>=240) return 1;
-
 	if (dikte > 50) return 2;
 
 	if(gevuld == 0)
@@ -633,9 +627,9 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 				//uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r
 				switch (i)
 				{
-				case 0: x_l = x_1; y_l = y_1; x_r = x_2; y_r = y_2; break;
-				case 1: x_l = x_1; y_l = y_1; x_r = x_3; y_r = y_3; break;
-				case 2: x_l = x_2; y_l = y_2; x_r = x_3; y_r = y_3; break;
+					case 0: x_l = x_1; y_l = y_1; x_r = x_2; y_r = y_2; break;
+					case 1: x_l = x_1; y_l = y_1; x_r = x_3; y_r = y_3; break;
+					case 2: x_l = x_2; y_l = y_2; x_r = x_3; y_r = y_3; break;
 				}
 
 				// Verticale lijn
@@ -810,16 +804,13 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 		{
 			for(x = 1; x<320; x++)
 			{
-
 				if(coordinaten[y][0] == x) {vullen = 1; setpixel(x,y,kleur);}
-				if(vullen != 0) setpixel(x,y,kleur);
+				if(vullen) setpixel(x,y,kleur);
 				if(coordinaten[y][1] == x){ vullen = 0;}
 			}
 		vullen = 0;
 		}
-
 	}
-
 	// Succes
 	return 0;
 }
@@ -849,7 +840,7 @@ uint8_t setpixel(uint16_t x, uint16_t y, uint8_t kleur)
 	}
 
 	// Tekenen buiten scherm voorkomen
-	else return 1;
+	return 1;
 }
 
 /***************************
@@ -870,7 +861,7 @@ uint16_t readpixel(uint16_t x, uint16_t y)
 	if((x<VGA_DISPLAY_X) && (y<VGA_DISPLAY_Y)) return VGA_RAM1[(y*(VGA_DISPLAY_X+1))+x];
 
 	// Lezen buiten scherm voorkomen
-	else return 256;
+	return 256;
 }
 
 /***************************
@@ -949,13 +940,10 @@ uint8_t wacht(uint16_t msecs)
 	// Check voor overflow
 	if(msecs >= 65536) return 2;
 
-	uint16_t tel = 0;
-	
-	// Hsync duurt 1/16 milliseconde
-	msecs = msecs*16;		
+	uint32_t tel = 0;
 	
 	// In loop blijven totdat de teller de ingegeven msec waarde heeft bereikt
-	while(tel<msecs)
+	while(tel<(msecs*16))
 	{
 		if (VGA.hsync_cnt == 500 )
 			tel++;

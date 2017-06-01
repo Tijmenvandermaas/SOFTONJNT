@@ -97,7 +97,7 @@ uint8_t parsecolor(char* kleur)
 	else if(strcmp("geel", kleur) == 0) return GEEL;
 	else if(strcmp("grijs", kleur) == 0) return GRIJS;
 	else if(strcmp("wit", kleur) == 0) return WIT;
-	else return 0;
+	else return ZWART;
 }
 
 // Kies stijl op basis van input string
