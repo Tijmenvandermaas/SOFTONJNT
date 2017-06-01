@@ -115,7 +115,7 @@ uint8_t tekst(uint16_t x_lo, uint16_t y_lo, char* tekst, uint8_t font, uint8_t g
 						ywrite = y+j+regelplus*grootte*hoog;
 
 						// Check of ywrite te groot is
-						if (ywrite >= 240) return 2;
+						if (ywrite >= VGA_DISPLAY_Y) return 2;
 
 						// Bepalen welk font te gebruiken
 						if(font == 1)
@@ -151,7 +151,7 @@ uint8_t tekst(uint16_t x_lo, uint16_t y_lo, char* tekst, uint8_t font, uint8_t g
 /***************************
 lijn: teken een lijn.
 (x_r, y_r, x_l, y_l, dikte, kleur)
-(c) Tijmen van der Maas en een beetje Niels van Rijn
+(c) Tijmen van der Maas en Niels van Rijn
 ***************************/
 
 /*!	een functie die een lijn tekent tussen 2 punten met een variabele dikte en kleur
@@ -178,10 +178,10 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 	uint16_t x_ln = x_l;
 	uint16_t y;
 	uint16_t x;
-	uint16_t a;
-	uint16_t b;
-	uint16_t c;
-	uint16_t d;
+	uint16_t x_begin;
+	uint16_t x_end;
+	uint16_t y_begin;
+	uint16_t y_end;
 
 	float rc;
 
@@ -205,15 +205,15 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 				// Schrijfrichting bepalen
 				if (y_l >= y_r)
 				{	// Pixels schrijven
-					a = y_rn;
-					b = y_ln;
+					y_begin = y_rn;
+					y_end = y_ln;
 				}
 				else if(y_l < y_r)
 				{
-					a = y_ln;
-					b = y_rn;
+					y_begin = y_ln;
+					y_end = y_rn;
 				}
-				for(uint16_t k = a; k <= b; k++)
+				for(uint16_t k = y_begin; k <= y_end; k++)
 				{
 					setpixel(x_rn,k,kleur);
 				}
@@ -224,15 +224,15 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 				// Schrijfrichting bepalen
 				if (x_l > x_r)
 				{	// Pixels schrijven
-					a = x_rn;
-					b = x_ln;
+					x_begin = x_rn;
+					x_end = x_ln;
 				}
 				else if (x_r > x_l)
 				{
-					a = x_ln;
-					b = x_rn;
+					x_begin = x_ln;
+					x_end = x_rn;
 				}
-				for(uint16_t k = a; k <= b; k++)
+				for(uint16_t k = x_begin; k <= x_end; k++)
 				{
 					setpixel(k,y_rn,kleur);
 				}
@@ -246,40 +246,40 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 				// Schrijfrichting bepalen kwadrant 1
 				if(x_l<x_r && y_ln<y_rn)
 				{
-					a = x_ln;
-					b = x_rn;
-					c = y_ln;
-					d = y_rn;
+					x_begin = x_ln;
+					x_end = x_rn;
+					y_begin = y_ln;
+					y_end = y_rn;
 				}
 				// Schrijfrichting bepalen kwadrant 2
 				else if(x_l>x_r && y_ln<y_rn)
 				{
-					a = x_rn;
-					b = x_ln;
-					c = y_ln;
-					d = y_rn;
+					x_begin = x_rn;
+					x_end = x_ln;
+					y_begin = y_ln;
+					y_end = y_rn;
 				}
 				// Schrijfrichting bepalen kwadrant 3
 				else if(x_l>x_r && y_ln>y_rn)
 				{
-					a = x_rn;
-					b = x_ln;
-					c = y_rn;
-					d = y_ln;
+					x_begin = x_rn;
+					x_end = x_ln;
+					y_begin = y_rn;
+					y_end = y_ln;
 				}
 				// Schrijfrichting bepalen kwadrant 4
 				else if(x_l<x_r && y_ln>y_rn)
 				{
-					a = x_ln;
-					b = x_rn;
-					c = y_rn;
-					d = y_ln;
+					x_begin = x_ln;
+					x_end = x_rn;
+					y_begin = y_rn;
+					y_end = y_ln;
 				}
 
 				if (rc <= 1 && rc >= -1)
 				{
 					// y bepalen vanuit x met y=f(x) en pixel schrijven
-					for(uint16_t k = a; k <= b; k++)
+					for(uint16_t k = x_begin; k <= x_end; k++)
 					{
 						y = rc * (k - x_ln) + y_ln;
 						setpixel(k,y,kleur);
@@ -288,7 +288,7 @@ uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dik
 				else
 				{
 					// x bepalen vanuit y met x=f(y) en pixel schrijven
-					for(uint16_t k = c; k <= d; k++)
+					for(uint16_t k = y_begin; k <= y_end; k++)
 					{
 						x =  ((float)(k - y_ln)/(rc))+ x_ln;
 						setpixel(x,k,kleur);
@@ -323,15 +323,13 @@ elips: teken een ellips.
 uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_y, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
 	// Errors
-	if(x_mp==0  ||y_mp==0  ||radius_x==0  ||radius_y==0||
-	   x_mp>319||y_mp>239||radius_x>=320||radius_y>=240) return 1;
+	if(x_mp ==0  || y_mp ==0  || radius_x ==0  || radius_y ==0 ||
+	   x_mp >= VGA_DISPLAY_X || y_mp >= VGA_DISPLAY_Y || radius_x >= VGA_DISPLAY_X || radius_y >= VGA_DISPLAY_Y ||
+	   x_mp + (radius_x) >= VGA_DISPLAY_X || x_mp - (radius_x) <= 0 ||
+	   y_mp + (radius_y) >= VGA_DISPLAY_Y || x_mp - (radius_y) <= 0) return 1;
 
-	if((x_mp + (radius_x))> 319) return 1;
-	if((x_mp - (radius_x))< 1 ) return 1;
-	if((y_mp + (radius_y))> 239 ) return 1;
-	if((y_mp - (radius_y))< 1 ) return 1;
-	if ((radius_x >= radius_y)&& (dikte >radius_x/(radius_x/radius_y))) return 2;
-	if ((radius_x < radius_y) && (dikte >radius_y/(radius_y/radius_x))) return 2;
+	if (((radius_x >= radius_y)&& (dikte >radius_x/(radius_x/radius_y))) ||
+	    ((radius_x < radius_y) && (dikte >radius_y/(radius_y/radius_x)))) return 2;
 
 	// Inititaliseer variabelen
 	int32_t x, y, p;
@@ -360,27 +358,24 @@ uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_
 			// Middelpunt iets laten afwijken
 			if (dikte>1)
 			{
-				if (j==0)
+				switch(j)
 				{
-					x_mpn = x_mp -1;
-					y_mpn = y_mp;
-				}
-				else if (j==1)
-				{
-					x_mpn = x_mp;
-					y_mpn = y_mp -1;
-				}
-
-				else if (j==2)
-				{
-					y_mpn = y_mp;
-					x_mpn = x_mp +1;
-				}
-
-				else if (j==3)
-				{
-					x_mpn = x_mp;
-					y_mpn = y_mp +1;
+					case 0:
+						x_mpn = x_mp -1;
+						y_mpn = y_mp;
+						break;
+					case 1:
+						x_mpn = x_mp;
+						y_mpn = y_mp -1;
+						break;
+					case 2:
+						y_mpn = y_mp;
+						x_mpn = x_mp +1;
+						break;
+					case 3:
+						x_mpn = x_mp;
+						y_mpn = y_mp +1;
+						break;
 				}
 			}
 
@@ -508,7 +503,7 @@ uint8_t rechthoek(uint16_t x_lo, uint16_t y_lo, uint16_t x_rb, uint16_t y_rb, ui
 /***************************
 driehoek: teken een driehoek.
 (x_1, y_1, x_2, y_2, x_3, y_3, dikte, kleur, gevuld)
-(c) Niels van Rijn
+(c) Niels van Rijn en Tijmen van der Maas
 ***************************/
 
 /*!	een functie die een driehoek tekent op basis van 3 punten met een variabele dikte, kleur en vulling
@@ -529,7 +524,7 @@ driehoek: teken een driehoek.
 uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_t x_3, uint16_t y_3, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
 	// Error check
-	if (x_1>=320 || x_2>=320 || x_3>=320 || y_1>=240 || y_2>=240|| y_3>=240) return 1;
+	if (x_1 >= VGA_DISPLAY_X || x_2>=VGA_DISPLAY_X || x_3>=VGA_DISPLAY_X || y_1>=VGA_DISPLAY_Y || y_2>=VGA_DISPLAY_Y|| y_3>=VGA_DISPLAY_Y) return 1;
 	if (dikte > 50) return 2;
 
 	if(gevuld == 0)
@@ -545,203 +540,144 @@ uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_
 	}
 	else
 	{
-		uint16_t coordinaten[240][2];
+		uint16_t coordinaten[VGA_DISPLAY_Y][2];
 		memset(coordinaten,0,sizeof(coordinaten));
 		uint8_t vullen = 0;
 
 		// Initieer waarden
-		uint16_t x_l;
-		uint16_t y_l;
-		uint16_t x_r;
-		uint16_t y_r;
+		uint16_t x_ln;
+		uint16_t y_ln;
+		uint16_t x_rn;
+		uint16_t y_rn;
 		uint16_t y;
 		uint16_t x;
+		uint16_t x_begin;
+		uint16_t x_end;
+		uint16_t y_begin;
+		uint16_t y_end;
 		float rc;
 		for(uint8_t i = 0; i<3; i++)
+		{
+			//uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r
+			switch (i)
 			{
-				//uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r
-				switch (i)
-				{
-					case 0: x_l = x_1; y_l = y_1; x_r = x_2; y_r = y_2; break;
-					case 1: x_l = x_1; y_l = y_1; x_r = x_3; y_r = y_3; break;
-					case 2: x_l = x_2; y_l = y_2; x_r = x_3; y_r = y_3; break;
+				case 0: x_ln = x_1; y_ln = y_1; x_rn = x_2; y_rn = y_2; break;
+				case 1: x_ln = x_1; y_ln = y_1; x_rn = x_3; y_rn = y_3; break;
+				case 2: x_ln = x_2; y_ln = y_2; x_rn = x_3; y_rn = y_3; break;
+			}
+
+			// Verticale lijn
+			if (x_rn == x_ln)
+			{
+				// Schrijfrichting bepalen
+				if (y_ln >= y_rn)
+				{	// Pixels schrijven
+					y_begin = y_rn;
+					y_end = y_ln;
 				}
-
-				// Verticale lijn
-				if (x_r == x_l)
-
+				else if(y_ln < y_rn)
 				{
-					// Schrijfrichting bepalen
-					if (y_l >= y_r)
-
-					{	// Pixels schrijven
-						for(uint16_t k = y_r; k <= y_l; k++)
-						{
-							if(x_r < coordinaten[k][0] || coordinaten[k][0] == 0) coordinaten[k][0] = x_r;
-							if(x_r > coordinaten[k][1]) coordinaten[k][1] = x_r;
-						}
-					}
-
-					// Schrijfrichting bepalen
-					if (y_l < y_r)
-
-					{	// Pixels schrijven
-						for(uint16_t k = y_l; k <= y_r; k++)
-						{
-							if(x_r < coordinaten[k][0] || coordinaten[k][0] == 0) coordinaten[k][0] = x_r;
-							if(x_r > coordinaten[k][1]) coordinaten[k][1] = x_r;
-
-						}
+					y_begin = y_ln;
+					y_end = y_rn;
+				}
+				for(uint16_t k = y_begin; k <= y_end; k++)
+				{
+					if(x_rn < coordinaten[k][0] || coordinaten[k][0] == 0) coordinaten[k][0] = x_rn;
+					if(x_rn > coordinaten[k][1]) coordinaten[k][1] = x_rn;
+				}
+			}
+			// Horizontale lijn
+			else if (y_rn == y_ln)
+			{
+				// Schrijfrichting bepalen
+				if (x_ln > x_rn)
+				{
+					x_begin = x_rn;
+					x_end = x_ln;
+				}
+				else if (x_rn > x_ln)
+				{
+					x_begin = x_ln;
+					x_end = x_rn;
+				}
+				for(uint16_t k = x_begin; k <= x_end; k++)
+				{
+					if(k < coordinaten[y_rn][0] || coordinaten[y_rn][0] == 0) coordinaten[y_rn][0] = k;
+					if(k > coordinaten[y_rn][1]) coordinaten[y_rn][1] = k;
+				}
+			}
+			//Schuine lijnen
+			else
+			{
+				// Richtingscoefficient berekenen
+				rc = (float)(y_rn-y_ln)/(float)(x_rn-x_ln);
+				// Schrijfrichting bepalen kwadrant 1
+				if(x_ln<x_rn && y_ln<y_rn)
+				{
+					x_begin = x_ln;
+					x_end = x_rn;
+					y_begin = y_ln;
+					y_end = y_rn;
+				}
+				// Schrijfrichting bepalen kwadrant 2
+				else if(x_ln>x_rn && y_ln<y_rn)
+				{
+					x_begin = x_rn;
+					x_end = x_ln;
+					y_begin = y_ln;
+					y_end = y_rn;
+				}
+				// Schrijfrichting bepalen kwadrant 3
+				else if(x_ln>x_rn && y_ln>y_rn)
+				{
+					x_begin = x_rn;
+					x_end = x_ln;
+					y_begin = y_rn;
+					y_end = y_ln;
+				}
+				// Schrijfrichting bepalen kwadrant 4
+				else if(x_ln<x_rn && y_ln>y_rn)
+				{
+					x_begin = x_ln;
+					x_end = x_rn;
+					y_begin = y_rn;
+					y_end = y_ln;
+				}
+				if (rc <= 1 && rc >= -1)
+				{
+					// y bepalen vanuit x met y=f(x) en pixel schrijven
+					for(uint16_t k = x_begin; k <= x_end; k++)
+					{
+						y = rc * (k - x_ln) + y_ln;
+						if(k < coordinaten[y][0] || coordinaten[y][0] == 0) coordinaten[y][0] = k;
+						if(k > coordinaten[y][1]) coordinaten[y][1] = k;
 					}
 				}
-
-				// Horizontale lijn
-				if (y_r == y_l)
-				{
-
-
-					// Schrijfrichting bepalen
-					if (x_l > x_r)
-
-					{	// Pixels schrijven
-						for(uint16_t k = x_r; k <= x_l; k++)
-						{
-							if(k < coordinaten[y_r][0] || coordinaten[y_r][0] == 0) coordinaten[y_r][0] = k;
-							if(k > coordinaten[y_r][1]) coordinaten[y_r][1] = k;
-						}
-					}
-
-					// Schrijfrichting bepalen
-					if (x_l < x_r)
-
-					{	// Pixels schrijven
-						for(uint16_t k = x_l; k <= x_r; k++)
-						{
-							if(k < coordinaten[y_l][0] || coordinaten[y_l][0] == 0) coordinaten[y_l][0] = k;
-							if(k > coordinaten[y_l][1]) coordinaten[y_l][1] = k;
-						}
-					}
-				}
-
-				// Schuine lijn
 				else
 				{
-						// Richtingscoefficient berekenen
-					rc = (float)(y_r-y_l)/(float)(x_r-x_l);
-
-					// Schrijfrichting bepalen kwadrant 1
-					if(x_l<x_r && y_l<y_r)
+					// x bepalen vanuit y met x=f(y) en pixel schrijven
+					for(uint16_t k = y_begin; k <= y_end; k++)
 					{
-						// Bepalen of y=f(x) of x=f(y) moet worden gebruikt
-						if (rc <= 1 && rc >= -1)
-						{
-							// y bepalen vanuit x met y=f(x) en pixel schrijven
-							for(uint16_t k = x_l; k <= x_r; k++)
-							{
-								y = rc * (k - x_l) + y_l;
-								if(k < coordinaten[y][0] || coordinaten[y][0] == 0) coordinaten[y][0] = k;
-								if(k > coordinaten[y][1]) coordinaten[y][1] = k;
-
-							}
-						}
-						else
-						{
-							// x bepalen vanuit y met x=f(y) en pixel schrijven
-							for(uint16_t k = y_l; k <= y_r; k++)
-							{
-								x =  ((float)(k - y_l)/(rc))+ x_l;
-								if(x < coordinaten[k][0] || coordinaten[k][0] == 0) coordinaten[k][0] = x;
-								if(x > coordinaten[k][1]) coordinaten[k][1] = x;
-							}
-						}
-					}
-
-					// Schrijfrichting bepalen kwadrant 2
-					if(x_l>x_r && y_l<y_r)
-					{
-						// Bepalen of y=f(x) of x=f(y) moet worden gebruikt
-						if (rc <= 1 && rc >= -1)
-						{
-							// y bepalen vanuit x met y=f(x) en pixel schrijven
-							for(uint16_t k = x_r; k <= x_l; k++)
-							{
-								y = rc * (k - x_l) + y_l;
-								if(k < coordinaten[y][0] || coordinaten[y][0] == 0) coordinaten[y][0] = k;
-								if(k > coordinaten[y][1]) coordinaten[y][1] = k;
-							}
-						}
-						else
-						{
-							// x bepalen vanuit y met x=f(y) en pixel schrijven
-							for(uint16_t k = y_l; k <= y_r; k++)
-							{
-								x =  ((float)(k - y_l)/(rc))+ x_l;
-								if(x < coordinaten[k][0] || coordinaten[k][0] == 0) coordinaten[k][0] = x;
-								if(x > coordinaten[k][1]) coordinaten[k][1] = x;
-							}
-						}
-					}
-
-					// Schrijfrichting bepalen kwadrant 3
-					if(x_l>x_r && y_l>y_r)
-					{
-						// Bepalen of y=f(x) of x=f(y) moet worden gebruikt
-						if (rc <= 1 && rc >= -1)
-						{
-							// y bepalen vanuit x met y=f(x) en pixel schrijven
-							for(uint16_t k = x_r; k <= x_l; k++)
-							{
-								y = rc * (k - x_l) + y_l;
-								if(k < coordinaten[y][0] || coordinaten[y][0] == 0) coordinaten[y][0] = k;
-								if(k > coordinaten[y][1]) coordinaten[y][1] = k;
-							}
-						}
-						else
-						{
-										// x bepalen vanuit y met x=f(y) en pixel schrijven
-							for(uint16_t k = y_r; k <= y_l; k++)
-							{
-								x =  ((float)(k - y_l)/(rc))+ x_l;
-								if(x < coordinaten[k][0] || coordinaten[k][0] == 0) coordinaten[k][0] = x;
-								if(x > coordinaten[k][1]) coordinaten[k][1] = x;
-							}
-						}
-					}
-
-								// Schrijfrichting bepalen kwadrant 4
-					if(x_l<x_r && y_l>y_r)
-					{
-						// Bepalen of y=f(x) of x=f(y) moet worden gebruikt
-						if (rc <= 1 && rc >= -1)
-						{
-							// y bepalen vanuit x met y=f(x) en pixel schrijven
-							for(uint16_t k = x_l; k <= x_r; k++)
-							{
-								y = rc * (k - x_l) + y_l;
-								if(k < coordinaten[y][0] || coordinaten[y][0] == 0) coordinaten[y][0] = k;
-								if(k > coordinaten[y][1]) coordinaten[y][1] = k;
-							}
-						}
-						else
-						{
-							// x bepalen vanuit y met x=f(y) en pixel schrijven
-							for(uint16_t k = y_r; k <= y_l; k++)
-							{
-								x =  ((float)(k - y_l)/(rc))+ x_l;
-								if(x < coordinaten[k][0] || coordinaten[k][0] == 0) coordinaten[k][0] = x;
-								if(x > coordinaten[k][1]) coordinaten[k][1] = x;
-							}
-						}
+						x =  ((float)(k - y_ln)/(rc))+ x_ln;
+						if(x < coordinaten[k][0] || coordinaten[k][0] == 0) coordinaten[k][0] = x;
+						if(x > coordinaten[k][1]) coordinaten[k][1] = x;
 					}
 				}
 			}
-		for(y = 0; y<240; y++)
+		}
+		//loop door het hele scherm
+		for(y = 0; y<VGA_DISPLAY_Y; y++)
 		{
-			for(x = 1; x<320; x++)
+			for(x = 0; x<VGA_DISPLAY_X; x++)
 			{
-				if(coordinaten[y][0] == x) {vullen = 1; setpixel(x,y,kleur);}
-				if(vullen) setpixel(x,y,kleur);
-				if(coordinaten[y][1] == x){ vullen = 0;}
+				//check om te kijken of er op deze horiontale lijn iets staat
+				if(coordinaten[y][0] && coordinaten[y][1])
+				{
+					//begin met vullen bij de eerste lijn van de driehoek todat de tweede lijn tegengekomen wordt.
+					if(coordinaten[y][0] == x) {vullen = 1; setpixel(x,y,kleur);}
+					if(vullen) setpixel(x,y,kleur);
+					if(coordinaten[y][1] == x){ vullen = 0;}
+				}
 			}
 		vullen = 0;
 		}
