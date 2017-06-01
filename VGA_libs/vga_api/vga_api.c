@@ -50,15 +50,15 @@ tekst: zet tekst op scherm
 	\param stijl is een unsigned 8 bit integer argument, dit bepaalt de stijl van de tekst
 	\return 0  = succes
 	\return 1  = buiten scherm
-	\return 2  = invoer fout bij font, grootte of stijl
-	\return 3  = tekst te groot voor het scherm.
+	\return 2  = tekst te groot voor het scherm.
+	\return 3  = invoer fout bij font, grootte of stijl
 */
 
 uint8_t tekst(uint16_t x_lo, uint16_t y_lo, char* tekst, uint8_t font, uint8_t grootte, uint8_t kleur, uint8_t stijl)
 {
 	// Error checks
 	// Buiten grenzen van het scherm
-	if (x_lo>=320 || y_lo>=240) return 1;
+	if (x_lo>=VGA_DISPLAY_X || y_lo>=VGA_DISPLAY_Y) return 1;
 	// Font, grootte of stijl hebben een ongeldige invoer.
 	if ((font != FONT_1 && font != FONT_2) || (stijl != REGULAR && stijl != BOLD && stijl != OBLIQUE) || grootte > 10 ) return 3;
 
@@ -68,6 +68,9 @@ uint8_t tekst(uint16_t x_lo, uint16_t y_lo, char* tekst, uint8_t font, uint8_t g
 	// Variabelen nodig voor het schrijven op meerdere regels
 	uint16_t regelplus = 0;
 	uint8_t xmin = 0;
+	// Variabelen nodig voor het uitlezen van de tekst
+	uint8_t tekstvalue;
+	uint16_t cursor;
 	// Check het aantal tekens dat opgestuurd is
 	uint16_t size = strlen((const char*)tekst);
 	// Standaardgrootte van een teken
@@ -77,15 +80,18 @@ uint8_t tekst(uint16_t x_lo, uint16_t y_lo, char* tekst, uint8_t font, uint8_t g
 	for(uint8_t i = 0; i<size ;i++)
 	{
 		// Check om te kijken of er naar de volgende regel gegaan moet worden
-		if(x_lo+breed*grootte*(i+1) >= 320+grootte*breed*xmin){regelplus++; xmin = i;}
-		// Start bitmap data in array
-		uint16_t cursor = hoog * tekenbepaling(tekst[i]);
+		if(x_lo+breed*grootte*(i+1) >= VGA_DISPLAY_X+grootte*breed*xmin){regelplus++; xmin = i;}
+
+		// De ASCI waarde van het huidig geschreven teken opslaan.
+		tekstvalue = (tekst[i]);
+		// Spatie is nummer 0x20 op de ASCI tabel en nummer 0x0 in de bitmap. Vanaf daar wordt de ASCI lijst gevolgd tot en met 0x7E
+		cursor = hoog * (tekstvalue - 0x20);
 
 		// Bereken startpunt ten opzichte van linksonder
-		for(uint16_t y = (y_lo-hoog*grootte-1); y < y_lo-1; y+= grootte)
+		for(uint16_t y = (y_lo-hoog*grootte-1); y < y_lo-1; y+=grootte)
 		{
 			// Zet een aantal keer dezelfde bitline onder elkaar gelijk aan grootte
-			for(uint16_t j =0; j < grootte ; j++)
+			for(uint16_t j =0; j < grootte; j++)
 			{
 				// Stap door bits van het hexadecimale getal
 				for(uint16_t bit = 0; bit <8; bit++)
@@ -162,218 +168,130 @@ lijn: teken een lijn.
 uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dikte, uint8_t kleur)
 {
 	// Error check
-	if (x_l>=320 || x_r>=320 || y_l>=240 || y_r>=240) return 1;
+	if (x_l>=VGA_DISPLAY_X || x_r>=VGA_DISPLAY_X || y_l>=VGA_DISPLAY_Y || y_r>=VGA_DISPLAY_Y) return 1;
 	if (dikte > 50) return 2;
 
 	// Initieer waarden
-	uint16_t y_rn;
-	uint16_t y_ln;
-	uint16_t x_rn;
-	uint16_t x_ln;
+	uint16_t y_rn = y_r;
+	uint16_t y_ln = y_l;
+	uint16_t x_rn = x_r;
+	uint16_t x_ln = x_l;
 	uint16_t y;
 	uint16_t x;
+	uint16_t a;
+	uint16_t b;
+	uint16_t c;
+	uint16_t d;
+
 	float rc;
-	uint16_t DIKTE = dikte;
 
-	// Verticale lijn
-	if (x_r == x_l)
+	// Loop voor dikte, meerdere lijnen tekenen
+	for(uint16_t i = 1; i <= dikte +1; i++)
+	{
+		x_ln++;
+		x_rn++;
+		y_ln = y_l;
+		y_rn = y_r;
 
-	{	// Loop voor dikte, meerdere lijnen tekenen
-		for(uint16_t i = 0; i <= DIKTE; i++)
+		// Loop voor dikte, meerdere lijnen tekenen
+		for(uint16_t j = 1; j <= dikte +1; j++)
 		{
-			x_l = x_l + 1;
-			x_r = x_r + 1;
+			y_ln++;
+			y_rn++;
 
-			y_ln = y_l;
-			y_rn = y_r;
-
-			// Loop voor dikte, meerdere lijnen tekenen
-			for(uint16_t j = 0; j <= DIKTE; j++)
+			// Verticale lijn
+			if (x_r == x_l)
 			{
-				y_ln = y_ln + 1;
-				y_rn = y_rn + 1;
-
 				// Schrijfrichting bepalen
 				if (y_l >= y_r)
-
 				{	// Pixels schrijven
-					for(uint16_t k = y_rn; k <= y_ln; k++)
-					{
-						setpixel(x_r,k,kleur);
-					}
+					a = y_rn;
+					b = y_ln;
 				}
-
-				// Schrijfrichting bepalen
-				if (y_l < y_r)
-
-				{	// Pixels schrijven
-					for(uint16_t k = y_ln; k <= y_rn; k++)
-					{
-						setpixel(x_r,k,kleur);
-					}
+				else if(y_l < y_r)
+				{
+					a = y_ln;
+					b = y_rn;
+				}
+				for(uint16_t k = a; k <= b; k++)
+				{
+					setpixel(x_rn,k,kleur);
 				}
 			}
-		}
-	}
-
-	// Horizontale lijn
-	if (y_r == y_l)
-
-	{	// Loop voor dikte, meerdere lijnen tekenen
-		for(uint16_t i = 0 ; i <= DIKTE; i++)
-		{
-			x_l = x_l + 1;
-			x_r = x_r + 1;
-
-			y_ln = y_l;
-			y_rn = y_r;
-
-			// Loop voor dikte, meerdere lijnen tekenen
-			for(uint16_t j = 0 ; j <= DIKTE; j++)
+			// Horizontale lijn
+			else if (y_r == y_l)
 			{
-				y_ln = y_ln + 1;
-				y_rn = y_rn + 1;
-
-				x_rn = x_r;
-				x_ln = x_l;
-
 				// Schrijfrichting bepalen
 				if (x_l > x_r)
-
 				{	// Pixels schrijven
-					for(uint16_t k = x_rn; k <= x_ln; k++)
-					{
-						setpixel(k,y_rn,kleur);
-					}
+					a = x_rn;
+					b = x_ln;
 				}
-
-				// Schrijfrichting bepalen
-				if (x_ln < x_rn)
-
-				{	// Pixels schrijven
-					for(uint16_t k = x_ln; k <= x_rn; k++)
-					{
-						setpixel(k,y_ln,kleur);
-					}
+				else if (x_r > x_l)
+				{
+					a = x_ln;
+					b = x_rn;
+				}
+				for(uint16_t k = a; k <= b; k++)
+				{
+					setpixel(k,y_rn,kleur);
 				}
 			}
-		}
-	}
-
-	// Schuine lijn
-	else
-	{
-		// Richtingscoefficient berekenen
-		rc = (float)(y_r-y_l)/(float)(x_r-x_l);
-
-		// Loop voor dikte, meerdere lijnen tekenen, x varieeren
-		for(uint16_t i = 0; i <= DIKTE; i++)
-		{
-			x_l = x_l + 1;
-			x_r = x_r + 1;
-
-			y_ln = y_l;
-			y_rn = y_r;
-
-			// Loop voor dikte, meerdere lijnen tekenen, y varieeren
-			for(uint16_t j = 0; j <= DIKTE; j++)
+			//Schuine lijnen
+			else
 			{
-				y_ln = y_ln + 1;
-				y_rn = y_rn + 1;
+				// Richtingscoefficient berekenen
+				rc = (float)(y_r-y_l)/(float)(x_r-x_l);
 
 				// Schrijfrichting bepalen kwadrant 1
 				if(x_l<x_r && y_ln<y_rn)
 				{
-					// Bepalen of y=f(x) of x=f(y) moet worden gebruikt
-					if (rc <= 1 && rc >= -1)
-					{
-						// y bepalen vanuit x met y=f(x) en pixel schrijven
-						for(uint16_t k = x_l; k <= x_r; k++)
-						{
-							y = rc * (k - x_l) + y_ln;
-							setpixel(k,y,kleur);
-						}
-					}
-					else
-					{
-						// x bepalen vanuit y met x=f(y) en pixel schrijven
-						for(uint16_t k = y_ln; k <= y_rn; k++)
-						{
-							x =  ((float)(k - y_ln)/(rc))+ x_l;
-							setpixel(x,k,kleur);
-						}
-					}
+					a = x_ln;
+					b = x_rn;
+					c = y_ln;
+					d = y_rn;
 				}
-
 				// Schrijfrichting bepalen kwadrant 2
-				if(x_l>x_r && y_ln<y_rn)
+				else if(x_l>x_r && y_ln<y_rn)
 				{
-					// Bepalen of y=f(x) of x=f(y) moet worden gebruikt
-					if (rc <= 1 && rc >= -1)
-					{
-						// y bepalen vanuit x met y=f(x) en pixel schrijven
-						for(uint16_t k = x_r; k <= x_l; k++)
-						{
-							y = rc * (k - x_l) + y_ln;
-							setpixel(k,y,kleur);
-						}
-					}
-					else
-					{
-						// x bepalen vanuit y met x=f(y) en pixel schrijven
-						for(uint16_t k = y_ln; k <= y_rn; k++)
-						{
-							x =  ((float)(k - y_ln)/(rc))+ x_l;
-							setpixel(x,k,kleur);
-						}
-					}
+					a = x_rn;
+					b = x_ln;
+					c = y_ln;
+					d = y_rn;
 				}
-
 				// Schrijfrichting bepalen kwadrant 3
-				if(x_l>x_r && y_ln>y_rn)
+				else if(x_l>x_r && y_ln>y_rn)
 				{
-					// Bepalen of y=f(x) of x=f(y) moet worden gebruikt
-					if (rc <= 1 && rc >= -1)
-					{
-						// y bepalen vanuit x met y=f(x) en pixel schrijven
-						for(uint16_t k = x_r; k <= x_l; k++)
-						{
-							y = rc * (k - x_l) + y_ln;
-							setpixel(k,y,kleur);
-						}
-					}
-					else
-					{
-						// x bepalen vanuit y met x=f(y) en pixel schrijven
-						for(uint16_t k = y_rn; k <= y_ln; k++)
-						{
-							x =  ((float)(k - y_ln)/(rc))+ x_l;
-							setpixel(x,k,kleur);
-						}
-					}
+					a = x_rn;
+					b = x_ln;
+					c = y_rn;
+					d = y_ln;
+				}
+				// Schrijfrichting bepalen kwadrant 4
+				else if(x_l<x_r && y_ln>y_rn)
+				{
+					a = x_ln;
+					b = x_rn;
+					c = y_rn;
+					d = y_ln;
 				}
 
-				// Schrijfrichting bepalen kwadrant 4
-				if(x_l<x_r && y_ln>y_rn)
+				if (rc <= 1 && rc >= -1)
 				{
-					// Bepalen of y=f(x) of x=f(y) moet worden gebruikt
-					if (rc <= 1 && rc >= -1)
+					// y bepalen vanuit x met y=f(x) en pixel schrijven
+					for(uint16_t k = a; k <= b; k++)
 					{
-						// y bepalen vanuit x met y=f(x) en pixel schrijven
-						for(uint16_t k = x_l; k <= x_r; k++)
-						{
-							y = rc * (k - x_l) + y_ln;
-							setpixel(k,y,kleur);
-						}
+						y = rc * (k - x_ln) + y_ln;
+						setpixel(k,y,kleur);
 					}
-					else
+				}
+				else
+				{
+					// x bepalen vanuit y met x=f(y) en pixel schrijven
+					for(uint16_t k = c; k <= d; k++)
 					{
-						// x bepalen vanuit y met x=f(y) en pixel schrijven
-						for(uint16_t k = y_rn; k <= y_ln; k++)
-						{
-							x =  ((float)(k - y_ln)/(rc))+ x_l;
-							setpixel(x,k,kleur);
-						}
+						x =  ((float)(k - y_ln)/(rc))+ x_ln;
+						setpixel(x,k,kleur);
 					}
 				}
 			}
@@ -973,106 +891,4 @@ uint8_t wacht(uint16_t msecs)
 	\param teken een unsigned 8 bit integer die een character voorstelt
 	\return unsigned 8 bit integer met de numerieke waarde van de character
 */
-uint8_t tekenbepaling(uint8_t teken)
-{
-	uint8_t tekencode;
-	switch(teken)
-	{
-	case ' ': tekencode = 0;  break;
-	case '!': tekencode = 1;  break;
-	case '"': tekencode = 2;  break;
-	case '#': tekencode = 3;  break;
-	case '$': tekencode = 4;  break;
-	case '%': tekencode = 5;  break;
-	case '&': tekencode = 6;  break;
-//	case ''': tekencode = 7;  break; //  Werkt niet
-	case '(': tekencode = 8;  break;
-	case ')': tekencode = 9;  break;
-	case '*': tekencode = 10; break;
-	case '+': tekencode = 11; break;
-	case ',': tekencode = 12; break;
-	case '-': tekencode = 13; break;
-	case '.': tekencode = 14; break;
-	case '/': tekencode = 15; break;
-	case '0': tekencode = 16; break;
-	case '1': tekencode = 17; break;
-	case '2': tekencode = 18; break;
-	case '3': tekencode = 19; break;
-	case '4': tekencode = 20; break;
-	case '5': tekencode = 21; break;
-	case '6': tekencode = 22; break;
-	case '7': tekencode = 23; break;
-	case '8': tekencode = 24; break;
-	case '9': tekencode = 25; break;
-	case ':': tekencode = 26; break;
-	case ';': tekencode = 27; break;
-	case '<': tekencode = 28; break;
-	case '=': tekencode = 29; break;
-	case '>': tekencode = 30; break;
-	case '?': tekencode = 31; break;
-	case '@': tekencode = 32; break;
-	case 'A': tekencode = 33; break;
-	case 'B': tekencode = 34; break;
-	case 'C': tekencode = 35; break;
-	case 'D': tekencode = 36; break;
-	case 'E': tekencode = 37; break;
-	case 'F': tekencode = 38; break;
-	case 'G': tekencode = 39; break;
-	case 'H': tekencode = 40; break;
-	case 'I': tekencode = 41; break;
-	case 'J': tekencode = 42; break;
-	case 'K': tekencode = 43; break;
-	case 'L': tekencode = 44; break;
-	case 'M': tekencode = 45; break;
-	case 'N': tekencode = 46; break;
-	case 'O': tekencode = 47; break;
-	case 'P': tekencode = 48; break;
-	case 'Q': tekencode = 49; break;
-	case 'R': tekencode = 50; break;
-	case 'S': tekencode = 51; break;
-	case 'T': tekencode = 52; break;
-	case 'U': tekencode = 53; break;
-	case 'V': tekencode = 54; break;
-	case 'W': tekencode = 55; break;
-	case 'X': tekencode = 56; break;
-	case 'Y': tekencode = 57; break;
-	case 'Z': tekencode = 58; break;
-	case '[': tekencode = 59; break;
-//	case '/': tekencode = 60; break; //  Werkt niet
-	case ']': tekencode = 61; break;
-	case '^': tekencode = 62; break;
-	case '_': tekencode = 63; break;
-	case '`': tekencode = 64; break;
-	case 'a': tekencode = 65; break;
-	case 'b': tekencode = 66; break;
-	case 'c': tekencode = 67; break;
-	case 'd': tekencode = 68; break;
-	case 'e': tekencode = 69; break;
-	case 'f': tekencode = 70; break;
-	case 'g': tekencode = 71; break;
-	case 'h': tekencode = 72; break;
-	case 'i': tekencode = 73; break;
-	case 'j': tekencode = 74; break;
-	case 'k': tekencode = 75; break;
-	case 'l': tekencode = 76; break;
-	case 'm': tekencode = 77; break;
-	case 'n': tekencode = 78; break;
-	case 'o': tekencode = 79; break;
-	case 'p': tekencode = 80; break;
-	case 'q': tekencode = 81; break;
-	case 'r': tekencode = 82; break;
-	case 's': tekencode = 83; break;
-	case 't': tekencode = 84; break;
-	case 'u': tekencode = 85; break;
-	case 'v': tekencode = 86; break;
-	case 'w': tekencode = 87; break;
-	case 'x': tekencode = 88; break;
-	case 'y': tekencode = 89; break;
-	case 'z': tekencode = 90; break;
-	case '{': tekencode = 91; break;
-	case '|': tekencode = 92; break;
-	case '}': tekencode = 93; break;
-	case '~': tekencode = 94; break;
-	}
-return tekencode;
-}
+
