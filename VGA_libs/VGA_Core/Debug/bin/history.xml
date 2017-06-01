@@ -1,20 +1,21 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <history>
    <processor signature="arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -g -nostartfiles -Map=VGA_Core.map -O0 --gc-sections -LC:\CooCox\CoIDE\configuration\ProgramData\VGA_Core -TC:\CooCox\CoIDE\configuration\ProgramData\VGA_Core/link.ld -g -L..\..\.. -lm">
-      <target file="VGA_Core.elf" lastModified="15c5e33dd40">
-         <source file="..\obj\stm32f4xx_usart.o" lastModified="15c5e314992"/>
-         <source file="..\obj\uart.o" lastModified="15c5e33da23"/>
-         <source file="..\obj\vga_ui.o" lastModified="15c5e33da81"/>
-         <source file="..\obj\startup_stm32f4xx.o" lastModified="15c5e314a9c"/>
-         <source file="..\obj\vga_logic.o" lastModified="15c5e33db4c"/>
-         <source file="..\obj\vga_api.o" lastModified="15c5e314c41"/>
-         <source file="..\obj\stm32f4xx_rcc.o" lastModified="15c5e314caf"/>
-         <source file="..\obj\stm32f4xx_gpio.o" lastModified="15c5e314cfd"/>
-         <source file="..\obj\system_stm32f4xx.o" lastModified="15c5e314d6a"/>
-         <source file="..\obj\stm32f4xx_dma.o" lastModified="15c5e314dc8"/>
-         <source file="..\obj\stm32_ub_vga_screen.o" lastModified="15c5e314e26"/>
-         <source file="..\obj\misc.o" lastModified="15c5e314e74"/>
-         <source file="..\obj\stm32f4xx_tim.o" lastModified="15c5e314f20"/>
+      <target file="VGA_Core.elf" lastModified="15c635c2f24">
+         <source file="..\obj\stm32f4xx_usart.o" lastModified="15c5f7b4257"/>
+         <source file="..\obj\uart.o" lastModified="15c5f7b42c0"/>
+         <source file="..\obj\vga_ui.o" lastModified="15c635c2c36"/>
+         <source file="..\obj\startup_stm32f4xx.o" lastModified="15c5f7b435d"/>
+         <source file="..\obj\vga_logic.o" lastModified="15c635c2d10"/>
+         <source file="..\obj\vga_api.o" lastModified="15c630fdd5c"/>
+         <source file="..\obj\stm32f4xx_rcc.o" lastModified="15c5f7b4599"/>
+         <source file="..\obj\stm32f4xx_gpio.o" lastModified="15c5f7b45f1"/>
+         <source file="..\obj\system_stm32f4xx.o" lastModified="15c5f7b464c"/>
+         <source file="..\obj\stm32f4xx_dma.o" lastModified="15c5f7b46aa"/>
+         <source file="..\obj\stm32_ub_vga_screen.o" lastModified="15c5f7b4703"/>
+         <source file="..\obj\misc.o" lastModified="15c5f7b474f"/>
+         <source file="..\obj\stm32f4xx_tim.o" lastModified="15c5f7b47fc"/>
+         <source file="..\obj\vga_io.o" lastModified="15c635c2d3f"/>
       </target>
    </processor>
 </history>

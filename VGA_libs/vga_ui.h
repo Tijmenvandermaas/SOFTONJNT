@@ -19,6 +19,7 @@ UI layer voor vga_api library.
 #include "vga_api.h"
 #include "uart.h"
 #include "vga_logic.h"
+#include "vga_io.h"
 
 //--------------------------------------------------------------
 #endif // __STM32F4_UB_MAIN_H
