@@ -167,7 +167,7 @@ lijn: teken een lijn.
 */
 uint8_t lijn(uint16_t x_l, uint16_t y_l, uint16_t x_r, uint16_t y_r, uint8_t dikte, uint8_t kleur)
 {
-	// Error check
+	// Error checks
 	if (x_l>=VGA_DISPLAY_X || x_r>=VGA_DISPLAY_X || y_l>=VGA_DISPLAY_Y || y_r>=VGA_DISPLAY_Y) return 1;
 	if (dikte > 50) return 2;
 
@@ -322,7 +322,7 @@ elips: teken een ellips.
 
 uint8_t ellips(uint16_t x_mp, uint16_t y_mp, uint16_t radius_x, uint16_t radius_y, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
-	// Errors
+	// Error checks
 	if(x_mp ==0  || y_mp ==0  || radius_x ==0  || radius_y ==0 ||
 	   x_mp >= VGA_DISPLAY_X || y_mp >= VGA_DISPLAY_Y || radius_x >= VGA_DISPLAY_X || radius_y >= VGA_DISPLAY_Y ||
 	   x_mp + (radius_x) >= VGA_DISPLAY_X || x_mp - (radius_x) <= 0 ||
@@ -456,9 +456,9 @@ rechthoek: teken een rechthoek.
 
 uint8_t rechthoek(uint16_t x_lo, uint16_t y_lo, uint16_t x_rb, uint16_t y_rb, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
+	// Error checks
 	// Tekenen buiten scherm voorkomen
 	if(x_rb>=VGA_DISPLAY_X || y_lo>=VGA_DISPLAY_Y) return 1;
-
 	// Te grote dikte voorkomen
 	if(dikte > ((y_lo-y_rb)/2)) return 2;
 
@@ -523,7 +523,7 @@ driehoek: teken een driehoek.
 
 uint8_t driehoek(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_t x_3, uint16_t y_3, uint8_t dikte, uint8_t kleur, bool gevuld)
 {
-	// Error check
+	// Error checks
 	if (x_1 >= VGA_DISPLAY_X || x_2>=VGA_DISPLAY_X || x_3>=VGA_DISPLAY_X || y_1>=VGA_DISPLAY_Y || y_2>=VGA_DISPLAY_Y|| y_3>=VGA_DISPLAY_Y) return 1;
 	if (dikte > 50) return 2;
 
@@ -750,8 +750,10 @@ bitmap: 256 kleuren R3G3B2 bitmaps.
 */
 uint8_t bitmap(uint16_t x_lo, uint16_t y_lo, bitmapfile *bitmap)
 {
+	// Error checks
 	// Tekenen buiten scherm voorkomen
 	if((x_lo+bitmap->x)>=VGA_DISPLAY_X || y_lo>=VGA_DISPLAY_Y) return 1;
+	// Bitmap moet geldig zijn
 	if(bitmap == 0) return 3;
 
 	// Startpunt pixel data
@@ -822,9 +824,4 @@ uint8_t wacht(uint16_t msecs)
 	// Succes
 	return 0;
 }
-
-/*!	een functie die een character vertaald naar zijn numerieke waarde
-	\param teken een unsigned 8 bit integer die een character voorstelt
-	\return unsigned 8 bit integer met de numerieke waarde van de character
-*/
 
