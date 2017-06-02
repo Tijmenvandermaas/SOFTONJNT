@@ -32,8 +32,7 @@ int main(void)
 	SystemInit();
 
 	// Start VGA en UART
-	Screen_init();
-	UART_init();
+	io_init();
 
 	// Zet scherm op zwart
 	clearscherm(ZWART);

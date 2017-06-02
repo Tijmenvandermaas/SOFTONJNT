@@ -1,7 +1,16 @@
+/***************************************************************
+vga_io.c
+
+Democode
+IO layer voor vga_api library.
+
+(c) Jos van Mourik en een beetje Niels van Rijn
+***************************************************************/
 #include "vga_io.h"
 
-uint16_t Screen_init()
+// Initieer UART en VGA driver
+void io_init(void)
 {
+	UART_init();
 	UB_VGA_Screen_Init();
-	return 0;
 }
