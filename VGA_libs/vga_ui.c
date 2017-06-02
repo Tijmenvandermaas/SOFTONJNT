@@ -17,10 +17,13 @@ char buf[100];
 // Geef output van return values
 void parseargument(uint16_t error)
 {
-	  if(error == 0) UART_puts ("Succes!\n");
-	  else if(error == 1 || error == 256) UART_puts ("ERROR1 - coordinaten buiten scherm!\n");
-	  else if(error == 2) UART_puts ("ERROR2 - te grote parameter!\n");
-	  else if(error == 3) UART_puts ("ERROR3 - foutieve parameter!\n");
+	switch(error)
+	{
+		case 0: UART_puts ("Succes!\n"); break;
+		case 1: UART_puts ("ERROR1 - coordinaten buiten scherm!\n"); break;
+		case 2: UART_puts ("ERROR2 - te grote parameter!\n"); break;
+		case 3: UART_puts ("ERROR3 - foutieve parameter!\n"); break;
+	}
 }
 
 int main(void)
@@ -28,14 +31,14 @@ int main(void)
 	// Start clocks
 	SystemInit();
 
-	// Start VGA
+	// Start VGA en UART
 	Screen_init();
+	UART_init();
 
 	// Zet scherm op zwart
 	clearscherm(ZWART);
 
-	// Initieer UART
-	UART_init();
+	// Klaar om te ontvangen
 	UART_puts ("VGA demo Jos-Niels-Tijmen (c)2017\n");
 
   while(1)
