@@ -15,9 +15,7 @@ UI layer voor vga_api library.
 // Includes
 //--------------------------------------------------------------
 #include "stm32f4xx.h"
-#include "stm32_ub_vga_screen.h"
 #include "vga_api.h"
-#include "uart.h"
 #include "vga_logic.h"
 #include "vga_io.h"
 
