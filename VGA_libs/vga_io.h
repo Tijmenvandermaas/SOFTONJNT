@@ -17,3 +17,5 @@ IO layer voor vga_api library.
 //--------------------------------------------------------------
 // Function prototypes
 void io_init(void);
+void io_read(char *buf);
+void io_write(char *buf);

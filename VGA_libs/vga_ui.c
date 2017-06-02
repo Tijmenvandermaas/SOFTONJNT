@@ -19,10 +19,10 @@ void parseargument(uint16_t error)
 {
 	switch(error)
 	{
-		case 0: UART_puts ("Succes!\n"); break;
-		case 1: UART_puts ("ERROR1 - coordinaten buiten scherm!\n"); break;
-		case 2: UART_puts ("ERROR2 - te grote parameter!\n"); break;
-		case 3: UART_puts ("ERROR3 - foutieve parameter!\n"); break;
+		case 0: io_write("Succes!\n"); break;
+		case 1: io_write("ERROR1 - coordinaten buiten scherm!\n"); break;
+		case 2: io_write("ERROR2 - te grote parameter!\n"); break;
+		case 3: io_write("ERROR3 - foutieve parameter!\n"); break;
 	}
 }
 
@@ -38,13 +38,13 @@ int main(void)
 	clearscherm(ZWART);
 
 	// Klaar om te ontvangen
-	UART_puts ("VGA demo Jos-Niels-Tijmen (c)2017\n");
+	io_write("VGA demo Jos-Niels-Tijmen (c)2017\n");
 
   while(1)
   {
 	  // Stop tekens in buffer, echo
 	  #ifndef DEBUG
-	  UART_gets (buf, 1);
+	  io_read(buf);
 	  #endif
 
 	  // Debug zonder uart
